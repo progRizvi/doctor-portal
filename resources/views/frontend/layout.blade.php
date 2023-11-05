@@ -70,46 +70,50 @@
         <div class="mouse-cursor cursor-outer"></div>
         <div class="mouse-cursor cursor-inner"></div>
         <!-- /Cursor -->
+        @php
+            use Devfaysal\BangladeshGeocode\Models\Division;
+            use Devfaysal\BangladeshGeocode\Models\District;
 
+            $divisions = Division::all();
+            $districts = District::all();
+            $areas = App\Models\Area::with('district')->get();
+
+        @endphp
         <div class="modal fade custom-modal" id="searchLocation">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Appointment Details</h5>
+                        <h5 class="modal-title">Choose from the option below.</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div class="modal-body">
-                        <ul class="info-details">
-                            <li>
-                                <div class="details-header">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <span class="title">#APT0001</span>
-                                            <span class="text">21 Oct 2023 10:00 AM</span>
+                        <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+                            <ul class="list-unstyled ps-0">
+                                @foreach (Division::all() as $div)
+                                    <li class="mb-1">
+                                        <button class="btn btn-toggle align-items-center rounded collapsed"
+                                            data-bs-toggle="collapse" data-bs-target="#{{ $div->name }}"
+                                            aria-expanded="false">
+                                            {{ $div->name }}
+                                        </button>
+                                        <div class="collapse" id="{{ $div->name }}">
+                                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-secondary">
+                                                <li class="px-3 py-2"><a href="#"
+                                                        class="link-dark rounded text-white">New</a>
+                                                </li>
+                                                <li class="px-3 py-2"><a href="#"
+                                                        class="link-dark rounded text-white">Processed</a></li>
+                                                <li class="px-3 py-2"><a href="#"
+                                                        class="link-dark rounded text-white">Shipped</a></li>
+                                                <li class="px-3 py-2"><a href="#"
+                                                        class="link-dark rounded text-white">Returned</a></li>
+                                            </ul>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="text-end">
-                                                <button type="button" class="btn bg-success-light btn-sm"
-                                                    id="topup_status">Completed</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="title">Status:</span>
-                                <span class="text">Completed</span>
-                            </li>
-                            <li>
-                                <span class="title">Confirm Date:</span>
-                                <span class="text">29 Jun 2023</span>
-                            </li>
-                            <li>
-                                <span class="title">Paid Amount</span>
-                                <span class="text">$450</span>
-                            </li>
-                        </ul>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

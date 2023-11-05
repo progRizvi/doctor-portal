@@ -56,8 +56,10 @@
                                                             <div class="d-flex">
                                                                 <img style="border-top-left-radius:20px;border-bottom-left-radius:20px;"
                                                                     class="img-fluid w-25"
-                                                                    src="{{ asset('/images/' . $doctor->gender . '_avatar.jpg') }}"
-                                                                    alt="">
+                                                                    @if ($doctor->image) src="{{ asset('uploads/doctors/' . $doctor->image) }}"
+                                                            @else
+                                                            src="{{ asset('images/' . $doctor->gender . '_avatar.jpg') }}" @endif
+                                                                    alt="{{ $doctor->name }}">
                                                                 <div class="px-3 pt-2">
                                                                     <h4 style="color:#09DCA4">{{ $doctor->name }}</h4>
                                                                     <p>

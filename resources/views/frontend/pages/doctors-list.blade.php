@@ -7,7 +7,7 @@
             <div class="row align-items-center inner-banner">
                 <div class="col-md-10 col-10 text-center mx-auto">
                     <div class="search-box-one aos" data-aos="fade-up">
-                        @include('frontend.pages.doctor-search')
+                        @include('frontend.pages.search')
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                     <!-- Search Filter -->
                     <div class="card search-filter">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Filter</h4>
+                            <h4 class="card-title mb-0 bg-info px-4 py-3">Filter</h4>
                         </div>
                         <div class="card-body">
 
@@ -127,7 +127,6 @@
                 $('li').removeClass('active');
                 $(this).parent('li').addClass('active');
                 var myurl = $(this).attr('href');
-
                 $.ajax({
                     url: myurl,
                     type: "GET",

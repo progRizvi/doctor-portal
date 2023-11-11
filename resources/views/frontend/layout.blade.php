@@ -4,25 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description"
-        content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
-    <meta name="keywords"
-        content="practo clone, doccure, doctor appointment, Practo clone html template, doctor booking template">
-    <meta name="author" content="Practo Clone HTML Template - Doctor Booking Template">
-    <meta property="og:url" content="https://doccure.dreamguystech.com/html/">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Doctors Appointment HTML Website Templates | Doccure">
-    <meta property="og:description"
-        content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
-    <meta property="og:image" content="assets/img/preview-banner.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:domain" content="https://doccure.dreamguystech.com/html/">
-    <meta property="twitter:url" content="https://doccure.dreamguystech.com/html/">
-    <meta name="twitter:title" content="Doctors Appointment HTML Website Templates | Doccure">
-    <meta name="twitter:description"
-        content="The responsive professional Doccure template offers many features, like scheduling appointments with  top doctors, clinics, and hospitals via voice, video call & chat.">
-    <meta name="twitter:image" content="assets/img/preview-banner.jpg">
-    <title>Doccure</title>
+    <meta property="og:title" content="@yield('title')">
+
+    <title>@yield('title')</title>
+
+    <meta name="keywords" content="@yield('meta_keywords')" />
+
+    <link rel="canonical" href="{{ url()->current() }}" />
+    <meta name="description" content="@yield('meta_description')" />
+    <meta name="author" content="@yield('author')" />
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('frontend/assets/img/favicon.png') }}" type="image/x-icon">
@@ -73,12 +65,10 @@
         @php
             use Devfaysal\BangladeshGeocode\Models\Division;
             use Devfaysal\BangladeshGeocode\Models\District;
-
-            $divisions = Division::all();
-            $districts = District::all();
-            $areas = App\Models\Area::with('district')->get();
-
+            use App\Models\Area;
+            $locations = Division::with(['districts.areas'])->get();
         @endphp
+
         <div class="modal fade custom-modal" id="searchLocation">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -89,30 +79,57 @@
                     </div>
                     <div class="modal-body">
                         <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+
                             <ul class="list-unstyled ps-0">
-                                @foreach (Division::all() as $div)
+                                @foreach ($locations as $div)
+                                    @php
+                                        $districts = $div->districts;
+                                        $districtsId = $districts->pluck('id');
+                                        $areasId = Area::whereIn('district_id', $districtsId)->pluck('id');
+                                        $doctors = App\Models\Doctor::whereIn('area_id', $areasId)->get();
+                                    @endphp
                                     <li class="mb-1">
                                         <button class="btn btn-toggle align-items-center rounded collapsed"
                                             data-bs-toggle="collapse" data-bs-target="#{{ $div->name }}"
                                             aria-expanded="false">
-                                            {{ $div->name }}
+                                            {{ $div->name }} <span
+                                                class="badge bg-info rounded-pill">{{ $doctors->count() }}</span>
                                         </button>
                                         <div class="collapse" id="{{ $div->name }}">
-                                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small bg-secondary">
-                                                <li class="px-3 py-2"><a href="#"
-                                                        class="link-dark rounded text-white">New</a>
-                                                </li>
-                                                <li class="px-3 py-2"><a href="#"
-                                                        class="link-dark rounded text-white">Processed</a></li>
-                                                <li class="px-3 py-2"><a href="#"
-                                                        class="link-dark rounded text-white">Shipped</a></li>
-                                                <li class="px-3 py-2"><a href="#"
-                                                        class="link-dark rounded text-white">Returned</a></li>
+                                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+                                                style="background: #F2F6F6;">
+                                                @foreach ($div->districts as $dis)
+                                                    @if ($dis->areas->count() > 0)
+                                                        <li class="px-3 py-2">
+                                                            <a href="#"
+                                                                class="link-dark btn-toggle rounded text-black collapsed"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#{{ $dis->name . $dis->id }}"
+                                                                aria-expanded="false">
+                                                                {{ $dis->name }}
+                                                                <div class="collapse" id="{{ $dis->name . $dis->id }}">
+                                                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
+                                                                        style="background: #F2F6F6;">
+                                                                        @foreach ($dis->areas as $area)
+                                                                            <li class="px-3 py-2">
+                                                                                <a href="{{ route('service.location.doctors',$area->id) }}"
+                                                                                    class="link-dark rounded text-black">{{ $area->name }}
+                                                                                    <span
+                                                                                        class="badge bg-info">{{ $area->doctors->count() }}</span></a>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    @endif
+                                                @endforeach
                                             </ul>
                                         </div>
                                     </li>
                                 @endforeach
                             </ul>
+
                         </div>
                     </div>
                 </div>
@@ -130,6 +147,7 @@
         </svg>
     </div>
     <!-- /ScrollToTop -->
+
 
     <!-- jQuery -->
     <script src="{{ asset('frontend/') }}/assets/js/jquery-3.7.0.min.js"></script>

@@ -5,12 +5,15 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\DepartmentController;
 use App\Http\Controllers\Backend\DoctorController;
 use App\Http\Controllers\Backend\ForgetPasswordController;
+use App\Http\Controllers\Backend\HospitalController;
 use App\Http\Controllers\Backend\LocationController;
 use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,13 +28,24 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get("/", [HomeController::class, "index"])->name("home");
+
 Route::get("/service/doctors", [HomeController::class, "serviceDoctors"])
     ->name("service.doctors");
+
+Route::get("/service/location/{id}/doctors", [HomeController::class, "serviceLocationDoctors"])
+    ->name("service.location.doctors");
+
 Route::get("/service/doctors/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");
 Route::get("service/get-doctors/by-department/{id}", [HomeController::class, "getDoctorsByDepartment"])->name("get.doctors.by.department");
+Route::get("/service/hospitals", [HomeController::class, "serviceHospitals"])->name("service.hospitals");
+Route::get("/service/hospitals/{slug}", [HomeController::class, "hospitalDetails"])->name("service.hospital.details");
+Route::get("service/get-hospitals/by-type/", [HomeController::class, "getHospitalsByType"])->name("get.hospitals.by.type");
 Route::group(["prefix" => "blogs"], function () {
+    Route::get("/", [HomeController::class, "blogs"])->name("blogs");
     Route::get("/category-details/{slug}", [HomeController::class, "categoryDetails"])->name("category.details");
+
     Route::get("/post-details/{slug}", [HomeController::class, "postDetails"])->name("post.details");
+
     Route::get("/post/search", [HomeController::class, "postSearch"])->name("post.search");
 });
 
@@ -81,11 +95,14 @@ Route::group(["prefix" => "admin", 'middleware' => ['auth']], function () {
     Route::get("/get-districts", [LocationController::class, "getDistricts"])->name("get.district");
 
     Route::resource("departments", DepartmentController::class);
+    Route::resource("services", DepartmentController::class);
+
     Route::resource("doctors", DoctorController::class);
+    Route::resource("hospitals", HospitalController::class);
     Route::get("doctors/get-districts/{id}", [DoctorController::class, "getDistricts"])->name("doctor.get_district");
     Route::get("doctors/get-upazilas/{id}", [DoctorController::class, "getAreas"])->name("doctor.get_areas");
-    /*
-Route::resource("categories", CategoryController::class);
-Route::resource("posts", PostController::class);
- */
+
+    Route::resource("categories", CategoryController::class);
+    Route::resource("posts", PostController::class);
+
 });

@@ -50,31 +50,30 @@
                         <li><a href="{{ route('doctors.create') }}" class="block py-2 ml-3">Add Doctor</a></li>
                     </ul>
                 </div>
-                {{--
                 <div
                     class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                     <span class="pl-4">
-                        Category
+                        Hospital
+                    </span>
+                    <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        <li><a href="{{ route('hospitals.index') }}" class="block py-2 ml-3">Hospitals List</a></li>
+                        <li><a href="{{ route('hospitals.create') }}" class="block py-2 ml-3">Add Hospital</a></li>
+                    </ul>
+                </div>
+                
+                <div
+                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                    <span class="pl-4">
+                        Blog
                     </span>
                     <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
                         <li><a href="{{ route('categories.index') }}" class="block py-2 ml-3">Category List</a></li>
                         <li><a href="{{ route('categories.create') }}" class="block py-2 ml-3">Add Category</a></li>
-                        <li><a href="#" class="block py-2 ml-3">Meta Description</a></li>
-                    </ul>
-                </div>
-
-                <div
-                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
-                    <span class="pl-4">
-                        Post
-                    </span>
-                    <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
                         <li><a href="{{ route('posts.index') }}" class="block py-2 ml-3">Posts</a></li>
                         <li><a href="{{ route('posts.create') }}" class="block py-2 ml-3">Add Post</a></li>
-                        <li><a href="#" class="block py-2 ml-3">Show Post</a></li>
                     </ul>
                 </div>
-                 --}}
+                 
                 <div class="relative">
                     <li
                         class=" mt-1 group flex items-center justify-between px-2 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-800 hover:bg-gray-100 focus:outline-none  transition ease-in-out duration-150">

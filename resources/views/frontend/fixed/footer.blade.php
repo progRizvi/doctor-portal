@@ -1,4 +1,4 @@
-<!-- Footer -->
+
 <footer class="footer footer-one">
     <div class="footer-top aos" data-aos="fade-up">
         <div class="container">
@@ -6,33 +6,21 @@
                 <div class="col-lg-3 col-md-4">
                     <div class="footer-widget footer-about">
                         <div class="footer-logo">
-                            <a href="index.html"><img src="assets/img/logo.png" alt="logo"></a>
+                            <a href="{{ route('home') }}" ><img class="img-fluid w-50 h-auto" src="{{ url('images/logo.png') }}" alt="Doctorinfobd" style="height: 60px;"></a>
                         </div>
                         <div class="footer-about-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore.</p>
+                            <p>Find healthcare providers and medical facilities offering online doctor and hospital services.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="row">
-                        <div class="col-lg-3 col-md-4">
+                        <div class="col-lg-6 col-md-4">
                             <div class="footer-widget footer-menu">
-                                <h2 class="footer-title">For Patients</h2>
                                 <ul>
-                                    <li><a href="search.html">Search for Doctors</a></li>
-                                    <li><a href="login.html">Login</a></li>
-                                    <li><a href="register.html">Register</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-4">
-                            <div class="footer-widget footer-menu">
-                                <h2 class="footer-title">For Doctors</h2>
-                                <ul>
-                                    <li><a href="appointments.html">Appointments</a></li>
-                                    <li><a href="chat.html">Chat</a></li>
-                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="{{ route("service.doctors") }}">Search for Doctors</a></li>
+                                    <li><a href="{{ route("service.hospitals") }}">Search for Hospitals</a></li>
+                                    <li><a href="#">About us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -41,10 +29,10 @@
                                 <h2 class="footer-title">Contact Us</h2>
                                 <div class="footer-contact-info">
                                     <div class="footer-address">
-                                        <p><i class="feather-map-pin"></i> 3556 Beech Street, USA</p>
+                                        <p><i class="feather-map-pin"></i> Mirpur, Dhaka, Bangladesh</p>
                                     </div>
                                     <div class="footer-address">
-                                        <p><i class="feather-phone-call"></i> +1 315 369 5943</p>
+                                        <p><i class="feather-phone-call"></i> +880 1861-667946</p>
                                     </div>
                                     <div class="footer-address mb-0">
                                         <p><i class="feather-mail"></i> doccure@example.com</p>
@@ -92,8 +80,8 @@
                     <div class="col-md-6 col-lg-6">
                         <div class="copyright-text">
                             <p class="mb-0"> Copyright © 2023 <a
-                                    href="https://themeforest.net/user/dreamguys/portfolio"
-                                    target="_blank">Dreamguys.</a> All Rights Reserved</p>
+                                    href="https://www.doctorinfobd.com/"
+                                    target="_blank">Doctorinfobd.</a> All Rights Reserved</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6">
@@ -101,8 +89,8 @@
                         <!-- Copyright Menu -->
                         <div class="copyright-menu">
                             <ul class="policy-menu">
-                                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                                <li><a href="terms-condition.html">Terms and Conditions</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms and Conditions</a></li>
                             </ul>
                         </div>
                         <!-- /Copyright Menu -->
@@ -114,4 +102,4 @@
         </div>
     </div>
 </footer>
-<!-- /Footer -->
+

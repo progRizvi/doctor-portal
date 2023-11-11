@@ -1,5 +1,5 @@
 @extends('frontend.layout')
-@section('title', 'Home')
+@section('title', 'Doctorinfobd')
 
 @section('content')
     <!-- Home Banner -->
@@ -8,18 +8,18 @@
             <div class="row align-items-center">
                 <div class="col-lg-6">
                     <div class="banner-content aos" data-aos="fade-up">
-                        <h1>Consult <span>Best Doctors</span> Your Nearby Location.</h1>
+                        <h1>Find <span>Best Doctors</span> Your Nearby Location.</h1>
                         <img src="{{ asset('frontend') }}/assets/img/icons/header-icon.svg" class="header-icon"
                             alt="header-icon">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
-                        <a href="booking.html" class="btn">Start a Consult</a>
+                        <p>Find healthcare providers and medical facilities offering online doctor and hospital services.</p>
+                        <a href="{{ route("service.doctors") }}" class="btn">Start Finding</a>
                         <div class="banner-arrow-img">
                             <img src="{{ asset('frontend') }}/assets/img/down-arrow-img.png" class="img-fluid"
                                 alt="down-arrow">
                         </div>
                     </div>
                     <div class="search-box-one aos" data-aos="fade-up">
-                        @include('frontend.pages.doctor-search')
+                        @include('frontend.pages.search')
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -110,194 +110,26 @@
     </section>
     <!-- /Specialities Section -->
 
-    {{--
+    
         <!-- Doctors Section -->
         <section class="doctors-section">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 aos" data-aos="fade-up">
-                        <div class="section-header-one section-header-slider">
-                            <h2 class="section-title">Best Doctors</h2>
-                        </div>
-                    </div>
-                    <div class="col-md-6 aos" data-aos="fade-up">
-                        <div class="owl-nav slide-nav-2 text-end nav-control"></div>
-                    </div>
+                    <div class="col-md-12 text-center aos" data-aos="fade-up">
+							<div class="section-header-one" style="margin-bottom:30px">
+								<h2 class="section-title">Comprehensive Healthcare Information Solution for Bangladesh with DoctorInfoBD</h2>
+							</div>
+						</div>
                 </div>
-                <div class="owl-carousel doctor-slider-one owl-theme aos" data-aos="fade-up">
-
-                    <!-- Doctor Item -->
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="doctor-profile.html">
-                                    <div class="doctor-profile-img">
-                                        <img src="{{asset("frontend")}}/assets/img/doctors/doctor-03.jpg" class="img-fluid"
-                                            alt="Ruby Perrin">
-                                    </div>
-                                </a>
-                                <div class="doctor-amount">
-                                    <span>$ 200</span>
-                                </div>
-                            </div>
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="doctor-profile.html">Dr. Ruby Perrin</a>
-                                        <p>Cardiology</p>
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            <span><i class="fas fa-star"></i> 4.5</span> (35)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> Newyork, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Doctor Item -->
-
-                    <!-- Doctor Item -->
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="doctor-profile.html">
-                                    <div class="doctor-profile-img">
-                                        <img src="{{asset("frontend")}}/assets/img/doctors/doctor-04.jpg" class="img-fluid"
-                                            alt="Darren Elder">
-                                    </div>
-                                </a>
-                                <div class="doctor-amount">
-                                    <span>$ 360</span>
-                                </div>
-                            </div>
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="doctor-profile.html">Dr. Darren Elder</a>
-                                        <p>Neurology</p>
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            <span><i class="fas fa-star"></i> 4.0</span> (20)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> Florida, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Doctor Item -->
-
-                    <!-- Doctor Item -->
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="doctor-profile.html">
-                                    <div class="doctor-profile-img">
-                                        <img src="{{asset("frontend")}}/assets/img/doctors/doctor-05.jpg" class="img-fluid"
-                                            alt="Sofia Brient">
-                                    </div>
-                                </a>
-                                <div class="doctor-amount">
-                                    <span>$ 450</span>
-                                </div>
-                            </div>
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="doctor-profile.html">Dr. Sofia Brient</a>
-                                        <p>Urology</p>
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            <span><i class="fas fa-star"></i> 4.5</span> (30)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> Georgia, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Doctor Item -->
-
-                    <!-- Doctor Item -->
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="doctor-profile.html">
-                                    <div class="doctor-profile-img">
-                                        <img src="{{asset("frontend")}}/assets/img/doctors/doctor-02.jpg" class="img-fluid"
-                                            alt="Paul Richard">
-                                    </div>
-                                </a>
-                                <div class="doctor-amount">
-                                    <span>$ 570</span>
-                                </div>
-                            </div>
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="doctor-profile.html">Dr. Paul Richard</a>
-                                        <p>Orthopedic</p>
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            <span><i class="fas fa-star"></i> 4.3</span> (45)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> Michigan, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Doctor Item -->
-
-                    <!-- Doctor Item -->
-                    <div class="item">
-                        <div class="doctor-profile-widget">
-                            <div class="doc-pro-img">
-                                <a href="doctor-profile.html">
-                                    <div class="doctor-profile-img">
-                                        <img src="{{asset("frontend")}}/assets/img/doctors/doctor-01.jpg" class="img-fluid" alt="John Doe">
-                                    </div>
-                                </a>
-                                <div class="doctor-amount">
-                                    <span>$ 880</span>
-                                </div>
-                            </div>
-                            <div class="doc-content">
-                                <div class="doc-pro-info">
-                                    <div class="doc-pro-name">
-                                        <a href="doctor-profile.html">Dr. John Doe</a>
-                                        <p>Dentist</p>
-                                    </div>
-                                    <div class="reviews-ratings">
-                                        <p>
-                                            <span><i class="fas fa-star"></i> 4.4</span> (50)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="doc-pro-location">
-                                    <p><i class="feather-map-pin"></i> California, USA</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Doctor Item -->
-
+                <div class="row justify-content-center align-items-center">
+						<div class="col-sm-10 mx-auto aos" data-aos="fade-up">
+							<p>
+                                Our comprehensive healthcare information solution for Bangladesh, in collaboration with DoctorInfoBD, offers a one-stop platform for accessing vital medical resources and connecting patients with trusted healthcare providers, including the best doctor information available. With this innovative solution, we are committed to enhancing healthcare accessibility and improving outcomes for the people of Bangladesh.
+                            </p>
+						</div>
                 </div>
             </div>
         </section>
         <!-- /Doctors Section -->
-         --}}
+         
 @endsection

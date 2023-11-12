@@ -142,4 +142,7 @@ class HomeController extends Controller
     {
         return view('frontend.pages.hospital-list');
     }
+    public function aboutUs(){
+        return view('frontend.pages.about-us');
+    }
 }

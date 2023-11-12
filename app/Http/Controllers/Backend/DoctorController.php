@@ -79,7 +79,6 @@ class DoctorController extends Controller
         $doctor->area_id = $request->area_id;
         $doctor->gender = $request->gender;
         $doctor->treatments = preg_replace('/\s+/', ' ', $request->treatments);
-        $doctor->departments()->sync($request->department_id);
         $doctor->schedules = $schedules;
         $doctor->new_patient_fee = $request->new_patient_fee;
         $doctor->old_patient_fee = $request->old_patient_fee;
@@ -89,6 +88,7 @@ class DoctorController extends Controller
         $doctor->hospital = $request->hospital;
         $doctor->address = $request->address;
         $doctor->save();
+        $doctor->departments()->sync($request->department_id);
         if ($doctor) {
             toastr()->success("Doctor Created Successfully");
             return redirect()->route("doctors.index");
@@ -153,13 +153,13 @@ class DoctorController extends Controller
         if ($request->hasFile("image")) {
             $image = $request->file("image");
             $fileName = time() . "." . $image->getClientOriginalExtension();
-            $image->move(public_path("uploads/doctors"), $fileName);
+            $image->move(public_path("/uploads/doctors"), $fileName);
             $doctor->image = $fileName;
         }
         if ($request->hasFile("background_image")) {
             $image = $request->file("background_image");
             $fileName = time() . "." . $image->getClientOriginalExtension();
-            $image->move(public_path("uploads/doctors"), $fileName);
+            $image->move(public_path() . "/uploads/doctors", $fileName);
             $doctor->background_image = $fileName;
         }
         $doctor->name = $request->name;
@@ -197,7 +197,24 @@ class DoctorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $doctor = Doctor::find($id);
+        if($doctor){
+            if($doctor->image){
+                if(file_exists(public_path("uploads/doctors/".$doctor->image))){
+                    unlink(public_path("uploads/doctors/".$doctor->image));
+                }
+            }
+            if($doctor->background_image){
+                if(file_exists(public_path("uploads/doctors/".$doctor->background_image))){
+                    unlink(public_path("uploads/doctors/".$doctor->background_image));
+                }
+            }
+            $doctor->delete();
+            toastr()->success("Doctor Deleted Successfully");
+            return redirect()->route("doctors.index");
+        }
+        toastr()->error("Doctor Deletion Failed");
+        return back();
     }
     public function getDistricts($id)
     {
@@ -227,8 +244,8 @@ class DoctorController extends Controller
             "area_id" => "required|numeric",
             "department_id" => "required|array",
             "department_id.*" => "required|numeric|exists:departments,id",
-            "new_patient_fee" => "required|numeric",
-            "old_patient_fee" => "required|numeric",
+            "new_patient_fee" => "nullable|numeric",
+            "old_patient_fee" => "nullable|numeric",
             "bio" => "required",
             "schedules" => "required|array",
             ...$daysRules,
@@ -240,9 +257,5 @@ class DoctorController extends Controller
             return false;
         }
         return true;
-    }
-    public function daysValidation(Request $request, array $data)
-    {
-
     }
 }

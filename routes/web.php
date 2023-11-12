@@ -40,6 +40,7 @@ Route::get("service/get-doctors/by-department/{id}", [HomeController::class, "ge
 Route::get("/service/hospitals", [HomeController::class, "serviceHospitals"])->name("service.hospitals");
 Route::get("/service/hospitals/{slug}", [HomeController::class, "hospitalDetails"])->name("service.hospital.details");
 Route::get("service/get-hospitals/by-type/", [HomeController::class, "getHospitalsByType"])->name("get.hospitals.by.type");
+Route::get("/about-us", [HomeController::class, "aboutUs"])->name("about_us");
 Route::group(["prefix" => "blogs"], function () {
     Route::get("/", [HomeController::class, "blogs"])->name("blogs");
     Route::get("/category-details/{slug}", [HomeController::class, "categoryDetails"])->name("category.details");

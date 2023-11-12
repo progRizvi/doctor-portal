@@ -15,7 +15,8 @@
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    required>
+                    value="{{ old("slug") }}"
+                    >
             </div>
             <div class="mb-6">
                 <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
@@ -26,9 +27,11 @@
                 </select>
             </div>
             <div class="mb-6">
-                <label class="dark:text-gray-200" for="description">Text Area</label>
+                <label class="dark:text-gray-200" for="description">Description</label>
                 <textarea id="description" type="textarea" name="description"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                {{ old("description") }}
+                </textarea>
             </div>
             <div class="mb-6">
                 <label class="block text-sm font-medium">

@@ -14,13 +14,12 @@
             <div class="mb-6">
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" value="{{ old("slug") }}">
             </div>
             <div class="mb-6">
                 <div class="flex space-x-4">
                     <div class="w-1/2">
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email
-                            <span class="text-red-700">*</span></label>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="text" id="email" name="email"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                             value="{{ old('email') }}">
@@ -64,7 +63,7 @@
                 <select name="department_id[]" id="department_id"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
                     multiple>
-                    <option value="" selected>Select</option>
+                    <option value="">Select</option>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                     @endforeach
@@ -75,7 +74,7 @@
                     <span class="text-red-700">*</span></label>
                 <textarea name="treatments" id="treatments" cols="30" rows="5"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    placeholder="ex. Pneumonia, Chest Pain"></textarea>
+                    placeholder="ex. Pneumonia, Chest Pain">{{ old("treatments") }}</textarea>
                 <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
             </div>
             <div class="mb-6">
@@ -107,7 +106,7 @@
                     <span class="text-red-700">*</span></label>
                 <select name="division_id" id="division_id"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
-                    <option value="" selected>Select</option>
+                    <option value="">Select</option>
                     @foreach ($divisions as $division)
                         <option value="{{ $division->id }}">{{ $division->name }}</option>
                     @endforeach
@@ -134,17 +133,17 @@
                 <div class="flex space-x-4">
                     <div class="w-1/2">
                         <label for="new_patient_fee" class="block mb-2 text-sm text-gray-900 dark:text-white">New
-                            Patient <span class="text-red-700">*</span></label>
+                            Patient </label>
                         <input type="number" id="new_patient_fee" name="new_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ old('new_patient_fee') }}" required>
+                            value="{{ old('new_patient_fee') }}" >
                     </div>
                     <div class="w-1/2">
                         <label for="old_patient_fee" class="block mb-2 text-sm text-gray-900 dark:text-white">Old
-                            Patient <span class="text-red-700">*</span></label>
+                            Patient </label>
                         <input type="number" id="old_patient_fee" name="old_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ old('old_patient_fee') }}" required>
+                            value="{{ old('old_patient_fee') }}">
                     </div>
                 </div>
             </div>
@@ -162,14 +161,14 @@
                 <label class="dark:text-gray-200" for="bio">Bio <span class="text-red-700">*</span></label>
                 <textarea id="bio" type="textarea" name="bio"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    required></textarea>
+                    required>{{ old('bio') }}</textarea>
             </div>
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="description">Description <span
                         class="text-red-700">*</span></label>
                 <textarea id="description" type="textarea" name="description"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    required></textarea>
+                    required>{{ old('description') }}</textarea>
             </div>
             <div class="mb-6">
                 <label class="block text-sm font-medium">

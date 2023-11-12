@@ -56,7 +56,7 @@
                                                             <div class="d-flex">
                                                                 <img style="border-top-left-radius:20px;border-bottom-left-radius:20px;"
                                                                     class="img-fluid w-25"
-                                                                    @if ($doctor->image) src="{{ asset('uploads/doctors/' . $doctor->image) }}"
+                                                                    @if ($doctor->image) src="{{ asset('public/uploads/doctors/' . $doctor->image) }}"
                                                             @else
                                                             src="{{ asset('images/' . $doctor->gender . '_avatar.jpg') }}" @endif
                                                                     alt="{{ $doctor->name }}">

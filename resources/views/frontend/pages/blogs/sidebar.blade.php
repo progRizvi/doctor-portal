@@ -24,7 +24,7 @@
                     <li>
                         <div class="post-thumb">
                             <a href="blog-details.html">
-                                <img class="img-fluid" src="{{ asset('uploads/thumbnail/' . $post->thumbnail) }}"
+                                <img class="img-fluid" src="{{ asset('public/uploads/thumbnail/' . $post->thumbnail) }}"
                                     alt="{{ $post->title }}">
                             </a>
                         </div>
@@ -58,7 +58,7 @@
     <!-- /Categories -->
 
     <!-- Tags -->
-    {{-- 
+    {{--
                 <div class="card tags-widget">
                     <div class="card-header">
                         <h4 class="card-title">Tags</h4>

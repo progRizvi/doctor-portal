@@ -2,9 +2,9 @@
 @section('title', 'Update hospital')
 @section('main')
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg py-16 px-10 m-4">
-         <form action="{{ route('hospitals.update',$hospital->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('hospitals.update', $hospital->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method("put")
+            @method('put')
             <div class="mb-6">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital
                     Name <span class="text-red-700">*</span></label>
@@ -21,25 +21,28 @@
             <div class="mb-6">
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" value="{{ $hospital->slug }}">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ $hospital->slug }}">
 
             </div>
             <div class="mb-6">
                 <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website</label>
                 <input type="text" id="website" name="website"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" value="{{ $hospital->website }}">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ $hospital->website }}">
             </div>
             <div class="mb-6">
                 <div class="flex space-x-4">
                     <div class="w-1/2">
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <label for="email"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="text" id="email" name="email"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                             value="{{ $hospital->email }}">
                         @error('email')
                             <small class="text-red-700">
-                                    {{ $message }}
-                                </small>
+                                {{ $message }}
+                            </small>
                         @enderror
                     </div>
                     <div class="w-1/2">
@@ -154,12 +157,8 @@
                 <select name="type" id="type"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
                     <option value="">Type</option>
-                    <option value="hospital" @if ($hospital->type == "hospital")
-                        selected
-                    @endif>Hospital</option>
-                    <option value="clinic" @if ($hospital->type == "clinic")
-                        selected
-                    @endif>Clinic</option>
+                    <option value="hospital" @if ($hospital->type == 'hospital') selected @endif>Hospital</option>
+                    <option value="clinic" @if ($hospital->type == 'clinic') selected @endif>Clinic</option>
                 </select>
                 @error('type')
                     <small class="text-red-700">
@@ -168,17 +167,14 @@
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
-                    </label>
+                <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status <span
+                        class="text-red-700">*</span>
+                </label>
                 <select name="status" id="status"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
                     <option value="">Select</option>
-                    <option value="active" @if ($hospital->status == "active")
-                        selected
-                    @endif>Active</option>
-                    <option value="inactive" @if ($hospital->status == "inactive")
-                        selected
-                    @endif>Inactive</option>
+                    <option value="active" @if ($hospital->status == 'active') selected @endif>Active</option>
+                    <option value="inactive" @if ($hospital->status == 'inactive') selected @endif>Inactive</option>
                 </select>
                 @error('status')
                     <small class="text-red-700">
@@ -187,7 +183,8 @@
                 @enderror
             </div>
             <div class="mb-6">
-                <label class="dark:text-gray-200" for="description">Description <span class="text-red-700">*</span></label>
+                <label class="dark:text-gray-200" for="description">Description <span
+                        class="text-red-700">*</span></label>
                 <textarea id="description" type="textarea" name="description"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{{ $hospital->description }}</textarea>
                 @error('description')

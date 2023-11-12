@@ -38,7 +38,7 @@
                             {{ $post->category->name }}
                         </td>
                         <td class="px-6 py-4">
-                            <img src="{{ asset('uploads/thumbnail/' . $post->thumbnail) }}" alt="{{ $post->title }}"
+                            <img src="{{ asset('public/uploads/thumbnail/' . $post->thumbnail) }}" alt="{{ $post->title }}"
                                 class="w-20 h-20 object-cover">
                         </td>
                         <td class="px-6 py-4">

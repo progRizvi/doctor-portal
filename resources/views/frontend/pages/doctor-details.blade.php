@@ -19,10 +19,11 @@
                                             <div class="">
                                                 <div class="col-auto profile-image">
                                                     <a href="#">
-                                                        <img class="img-fluid w-25 rounded-circle" alt="{{ $doctor->name }}"
-                                                            @if ($doctor->image) src="{{ asset('uploads/doctors/' . $doctor->image) }}"
+                                                        <img class="img-fluid w-25" alt="{{ $doctor->name }}"
+                                                            @if ($doctor->image) src="{{ asset('public/uploads/doctors/' . $doctor->image) }}"
                                                             @else
-                                                            src="{{ asset('images/' . $doctor->gender . '_avatar.jpg') }}" @endif>
+                                                            src="{{ asset('images/' . $doctor->gender . '_avatar.jpg') }}" @endif
+                                                            style="clip-path:circle()">
                                                     </a>
                                                 </div>
                                                 <div class="ml-md-n2 profile-user-info">

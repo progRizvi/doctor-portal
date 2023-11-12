@@ -76,9 +76,11 @@ class HospitalController extends Controller
             $image->move(public_path("uploads/hospitals"), $fileName);
             $hospital->background_image = $fileName;
         }
-        $slug = $request->input("slug", strtolower(str_replace(" ", "-", $request->name)));
+
+        $slug = $request->input("slug");
+        $generateSlug = strtolower(str_replace(" ", "-", $request->name)) . '-' . uniqid();
         $hospital->name = $request->name;
-        $hospital->slug = $slug;
+        $hospital->slug = $slug ? $slug . '-' . uniqid() : $generateSlug;
         $hospital->email = $request->email;
         $hospital->phone = $request->phone;
         $hospital->area_id = $request->area_id;
@@ -148,8 +150,11 @@ class HospitalController extends Controller
         $hospital = Hospital::find($id);
         if ($request->hasFile("image")) {
             $image = $request->file("image");
-            if($hospital->image){
-                unlink(public_path("uploads/hospitals/".$hospital->image));
+            if ($hospital->image) {
+
+                if (file_exists(public_path("uploads/hospitals/" . $hospital->image))) {
+                    unlink(public_path("uploads/hospitals/" . $hospital->image));
+                }
             }
             $fileName = time() . "." . $image->getClientOriginalExtension();
             $image->move(public_path("uploads/hospitals"), $fileName);
@@ -157,16 +162,19 @@ class HospitalController extends Controller
         }
         if ($request->hasFile("background_image")) {
             $image = $request->file("background_image");
-            if($hospital->background_image){
-                unlink(public_path("uploads/hospitals/".$hospital->background_image));
+            if ($hospital->background_image) {
+                if (file_exists(public_path("uploads/hospitals/" . $hospital->background_image))) {
+                    unlink(public_path("uploads/hospitals/" . $hospital->background_image));
+                }
             }
             $fileName = time() . "." . $image->getClientOriginalExtension();
             $image->move(public_path("uploads/hospitals"), $fileName);
             $hospital->background_image = $fileName;
         }
-        $slug = $request->input("slug", strtolower(str_replace(" ", "-", $request->name . "-" . $id)));
+        $slug = $request->input("slug");
+        $generateSlug = strtolower(str_replace(" ", "-", $request->name)) . '-' . uniqid();
         $hospital->name = $request->name;
-        $hospital->slug = $slug;
+        $hospital->slug = $slug ? $slug . '-' . uniqid() : $generateSlug;
         $hospital->email = $request->email;
         $hospital->phone = $request->phone;
         $hospital->area_id = $request->area_id;
@@ -181,8 +189,7 @@ class HospitalController extends Controller
         if ($hospital) {
             toastr()->success("Hospital updated successfully");
             return redirect()->route("hospitals.index");
-        }
-        else{
+        } else {
             toastr()->error("Something went wrong");
             return redirect()->back();
         }
@@ -231,6 +238,7 @@ class HospitalController extends Controller
             "department_id" => "required|array",
             "department_id.*" => "required|numeric|exists:departments,id",
             "description" => "required",
+            "status" => "required",
             "schedules" => "required|array",
             ...$daysRules,
         ]);

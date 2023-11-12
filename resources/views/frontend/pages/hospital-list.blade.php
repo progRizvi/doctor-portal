@@ -6,7 +6,7 @@
             <div class="row align-items-center inner-banner">
                 <div class="col-md-10 col-10 text-center mx-auto">
                     <div class="search-box-one aos" data-aos="fade-up">
-                        @include('frontend.pages.search',["url" => route('service.hospitals')])
+                        @include('frontend.pages.search', ['url' => route('service.hospitals')])
                     </div>
                 </div>
             </div>
@@ -46,7 +46,7 @@
                                 @foreach ($districts as $dis)
                                     @if ($dis->areas->count() > 0)
                                         @php
-                                            $hospitalsCount = App\Models\Hospital::whereIn('area_id', $dis->areas->pluck("id"))->get();
+                                            $hospitalsCount = App\Models\Hospital::whereIn('area_id', $dis->areas->pluck('id'))->get();
                                         @endphp
                                         <div class="py-2 cursor-pointer district" style="cursor:pointer"
                                             data-id="{{ $dis->id }}">
@@ -77,7 +77,7 @@
                                                             <div class="d-flex">
                                                                 <img style="border-top-left-radius:20px;border-bottom-left-radius:20px;"
                                                                     class="img-fluid w-25"
-                                                                    @if ($hospital->image) src="{{ asset('uploads/hospitals/' . $hospital->image) }}"
+                                                                    @if ($hospital->image) src="{{ asset('public/uploads/hospitals/' . $hospital->image) }}"
                                                             @else
                                                             src="{{ asset('images/hospital.svg') }}" @endif
                                                                     alt="{{ $hospital->name }}">
@@ -122,9 +122,9 @@
                 var type = $(this).data("type");
                 var id = $(this).data("id");
                 const data = {}
-                if(type == null){
+                if (type == null) {
                     data.district = id;
-                }else{
+                } else {
                     data.type = type;
                 }
                 $.ajax({

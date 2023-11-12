@@ -20,7 +20,7 @@
                                 <ul>
                                     <li><a href="{{ route("service.doctors") }}">Search for Doctors</a></li>
                                     <li><a href="{{ route("service.hospitals") }}">Search for Hospitals</a></li>
-                                    <li><a href="#">About us</a></li>
+                                    <li><a href="{{ route("about_us") }}">About us</a></li>
                                 </ul>
                             </div>
                         </div>

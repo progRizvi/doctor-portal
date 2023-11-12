@@ -54,7 +54,7 @@
                         </td>
                         <td class="px-6 py-4">
                             @if ($doctor->image)
-                                <img src="{{ asset('storage/' . $doctor->image) }}" alt="{{ $doctor->name }}"
+                                <img src="{{ asset('public/uploads/doctors/' . $doctor->image) }}" alt="{{ $doctor->name }}"
                                     class="w-10 h-10 rounded-full">
                             @else
                                 <img src="{{ asset("/images/$doctor->gender" . '_avatar.jpg') }}" alt="{{ $doctor->name }}"

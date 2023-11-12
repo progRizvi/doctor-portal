@@ -15,9 +15,9 @@
                                             <div class="">
                                                 <div class="col-auto profile-image">
                                                     <a href="#">
-                                                        <img class="img-fluid w-25 rounded-circle"
+                                                        <img class="img-fluid w-25" style="clip-path:circle()"
                                                             alt="{{ $hospital->name }}"
-                                                            @if ($hospital->image) src="{{ asset('uploads/hospitals/' . $hospital->image) }}"
+                                                            @if ($hospital->image) src="{{ asset('public/uploads/hospitals/' . $hospital->image) }}"
                                                             @else
                                                             src="{{ asset('images/hospital.svg') }}" @endif>
                                                     </a>
@@ -120,12 +120,12 @@
                                                     <div class="row">
                                                         <div class="col-5">
                                                             <i class="far fa-calendar-check"></i>
-                                                                @if ($key == 'all_day')
-                                                                    All Days
-                                                                @else
-                                                                    {{ ucfirst($key) }}
-                                                                @endif
-                                                            
+                                                            @if ($key == 'all_day')
+                                                                All Days
+                                                            @else
+                                                                {{ ucfirst($key) }}
+                                                            @endif
+
                                                         </div>
                                                         <div class="col-7">
                                                             {{ \Carbon\Carbon::parse($schedule['start_time'])->format('g:i A') }}

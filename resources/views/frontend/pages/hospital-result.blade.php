@@ -18,7 +18,7 @@
                                         <div class="d-flex">
                                             <img style="border-top-left-radius:20px;border-bottom-left-radius:20px;"
                                                 class="img-fluid w-25"
-                                                @if ($hospital->image) src="{{ asset('uploads/hospitals/' . $hospital->image) }}"
+                                                @if ($hospital->image) src="{{ asset('public/uploads/hospitals/' . $hospital->image) }}"
                                                             @else
                                                             src="{{ asset('images/hospital.svg') }}" @endif
                                                 alt="{{ $hospital->name }}">

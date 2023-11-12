@@ -144,17 +144,17 @@
                 <div class="flex space-x-4">
                     <div class="w-1/2">
                         <label for="new_patient_fee" class="block mb-2 text-sm text-gray-900 dark:text-white">New
-                            Patient <span class="text-red-700">*</span></label>
+                            Patient </label>
                         <input type="number" id="new_patient_fee" name="new_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ $doctor->new_patient_fee }}" required>
+                            value="{{ $doctor->new_patient_fee }}">
                     </div>
                     <div class="w-1/2">
                         <label for="old_patient_fee" class="block mb-2 text-sm text-gray-900 dark:text-white">Old
-                            Patient <span class="text-red-700">*</span></label>
+                            Patient </label>
                         <input type="number" id="old_patient_fee" name="old_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ $doctor->old_patient_fee }}" required>
+                            value="{{ $doctor->old_patient_fee }}">
                     </div>
                 </div>
             </div>

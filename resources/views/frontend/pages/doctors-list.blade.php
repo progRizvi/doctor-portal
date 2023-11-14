@@ -21,12 +21,12 @@
                     <!-- Search Filter -->
                     <div class="card search-filter">
                         <div class="card-header">
-                            <h4 class="card-title mb-0 bg-info px-4 py-3">Filter</h4>
+                            <h4 class="card-title mb-0 bg-info px-4 py-3">{{ __('website.filter') }}</h4>
                         </div>
                         <div class="card-body">
 
                             <div class="filter-widget">
-                                <h4>Departments</h4>
+                                <h4>{{ __('website.departments') }}</h4>
                                 @foreach ($departments as $department)
                                     <div class="py-2 cursor-pointer department" style="cursor:pointer"
                                         data-id="{{ $department->id }}">

@@ -56,7 +56,7 @@
                                         <div class="card-body">
                                             <h5
                                                 class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
-                                                <span>About Us</span>
+                                                <span>{{ __('website.about_us') }}</span>
                                             </h5>
                                             <div class="row">
 
@@ -71,7 +71,7 @@
                                         <div class="card-body">
                                             <h5
                                                 class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
-                                                <span><i class="fa fa-medkit"></i> Our Services</span>
+                                                <span><i class="fa fa-medkit"></i> {{ __('website.our_services') }}</span>
                                             </h5>
                                             <div class="row">
                                                 @foreach ($hospital->departments as $department)
@@ -101,7 +101,7 @@
                                         <div class="card-body">
                                             <h5
                                                 class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
-                                                <span>Address</span>
+                                                <span>{{ __('website.address') }}</span>
                                             </h5>
                                         </div>
                                         <div class="border mx-4 mb-2 p-3">
@@ -112,7 +112,7 @@
                                                 {{ $hospital->area->district->division->name }}.
                                             </div>
                                             <div class="pt-3">
-                                                <b>Schedule: </b>
+                                                <b>{{ __('website.schedule') }}: </b>
                                                 @php
                                                     $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'all_days'];
                                                 @endphp
@@ -136,7 +136,7 @@
                                                 @endforeach
                                             </div>
                                             <div class="pt-3">
-                                                <b>Contact: </b>
+                                                <b>{{ __('website.contact') }}: </b>
                                                 <p class="text-center fs-4">
                                                     <i class="fa fa-mobile text-danger"></i>
                                                     {{ $hospital->phone }}

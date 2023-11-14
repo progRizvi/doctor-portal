@@ -88,7 +88,7 @@ class HomeController extends Controller
         if ($request->type) {
             $hospitalsQuery->where("type", $request->type);
         }
-        if($request->district){
+        if ($request->district) {
             $areas = Area::where("district_id", $request->district)->pluck("id");
             $hospitalsQuery->whereIn("area_id", $areas);
         }
@@ -97,8 +97,8 @@ class HomeController extends Controller
             $pageNUm = $request->page;
         }
         $hospitals = $hospitalsQuery->with("area")->paginate(20, ['*'], 'page', $pageNUm);
-        
-        if ($hospitals->total() >0 && $request->ajax()) {
+
+        if ($hospitals->total() > 0 && $request->ajax()) {
             return view('frontend.pages.hospital-result', compact('hospitals'));
         } else {
             return view('frontend.pages.no-data-found');
@@ -142,7 +142,13 @@ class HomeController extends Controller
     {
         return view('frontend.pages.hospital-list');
     }
-    public function aboutUs(){
+    public function aboutUs()
+    {
         return view('frontend.pages.about-us');
+    }
+    public function changeLanguage($lang)
+    {
+        session()->put('loc', $lang);
+        return redirect()->back();
     }
 }

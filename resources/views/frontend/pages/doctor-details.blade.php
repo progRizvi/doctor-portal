@@ -66,7 +66,7 @@
                                         <div class="card-body">
                                             <h5
                                                 class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
-                                                <span>Treated conditions include</span>
+                                                <span>{{ __('website.treated_conditions_include') }}</span>
                                             </h5>
                                             <div class="row">
                                                 @foreach ($treatments as $treatment)
@@ -82,17 +82,19 @@
                                         <div class="card-body">
                                             <h5
                                                 class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
-                                                <span>Doctor Fee</span>
+                                                <span>{{ __('website.doctor_fee') }}</span>
                                             </h5>
 
                                             <div class="row">
                                                 <div class="col-12 col-md-6">
-                                                    <p>New patient <span class="badge bg-success" style="font-size:14px">৳
+                                                    <p>{{ __('website.new_patient') }} <span class="badge bg-success"
+                                                            style="font-size:14px">৳
                                                             {{ $doctor->new_patient_fee }}</span>
                                                     </p>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <p>Old patient <span class="badge bg-success" style="font-size:14px">৳
+                                                    <p>{{ __('website.old_patient') }} <span class="badge bg-success"
+                                                            style="font-size:14px">৳
                                                             {{ $doctor->old_patient_fee }}</span>
                                                     </p>
                                                 </div>
@@ -114,18 +116,18 @@
                                         <div class="card-body">
                                             <h5
                                                 class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
-                                                <span>Chamber Address & Schedule</span>
+                                                <span>{{ __('website.chamber_address_schedule') }}</span>
                                             </h5>
                                         </div>
                                         <div class="border mx-4 mb-2 p-3">
                                             <div>
-                                                <b>Address: </b>{{ $doctor->address }},
+                                                <b>{{ __('website.address') }}: </b>{{ $doctor->address }},
                                                 {{ $doctor->area->name }},
                                                 {{ $doctor->area->district->name }},
                                                 {{ $doctor->area->district->division->name }}.
                                             </div>
                                             <div class="pt-3">
-                                                <b>Schedule: </b>
+                                                <b>{{ __('website.schedule') }}: </b>
                                                 @php
                                                     $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
                                                 @endphp

@@ -19,22 +19,22 @@
                     <!-- Search Filter -->
                     <div class="card search-filter">
                         <div class="card-header">
-                            <h4 class="card-title mb-0 bg-info px-4 py-3 text-white">Filter</h4>
+                            <h4 class="card-title mb-0 bg-info px-4 py-3 text-white">{{ __('website.filter') }}</h4>
                         </div>
                         <div class="card-body">
                             <div class="filter-widget">
-                                <h4 class="bg-info px-3 py-2 text-white">Category</h4>
+                                <h4 class="bg-info px-3 py-2 text-white">{{ __('website.category') }}</h4>
                                 @php
                                     $hosCat = App\Models\Hospital::where('type', 'hospital')->count();
                                     $clinicCat = App\Models\Hospital::where('type', 'clinic')->count();
                                 @endphp
                                 <div class="py-2 cursor-pointer type" style="cursor:pointer" data-type="hospital">
-                                    <span class="checkmark"></span> Hospital <span
+                                    <span class="checkmark"></span> {{ __('website.hospital') }} <span
                                         class="badge bg-success">{{ $hosCat }}</span>
                                     </span>
                                 </div>
                                 <div class="py-2 cursor-pointer type" style="cursor:pointer" data-type="clinic">
-                                    <span class="checkmark"></span> Clinic <span
+                                    <span class="checkmark"></span> {{ __('website.clinic') }} <span
                                         class="badge bg-success">{{ $clinicCat }}</span>
                                     </span>
                                 </div>
@@ -42,7 +42,7 @@
                         </div>
                         <div class="card-body">
                             <div class="filter-widget" style="height:200px;overflow-y: scroll;">
-                                <h4 class="bg-info px-3 py-2 text-white">Location</h4>
+                                <h4 class="bg-info px-3 py-2 text-white">{{ __('website.location') }}</h4>
                                 @foreach ($districts as $dis)
                                     @if ($dis->areas->count() > 0)
                                         @php

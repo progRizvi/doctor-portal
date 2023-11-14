@@ -24,27 +24,31 @@
                     </a>
                 </div>
                 <ul class="main-nav">
-                    <li class="has-submenu megamenu @if (request()->route()->getName() == "service.doctors")
-                        active
-                    @endif">
-                        <a href="{{ route('service.doctors') }}">Doctors</a>
+                    <li class="has-submenu megamenu @if (request()->route()->getName() == 'service.doctors') active @endif">
+                        <a href="{{ route('service.doctors') }}">{{ __('website.doctors') }}</a>
                     </li>
                     <li class="has-submenu">
-                        <a href="javascript:void(0);">Surgery Support</a>
+                        <a href="javascript:void(0);">{{ __('website.surgery_support') }}</a>
                     </li>
                     <li class="has-submenu">
-                        <a href="{{ route('service.hospitals') }}">Hospital & Diagnostic</a>
+                        <a href="{{ route('service.hospitals') }}">{{ __('website.hospital_diagnostic') }}</a>
                     </li>
                     <li class="has-submenu">
-                        <a href="javascript:void(0);">Blood Donors Club </a>
+                        <a href="javascript:void(0);">{{ __('website.blood_donors_club') }}</a>
                     </li>
                     <li class="has-submenu">
-                        <a href="javascript:void(0);">Home Medical Service</a>
+                        <a href="javascript:void(0);">{{ __('website.home_medical_service') }}</a>
                     </li>
-                    <li class="has-submenu @if (request()->route()->getName() == "blogs")
-                        active
-                    @endif">
-                        <a href="{{ route('blogs') }}">Blog</a>
+                    <li class="has-submenu @if (request()->route()->getName() == 'blogs') active @endif">
+                        <a href="{{ route('blogs') }}">{{ __('website.blog') }}</a>
+                    </li>
+                    <li class="has-submenu d-flex justify-content-center align-items-center">
+                        <select name="language" id="" onchange="location = this.value;" class="form-control">
+                            <option @if (session()->get('loc') == 'en') selected @endif
+                                value="{{ route('switch.lang', 'en') }}">{{ __('website.en') }}</option>
+                            <option @if (session()->get('loc') == 'bn') selected @endif
+                                value="{{ route('switch.lang', 'bn') }}">{{ __('website.bn') }}</option>
+                        </select>
                     </li>
                 </ul>
             </div>
@@ -52,4 +56,3 @@
     </div>
 </header>
 <!-- /Header -->
-

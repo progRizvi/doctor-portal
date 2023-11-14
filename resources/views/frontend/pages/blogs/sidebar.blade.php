@@ -5,7 +5,7 @@
         <div class="card-body">
             <form class="search-form" action={{ route('blogs') }}>
                 <div class="input-group">
-                    <input type="text" placeholder="Search..." class="form-control" name="search">
+                    <input type="text" placeholder="{{ __('website.search') }}..." class="form-control" name="search">
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                 </div>
             </form>
@@ -16,7 +16,7 @@
     <!-- Latest Posts -->
     <div class="card post-widget">
         <div class="card-header">
-            <h4 class="card-title">Latest Posts</h4>
+            <h4 class="card-title">{{ __('website.latest_post') }}</h4>
         </div>
         <div class="card-body">
             <ul class="latest-posts">
@@ -44,7 +44,7 @@
     <!-- Categories -->
     <div class="card category-widget">
         <div class="card-header">
-            <h4 class="card-title">Blog Categories</h4>
+            <h4 class="card-title">{{ __('website.blog_categories') }}</h4>
         </div>
         <div class="card-body">
             <ul class="categories">

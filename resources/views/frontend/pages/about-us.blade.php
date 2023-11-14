@@ -5,11 +5,11 @@
 			<div class="container">
 				<div class="row align-items-center inner-banner">
 					<div class="col-md-12 col-12 text-center">
-						<h2 class="breadcrumb-title">About Us</h2>
+						<h2 class="breadcrumb-title">{{ __("website.about_us") }}</h2>
 						<nav aria-label="breadcrumb" class="page-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="{{ route("home") }}">Home</a></li>
-								<li class="breadcrumb-item" aria-current="page">About Us</li>
+								<li class="breadcrumb-item"><a href="{{ route("home") }}">{{ __("website.home") }}</a></li>
+								<li class="breadcrumb-item" aria-current="page">{{ __("website.about_us") }}</li>
 							</ol>
 						</nav>
 					</div>
@@ -36,7 +36,7 @@
                             <div class="col-md-6">
                                 <div class="about-inner-img">
                                     <div class="about-box">
-                                        <h4>Experienced Doctors</h4>
+                                        <h4>{{ __("website.experienced_doctors") }}</h4>
                                     </div>
                                     <div class="about-img">
                                         <img src="{{ asset('frontend/assets/img/about-img3.jpg') }}" class="img-fluid" alt="about-image">
@@ -48,21 +48,21 @@
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="section-inner-header about-inner-header">
-                        <h6>About Our Company</h6>
+                        <h6>{{ __("website.about_our_company") }}</h6>
                     </div>
                     <div class="about-content">
                         <div class="about-content-details">
-                            <p>Doctorinfobd.com is an online based health services provider's info-sharing platform. We try to provide an easy and good connection for patients to consult specialist doctors for any health issue.</p>
+                            <p>{{ __("website.doctorinfobd_is_an_online_based_health_services") }}</p>
                             <p>
-                                Easy Appointments: We've very easily the process of specialized doctors' Appointments. With Doctorinfobd.com, you can confirm a free schedule of appointments with a specialist doctor in just a few minutes. No more waiting, no more hassle - just efficient healthcare access at your fingertips.
+                                {{ __("website.have_very_easily_the_process_of_specialized_doctors") }}
                             </p>
                             <p>
-                                Huge Medical Information: Need information on blood groups, hospitals, clinics, diagnostic centers, or ambulance services. Doctorinfobd.com is your comprehensive guide. Find contact details and phone numbers very easily.
+                                {{ __("website.huge_medical_nformation") }}
                             </p>
-                            <p>User-Friendly Medical Content: We believe that medical information should be accessible to everyone. That's why we've designed Doctorinfobd.com to present complex medical content in a simple, user-friendly manner.</p>
-                            <p>Vast Network: With Doctorinfobd.com, you can easily book appointments with experienced doctors in specialized categories. Your health needs are our priority.</p>
+                            <p>{{ __("website.user_friendly_medical_content") }}</p>
+                            <p>{{ __("website.vast_network") }}</p>
                             <p>
-                                Also, you can contact our call center for any health-related consultation and receive your required services very easily.
+                                {{ __("website.health_related_consultation") }}
                             </p>
                         </div>
                     </div>

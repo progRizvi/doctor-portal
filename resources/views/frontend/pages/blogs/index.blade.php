@@ -6,11 +6,11 @@
         <div class="container">
             <div class="row align-items-center inner-banner">
                 <div class="col-md-12 col-12 text-center">
-                    <h2 class="breadcrumb-title">Blog </h2>
+                    <h2 class="breadcrumb-title">{{ __('website.blog') }} </h2>
                     <nav aria-label="breadcrumb" class="page-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item" aria-current="page">Blog</li>
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('website.home') }} </a></li>
+                            <li class="breadcrumb-item" aria-current="page">{{ __('website.blog') }} </li>
                         </ol>
                     </nav>
                 </div>
@@ -51,7 +51,7 @@
                             </div>
                             <div class="blog-content">
                                 <p>{!! Str::limit($post->content, 200) !!}</p>
-                                <a href="{{ route('post.details', $post->slug) }}" class="read-more">View Blog</a>
+                                <a href="{{ route('post.details', $post->slug) }}" class="read-more">{{ __('website.view_blog') }}</a>
                             </div>
                         </div>
                     @endforeach

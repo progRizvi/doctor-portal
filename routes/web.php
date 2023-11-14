@@ -26,30 +26,34 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
+Route::group(['middleware' => 'localization'], function () {
 
-Route::get("/", [HomeController::class, "index"])->name("home");
+    Route::get("/", [HomeController::class, "index"])->name("home");
 
-Route::get("/service/doctors", [HomeController::class, "serviceDoctors"])
-    ->name("service.doctors");
+    Route::get("/service/doctors", [HomeController::class, "serviceDoctors"])
+        ->name("service.doctors");
 
-Route::get("/service/location/{id}/doctors", [HomeController::class, "serviceLocationDoctors"])
-    ->name("service.location.doctors");
+    Route::get("/service/location/{id}/doctors", [HomeController::class, "serviceLocationDoctors"])
+        ->name("service.location.doctors");
 
-Route::get("/service/doctors/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");
-Route::get("service/get-doctors/by-department/{id}", [HomeController::class, "getDoctorsByDepartment"])->name("get.doctors.by.department");
-Route::get("/service/hospitals", [HomeController::class, "serviceHospitals"])->name("service.hospitals");
-Route::get("/service/hospitals/{slug}", [HomeController::class, "hospitalDetails"])->name("service.hospital.details");
-Route::get("service/get-hospitals/by-type/", [HomeController::class, "getHospitalsByType"])->name("get.hospitals.by.type");
-Route::get("/about-us", [HomeController::class, "aboutUs"])->name("about_us");
-Route::group(["prefix" => "blogs"], function () {
-    Route::get("/", [HomeController::class, "blogs"])->name("blogs");
-    Route::get("/category-details/{slug}", [HomeController::class, "categoryDetails"])->name("category.details");
+    Route::get("/service/doctors/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");
+    Route::get("service/get-doctors/by-department/{id}", [HomeController::class, "getDoctorsByDepartment"])->name("get.doctors.by.department");
+    Route::get("/service/hospitals", [HomeController::class, "serviceHospitals"])->name("service.hospitals");
+    Route::get("/service/hospitals/{slug}", [HomeController::class, "hospitalDetails"])->name("service.hospital.details");
+    Route::get("service/get-hospitals/by-type/", [HomeController::class, "getHospitalsByType"])->name("get.hospitals.by.type");
+    Route::get('/switch-lang/{lang}', [HomeController::class, 'changeLanguage'])->name('switch.lang');
 
-    Route::get("/post-details/{slug}", [HomeController::class, "postDetails"])->name("post.details");
+    Route::get("/about-us", [HomeController::class, "aboutUs"])->name("about_us");
+    Route::group(["prefix" => "blogs"], function () {
+        Route::get("/", [HomeController::class, "blogs"])->name("blogs");
+        Route::get("/category-details/{slug}", [HomeController::class, "categoryDetails"])->name("category.details");
 
-    Route::get("/post/search", [HomeController::class, "postSearch"])->name("post.search");
+        Route::get("/post-details/{slug}", [HomeController::class, "postDetails"])->name("post.details");
+
+        Route::get("/post/search", [HomeController::class, "postSearch"])->name("post.search");
+    });
+
 });
-
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login/post', [LoginController::class, 'loginPost'])->name('login.post');
 

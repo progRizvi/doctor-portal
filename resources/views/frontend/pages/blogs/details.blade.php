@@ -11,8 +11,8 @@
                     <h2 class="breadcrumb-title">{{ $post->title }}</h2>
                     <nav aria-label="breadcrumb" class="page-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item" aria-current="page">Blog Details</li>
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('website.home') }}</a></li>
+                            <li class="breadcrumb-item" aria-current="page">{{ __('website.blog_details') }}</li>
                         </ol>
                     </nav>
                 </div>

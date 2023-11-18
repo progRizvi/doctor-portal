@@ -46,18 +46,16 @@ class DoctorController extends Controller
 
         $days = $request->schedules;
         $schedules = [];
-        foreach ($days as $day) {
-            $schedules[$day] = [
-                "start_time" => $request["$day" . "_start_time"],
-                "end_time" => $request["$day" . "_end_time"],
-            ];
+        if (!empty($days)) {
+            foreach ($days as $day) {
+                $schedules[$day] = [
+                    "start_time" => $request["$day" . "_start_time"],
+                    "end_time" => $request["$day" . "_end_time"],
+                ];
+            }
         }
 
-        $validation = $this->doctorValidation($request, $days);
-
-        if (!$validation) {
-            return back();
-        }
+        $this->doctorValidation($request);
 
         $doctor = new Doctor();
         if ($request->hasFile("image")) {
@@ -84,7 +82,7 @@ class DoctorController extends Controller
         $doctor->old_patient_fee = $request->old_patient_fee;
         $doctor->bio = $request->bio;
         $doctor->description = $request->description;
-        $doctor->status = $request->status;
+        $doctor->status = $request->status ? $request->status : "active";
         $doctor->hospital = $request->hospital;
         $doctor->address = $request->address;
         $doctor->save();
@@ -136,18 +134,17 @@ class DoctorController extends Controller
 
         $days = $request->schedules;
         $schedules = [];
-        foreach ($days as $day) {
-            $schedules[$day] = [
-                "start_time" => $request["$day" . "_start_time"],
-                "end_time" => $request["$day" . "_end_time"],
-            ];
+
+        if (!empty($days)) {
+            foreach ($days as $day) {
+                $schedules[$day] = [
+                    "start_time" => $request["$day" . "_start_time"],
+                    "end_time" => $request["$day" . "_end_time"],
+                ];
+            }
         }
 
-        $validation = $this->doctorValidation($request, $days);
-
-        if (!$validation) {
-            return back();
-        }
+        $this->doctorValidation($request);
 
         $doctor = Doctor::find($id);
         if ($request->hasFile("image")) {
@@ -198,15 +195,15 @@ class DoctorController extends Controller
     public function destroy($id)
     {
         $doctor = Doctor::find($id);
-        if($doctor){
-            if($doctor->image){
-                if(file_exists(public_path("uploads/doctors/".$doctor->image))){
-                    unlink(public_path("uploads/doctors/".$doctor->image));
+        if ($doctor) {
+            if ($doctor->image) {
+                if (file_exists(public_path("uploads/doctors/" . $doctor->image))) {
+                    unlink(public_path("uploads/doctors/" . $doctor->image));
                 }
             }
-            if($doctor->background_image){
-                if(file_exists(public_path("uploads/doctors/".$doctor->background_image))){
-                    unlink(public_path("uploads/doctors/".$doctor->background_image));
+            if ($doctor->background_image) {
+                if (file_exists(public_path("uploads/doctors/" . $doctor->background_image))) {
+                    unlink(public_path("uploads/doctors/" . $doctor->background_image));
                 }
             }
             $doctor->delete();
@@ -226,36 +223,26 @@ class DoctorController extends Controller
         $areas = Area::where("district_id", $id)->get();
         return response()->json($areas);
     }
-    private function doctorValidation(Request $request, array $data = [])
+    private function doctorValidation(Request $request)
     {
 
-        $daysRules = [];
-        foreach ($data as $day) {
-            $daysRules["$day" . "_start_time"] = "required";
-            $daysRules["$day" . "_end_time"] = "required";
-        }
-
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "name" => "required",
             "email" => "nullable|email|",
             "phone" => "required",
             "image" => "nullable|image",
             "gender" => "required",
+            "division_id" => "required",
+            "district_id" => "required",
+            "status" => "required|in:active,inactive",
             "area_id" => "required|numeric",
-            "department_id" => "required|array",
+            "treatments" => "required",
+            "department_id[]" => "required|array",
             "department_id.*" => "required|numeric|exists:departments,id",
             "new_patient_fee" => "nullable|numeric",
             "old_patient_fee" => "nullable|numeric",
             "bio" => "required",
             "schedules" => "required|array",
-            ...$daysRules,
         ]);
-        if ($validation->fails()) {
-            foreach ($validation->errors()->all() as $err) {
-                toastr()->error($err);
-            }
-            return false;
-        }
-        return true;
     }
 }

@@ -10,19 +10,30 @@
                 <input type="text" id="name" name="name"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ old('name') }}" required>
+                @error('name')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" value="{{ old("slug") }}">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('slug') }}">
+                @error('slug')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <div class="flex space-x-4">
                     <div class="w-1/2">
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                        <label for="email"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="text" id="email" name="email"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                             value="{{ old('email') }}">
+                        @error('email')
+                            <span class="text-red-700">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="w-1/2">
                         <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
@@ -30,6 +41,9 @@
                         <input type="text" id="phone" name="phone"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                             value="{{ old('phone') }}" required>
+                        @error('phone')
+                            <span class="text-red-700">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -43,12 +57,18 @@
                     <option value="female" {{ old('gender') === 'female' ? 'selected' : '' }}>Female</option>
                     <option value="other" {{ old('gender') === 'other' ? 'selected' : '' }}>Other</option>
                 </select>
+                @error('gender')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital</label>
                 <input type="text" id="hospital" name="hospital"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ old('hospital') }}">
+                @error('hospital')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address <span
@@ -56,6 +76,9 @@
                 <input type="text" id="address" name="address"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ old('address') }}" required>
+                @error('address')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="department_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department
@@ -68,14 +91,20 @@
                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                     @endforeach
                 </select>
+                @error('department_id[]')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="treatments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Treatments
                     <span class="text-red-700">*</span></label>
                 <textarea name="treatments" id="treatments" cols="30" rows="5"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    placeholder="ex. Pneumonia, Chest Pain">{{ old("treatments") }}</textarea>
+                    placeholder="ex. Pneumonia, Chest Pain">{{ old('treatments') }}</textarea>
                 <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
+                @error('treatments')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="schedules">Schedules<span class="text-red-700">*</span> </label>
@@ -99,6 +128,9 @@
                             </span>
                         </div>
                     @endforeach
+                    @error('schedules')
+                        <span class="text-red-700">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="mb-6">
@@ -111,6 +143,9 @@
                         <option value="{{ $division->id }}">{{ $division->name }}</option>
                     @endforeach
                 </select>
+                @error('division_id')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6 district hidden">
                 <label for="district_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">District
@@ -119,6 +154,9 @@
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
                     <option value="" selected>Select</option>
                 </select>
+                @error('district_id')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6 area hidden">
                 <label for="area_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Area <span
@@ -127,6 +165,9 @@
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
                     <option value="" selected>Select</option>
                 </select>
+                @error('area_id')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="fees" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fees</label>
@@ -136,7 +177,10 @@
                             Patient </label>
                         <input type="number" id="new_patient_fee" name="new_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ old('new_patient_fee') }}" >
+                            value="{{ old('new_patient_fee') }}">
+                        @error('new_patient_fee')
+                            <span class="text-red-700">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="w-1/2">
                         <label for="old_patient_fee" class="block mb-2 text-sm text-gray-900 dark:text-white">Old
@@ -144,6 +188,9 @@
                         <input type="number" id="old_patient_fee" name="old_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                             value="{{ old('old_patient_fee') }}">
+                        @error('old_patient_fee')
+                            <span class="text-red-700">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -156,6 +203,9 @@
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
                 </select>
+                @error('status')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="bio">Bio <span class="text-red-700">*</span></label>
@@ -169,6 +219,9 @@
                 <textarea id="description" type="textarea" name="description"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     required>{{ old('description') }}</textarea>
+                @error('description')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label class="block text-sm font-medium">

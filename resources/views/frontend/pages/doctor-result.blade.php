@@ -23,9 +23,9 @@
                                             <div class="px-3 pt-2">
                                                 <h4 style="color:#09DCA4">{{ $doctor->name }}</h4>
                                                 <p>
-                                                    {{ $doctor->department->name }} ,
-                                                    {{ $doctor->area->name }},
-                                                    {{ $doctor->area->district->name }}
+                                                    {{ $doctor->department?->name }} ,
+                                                    {{ $doctor->area?->name }},
+                                                    {{ $doctor->area?->district->name }}
                                                 </p>
                                                 <hr style="color:gray" />
                                                 <p>

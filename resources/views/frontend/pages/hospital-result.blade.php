@@ -26,9 +26,9 @@
                                                 <h4 style="color:#09DCA4">{{ $hospital->name }}</h4>
                                                 <p>
                                                     Address: {{ $hospital->address }},
-                                                    {{ $hospital->area->name }},
-                                                    {{ $hospital->area->district->name }},
-                                                    {{ $hospital->area->district->division->name }}
+                                                    {{ $hospital->area?->name }},
+                                                    {{ $hospital->area?->district?->name }},
+                                                    {{ $hospital->area?->district?->division?->name }}
                                                 </p>
                                                 <hr style="color:gray" />
                                                 <p>

@@ -122,9 +122,9 @@
                                         <div class="border mx-4 mb-2 p-3">
                                             <div>
                                                 <b>{{ __('website.address') }}: </b>{{ $doctor->address }},
-                                                {{ $doctor->area->name }},
-                                                {{ $doctor->area->district->name }},
-                                                {{ $doctor->area->district->division->name }}.
+                                                {{ $doctor->area?->name }},
+                                                {{ $doctor->area?->district?->name }},
+                                                {{ $doctor->area?->district?->division?->name }}.
                                             </div>
                                             <div class="pt-3">
                                                 <b>{{ __('website.schedule') }}: </b>

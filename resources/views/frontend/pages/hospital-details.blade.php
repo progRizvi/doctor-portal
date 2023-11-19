@@ -107,9 +107,9 @@
                                         <div class="border mx-4 mb-2 p-3">
                                             <div>
                                                 <b><i class="fa fa-location-arrow"></i> </b>{{ $hospital->address }},
-                                                {{ $hospital->area->name }},
-                                                {{ $hospital->area->district->name }},
-                                                {{ $hospital->area->district->division->name }}.
+                                                {{ $hospital->area?->name }},
+                                                {{ $hospital->area?->district?->name }},
+                                                {{ $hospital->area?->district?->division?->name }}.
                                             </div>
                                             <div class="pt-3">
                                                 <b>{{ __('website.schedule') }}: </b>

@@ -70,8 +70,8 @@
                                                                                 {{ $department->name }} ,
                                                                             @endif
                                                                         @endforeach ,
-                                                                        {{ $doctor->area->name }},
-                                                                        {{ $doctor->area->district->name }}
+                                                                        {{ $doctor->area?->name }},
+                                                                        {{ $doctor->area?->district?->name }}
                                                                     </p>
                                                                     <hr style="color:gray" />
                                                                     <p>

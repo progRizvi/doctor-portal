@@ -55,14 +55,8 @@ class HospitalController extends Controller
 
         }
 
-        $validation = $this->hospitalValidation($request, $schedules);
+        $this->hospitalValidation($request);
 
-        if ($validation) {
-            return redirect()
-                ->back()
-                ->withErrors($validation)
-                ->withInput();
-        }
         $hospital = new Hospital();
         if ($request->hasFile("image")) {
             $image = $request->file("image");
@@ -145,7 +139,7 @@ class HospitalController extends Controller
 
         }
 
-        $validation = $this->hospitalValidation($request, $schedules);
+        $this->hospitalValidation($request);
 
         $hospital = Hospital::find($id);
         if ($request->hasFile("image")) {
@@ -213,19 +207,9 @@ class HospitalController extends Controller
             return redirect()->back();
         }
     }
-    private function hospitalValidation(Request $request, array $data = [])
+    private function hospitalValidation(Request $request)
     {
-
-        $daysRules = [];
-        if (count($data) > 0) {
-            foreach ($data as $key => $day) {
-
-                $daysRules["$key" . "_start_time"] = "required";
-                $daysRules["$key" . "_end_time"] = "required";
-            }
-        }
-
-        $validation = Validator::make($request->all(), [
+        $request->validate([
             "name" => "required",
             "email" => "nullable|email|",
             "phone" => "required",
@@ -240,11 +224,6 @@ class HospitalController extends Controller
             "description" => "required",
             "status" => "required",
             "schedules" => "required|array",
-            ...$daysRules,
         ]);
-        if ($validation->fails()) {
-            return $validation;
-        }
-
     }
 }

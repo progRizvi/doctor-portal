@@ -7,6 +7,14 @@
 <div class="breadcrumb-bar-two">
     <div class="container">
         <div class="row">
+            <div class="col-sx-12 ">
+                <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
+                    <p>{{ $departmentName }} Specialized Doctors</p>
+                    <p>
+                        <hr>
+                    </p>
+                </div>
+            </div>
             @foreach ($doctors as $doctor)
                 <div class="col-xs-12">
                     <a href="{{ route('service.doctor.details', $doctor->slug) }}">

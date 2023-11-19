@@ -44,6 +44,14 @@
                     <div class="breadcrumb-bar-two">
                         <div class="container">
                             <div class="row">
+                                <div class="col-sx-12 ">
+                                    <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
+                                        <p>All Specialized Doctors</p>
+                                        <p>
+                                            <hr>
+                                        </p>
+                                    </div>
+                                </div>
                                 @foreach ($doctors as $doctor)
                                     <div class="col-xs-12">
                                         <a href="{{ route('service.doctor.details', $doctor->slug) }}">
@@ -106,11 +114,14 @@
         $(document).ready(function() {
             $(".department").click(function() {
                 var department = $(this).data("id");
+                const departmentName = $(this).text().trim().replace(/[0-9]/g, '');
+                console.log(departmentName);
                 $.ajax({
                     url: "{{ route('get.doctors.by.department', '') }}/" + department,
                     type: "GET",
                     data: {
-                        department: department
+                        department: department,
+                        departmentName
                     },
                     success: function(data) {
                         $(".doctors").html(data);

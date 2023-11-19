@@ -66,8 +66,9 @@ class HomeController extends Controller
     public function getDoctorsByDepartment(Request $request, $id)
     {
 
-        $department = Department::find($id);
 
+        $department = Department::find($id);
+        $departmentName = $request->departmentName;
         if ($department) {
             $pageNUm = 1;
             if ($request->page) {
@@ -76,7 +77,7 @@ class HomeController extends Controller
 
             $doctors = $department->doctors()->paginate(20, ['*'], 'page', $pageNUm);
             if ($doctors->count() > 0 && $request->ajax()) {
-                return view('frontend.pages.doctor-result', compact('doctors'));
+                return view('frontend.pages.doctor-result', compact('doctors',"departmentName"));
             } else {
                 return view('frontend.pages.no-data-found');
             }

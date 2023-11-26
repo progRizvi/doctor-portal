@@ -1,5 +1,16 @@
 <?php
 
+use App\Models\Localization;
+
+$translates = Localization::pluck('word',"english")->toArray();
+$reversedTranslates = array_flip($translates);
+
+
+
+if(count($reversedTranslates)){
+    return $reversedTranslates;
+}
+
 return [
     "doctors" => "Doctors",
     "hospitals" => "Hospitals",

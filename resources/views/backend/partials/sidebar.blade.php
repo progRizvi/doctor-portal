@@ -60,7 +60,7 @@
                         <li><a href="{{ route('hospitals.create') }}" class="block py-2 ml-3">Add Hospital</a></li>
                     </ul>
                 </div>
-                
+
                 <div
                     class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                     <span class="pl-4">
@@ -73,7 +73,13 @@
                         <li><a href="{{ route('posts.create') }}" class="block py-2 ml-3">Add Post</a></li>
                     </ul>
                 </div>
-                 
+                <div
+                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                    <span class="pl-4">
+                        <a href="{{ route('languages.index') }}" class="block py-2 ml-3">Language</a>
+                    </span>
+                </div>
+
                 <div class="relative">
                     <li
                         class=" mt-1 group flex items-center justify-between px-2 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-800 hover:bg-gray-100 focus:outline-none  transition ease-in-out duration-150">
@@ -116,7 +122,6 @@
                                 User
                             </a>
                         @endif
-
 
 
                         @if (hasAnyPermissions('settings'))

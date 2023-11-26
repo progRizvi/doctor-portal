@@ -1,4 +1,15 @@
 <?php
+
+use App\Models\Localization;
+
+$translates = Localization::pluck('word',"bangla")->toArray();
+$reversedTranslates = array_flip($translates);
+
+
+if(count($reversedTranslates)){
+    return $reversedTranslates;
+}
+
 return [
     "doctors" => "ডাক্তার",
     "hospitals" => "হাসপাতাল",

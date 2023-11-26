@@ -13,6 +13,7 @@ use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -100,6 +101,7 @@ Route::group(["prefix" => "admin", 'middleware' => ['auth']], function () {
     Route::get("/get-districts", [LocationController::class, "getDistricts"])->name("get.district");
 
     Route::resource("departments", DepartmentController::class);
+    Route::resource("languages", LocalizationController::class);
     Route::resource("services", DepartmentController::class);
 
     Route::resource("doctors", DoctorController::class);

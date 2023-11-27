@@ -2,6 +2,27 @@
     .active>.page-link {
         color: #fff !important;
     }
+    a:hover{
+            color:#0E82FD;
+        }
+        a.active {
+            color: #0E82FD;
+        }
+        .doctor-image{
+            border-top-left-radius:20px;
+            border-bottom-left-radius:20px;
+            /* margin: auto; */
+        }
+        @media (max-width: 767px) {
+            .doctor-image{
+                width: 100px;
+                height: 100px;
+                object-fit: cover;                
+                border-top-left-radius:0px;
+                border-bottom-left-radius:0px;
+                margin: auto 0;
+            }
+        }
 </style>
 
 <div class="breadcrumb-bar-two">

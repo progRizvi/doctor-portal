@@ -15,6 +15,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\PostController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
+
+//  chace clear
+Route::get('/cache/clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    Artisan::call('optimize');
+    return to_route('admin.dashboard');
+});
 Route::group(['middleware' => 'localization'], function () {
 
     Route::get("/", [HomeController::class, "index"])->name("home");
@@ -34,8 +45,12 @@ Route::group(['middleware' => 'localization'], function () {
     Route::get("/service/doctors", [HomeController::class, "serviceDoctors"])
         ->name("service.doctors");
 
+    Route::get("service/{department}/doctors",[HomeController::class, "doctorsByDepartment"])->name('doctors.by.department');
+    Route::get('service/{type}/all',[HomeController::class, "hospitalsByType"])->name('hospitals.by.type');
     Route::get("/service/location/{id}/doctors", [HomeController::class, "serviceLocationDoctors"])
         ->name("service.location.doctors");
+    Route::get("/service/location/{id}/hospitals", [HomeController::class, "serviceLocationHospital"])
+        ->name("service.location.hospitals");
 
     Route::get("/service/doctors/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");
     Route::get("service/get-doctors/by-department/{id}", [HomeController::class, "getDoctorsByDepartment"])->name("get.doctors.by.department");

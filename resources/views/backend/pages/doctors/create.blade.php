@@ -262,10 +262,10 @@
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <div class="flex text-sm text-gray-600">
-                            <label for="file-upload"
+                            <label for="background-upload"
                                 class="relative cursor-pointer bg-gray-100 rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                 <span class="">Upload an Image</span>
-                                <input id="file-upload" name="background_image" type="file" class="sr-only">
+                                <input id="background-upload" name="background_image" type="file" class="sr-only">
                             </label>
                         </div>
                         <p class="text-xs">

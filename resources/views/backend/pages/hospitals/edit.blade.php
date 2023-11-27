@@ -75,51 +75,6 @@
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="department_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department
-                    <span class="text-red-700">*</span></label>
-                <select name="department_id[]" id="department_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    multiple>
-                    <option value="">Select</option>
-                    @foreach ($departments as $department)
-                        <option @if (in_array($department->id, $hospital->departments->pluck('id')->toArray())) selected @endif value="{{ $department->id }}">
-                            {{ $department->name }}</option>
-                    @endforeach
-                </select>
-                @error('department_id')
-                    <small class="text-red-700">
-                        {{ $message }}
-                    </small>
-                @enderror
-            </div>
-
-            <div class="mb-6">
-                <label for="schedules">Schedules<span class="text-red-700">*</span> </label>
-                @php
-                    $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'all_day'];
-                @endphp
-
-                <div class="flex flex-wrap">
-                    @foreach ($days as $day)
-                        <div class="w-1/2 days">
-                            <label class="inline-flex items-center mt-3">
-                                <input type="checkbox" name="schedules[]" class="form-checkbox h-5 w-5 text-gray-600"
-                                    @if ($hospital->schedules && array_key_exists($day, $hospital->schedules)) checked @endif value="{{ $day }}">
-                                <span class="ml-2 text-gray-700">{{ ucfirst($day) }}</span>
-                            </label>
-                            <span
-                                class="{{ isset($hospital->schedules) && array_key_exists($day, $hospital->schedules) ? '' : 'hidden' }}">
-                                <input type="time" name="{{ $day }}_start_time"
-                                    value="{{ isset($hospital->schedules) && array_key_exists($day, $hospital->schedules) ? $hospital->schedules[$day]['start_time'] : '' }}">
-                                <input type="time" name="{{ $day }}_end_time" class="form-controll"
-                                    value="{{ isset($hospital->schedules) && array_key_exists($day, $hospital->schedules) ? $hospital->schedules[$day]['end_time'] : '' }}"
-                                    @if ($hospital->schedules && !array_key_exists($day, $hospital->schedules)) disabled @endif>
-                            </span>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            <div class="mb-6">
                 <label for="division_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Division
                     <span class="text-red-700">*</span></label>
                 <select name="division_id" id="division_id"
@@ -159,6 +114,7 @@
                     <option value="">Type</option>
                     <option value="hospital" @if ($hospital->type == 'hospital') selected @endif>Hospital</option>
                     <option value="clinic" @if ($hospital->type == 'clinic') selected @endif>Clinic</option>
+                    <option value="diagnostic" @if ($hospital->type == 'diagnostic') selected @endif>Diagnostic</option>
                 </select>
                 @error('type')
                     <small class="text-red-700">
@@ -206,10 +162,10 @@
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <div class="flex text-sm text-gray-600">
-                            <label for="file-upload"
+                            <label for="image-upload"
                                 class="relative cursor-pointer bg-gray-100 rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                 <span class="">Upload an Image</span>
-                                <input id="file-upload" name="image" type="file" class="sr-only">
+                                <input id="image-upload" name="image" type="file" class="sr-only">
                             </label>
                         </div>
                         <p class="text-xs">
@@ -306,21 +262,6 @@
                     $('#area_id').append('<option value="" selected>Select</option>');
                 }
             });
-            $(document).ready(function() {
-                $('#department_id').select2();
-            });
-            $(".days").click(function() {
-                const day = $(this).find('input[type="checkbox"]');
-
-                if ($(this).find('input[type="checkbox"]').is(":checked")) {
-                    $(this).find('input[type="time"]').removeAttr('disabled');
-                    $(this).find('span:not(.ml-2)').removeClass('hidden');
-
-                } else {
-                    $(this).find('input[type="time"]').attr('disabled', 'disabled');
-                    $(this).find("span:not(.ml-2)").addClass('hidden');
-                }
-            })
         });
     </script>
 @endpush

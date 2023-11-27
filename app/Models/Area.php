@@ -18,4 +18,7 @@ class Area extends Model
     public function doctors(){
         return $this->hasMany(Doctor::class, "area_id", "id");
     }
+    public function hospitals(){
+        return $this->hasMany(Hospital::class, "area_id", "id");
+    }
 }

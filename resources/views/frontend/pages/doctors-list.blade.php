@@ -2,6 +2,27 @@
 @section('title', 'Doctors')
 @section('content')
 
+    <style>
+        a.active {
+            color: #0E82FD;
+        }
+        .doctor-image{
+            border-top-left-radius:20px;
+            border-bottom-left-radius:20px;
+            /* margin: auto; */
+        }
+        @media (max-width: 767px) {
+            .doctor-image{
+                width: 100px;
+                height: 100px;              
+                border-top-left-radius:0px;
+                border-bottom-left-radius:0px;
+                margin: auto 0;
+            }
+        }
+    </style>
+
+
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row align-items-center inner-banner">
@@ -21,18 +42,18 @@
                     <!-- Search Filter -->
                     <div class="card search-filter">
                         <div class="card-header">
-                            <h4 class="card-title mb-0 bg-info px-4 py-3">{{ __('website.filter') }}</h4>
+                            <h4 class="card-title mb-0 bg-info text-white px-4 py-3">{{ __('website.filter') }}</h4>
                         </div>
                         <div class="card-body">
-
                             <div class="filter-widget">
                                 <h4>{{ __('website.departments') }}</h4>
-                                @foreach ($departments as $department)
-                                    <div class="py-2 cursor-pointer department" style="cursor:pointer"
-                                        data-id="{{ $department->id }}">
-                                        <span class="checkmark"></span> {{ $department->name }} <span
-                                            class="badge bg-success">{{ $department->doctors->count() }}</span>
+                                @foreach ($departments as $data)
+                                    <div class="py-2 cursor-pointer department" style="cursor:pointer">
+                                        <a class="{{ (isset($department) && $department->slug == $data->slug) ? 'active' : '' }}" href="{{ route('doctors.by.department',$data->slug) }}">
+                                            <span class="checkmark"></span> {{ $data->name }} <span
+                                            class="badge bg-info">{{ $data->doctors->count() }}</span>
                                         </span>
+                                        </a>
                                     </div>
                                 @endforeach
                             </div>
@@ -46,7 +67,7 @@
                             <div class="row">
                                 <div class="col-sx-12 ">
                                     <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
-                                        <p>All Specialized Doctors</p>
+                                        <p>{{ isset($department) ? $department->name : 'All' }} Specialized Doctors</p>
                                         <p>
                                             <hr>
                                         </p>
@@ -62,14 +83,14 @@
                                                         <div class="accordion-collapse shade collapse show bg-white"
                                                             style="box-shadow:-8px 13px 80px rgba(27, 41, 80, 0.1); border-radius:20px">
                                                             <div class="d-flex">
-                                                                <img style="border-top-left-radius:20px;border-bottom-left-radius:20px;"
-                                                                    class="img-fluid w-25"
+                                                                <img
+                                                                    class="img-fluid w-25 doctor-image"
                                                                     @if ($doctor->image) src="{{ asset('public/uploads/doctors/' . $doctor->image) }}"
                                                             @else
                                                             src="{{ asset('images/' . $doctor->gender . '_avatar.jpg') }}" @endif
                                                                     alt="{{ $doctor->name }}">
                                                                 <div class="px-3 pt-2">
-                                                                    <h4 style="color:#09DCA4">{{ $doctor->name }}</h4>
+                                                                    <h4 class="text-info">{{ $doctor->name }}</h4>
                                                                     <p>
                                                                         @foreach ($doctor->departments as $department)
                                                                             @if ($loop->last)
@@ -94,6 +115,14 @@
                                         </a>
                                     </div>
                                 @endforeach
+
+                                @if($doctors->count() == 0)
+                                <div class="col-12">
+                                    <div class="mx-2 mt-2">
+                                        @include('frontend.pages.no-data-found')
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -110,7 +139,7 @@
 @endsection
 
 @push('script')
-    <script>
+    {{-- <script>
         $(document).ready(function() {
             $(".department").click(function() {
                 var department = $(this).data("id");
@@ -130,7 +159,7 @@
 
             });
         });
-    </script>
+    </script> --}}
     <script type="text/javascript">
         $(document).ready(function() {
             $(document).on('click', '.pagination a', function(event) {

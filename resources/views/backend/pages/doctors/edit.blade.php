@@ -11,18 +11,18 @@
                 <input type="text" id="name" name="name"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ $doctor->name }}" required>
-                    @error('name')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                @error('name')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ $doctor->slug }}">
-                    @error('slug')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                @error('slug')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <div class="flex space-x-4">
@@ -32,9 +32,9 @@
                         <input type="text" id="email" name="email"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                             value="{{ $doctor->email }}">
-                            @error('email')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                        @error('email')
+                            <span class="text-red-700">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="w-1/2">
                         <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
@@ -42,9 +42,9 @@
                         <input type="text" id="phone" name="phone"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                             value="{{ $doctor->phone }}" required>
-                            @error('phone')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                        @error('phone')
+                            <span class="text-red-700">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -59,17 +59,17 @@
                     <option value="other" @if ($doctor->gender == 'other') selected @endif>Other</option>
                 </select>
                 @error('gender')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital</label>
                 <input type="text" id="hospital" name="hospital"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ $doctor->hospital }}">
-                    @error('hospital')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                @error('hospital')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address <span
@@ -77,9 +77,9 @@
                 <input type="text" id="address" name="address"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ $doctor->address }}" required>
-                    @error('address')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                @error('address')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="department_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Department
@@ -94,8 +94,8 @@
                     @endforeach
                 </select>
                 @error('department_id[]')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="treatments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Treatments
@@ -137,8 +137,8 @@
                     @endforeach
                 </div>
                 @error('schedules')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="division_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Division
@@ -152,8 +152,8 @@
                     @endforeach
                 </select>
                 @error('division_id')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6 district">
                 <label for="district_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">District
@@ -165,8 +165,8 @@
                     </option>
                 </select>
                 @error('district_id')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6 area">
                 <label for="area_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Area <span
@@ -177,8 +177,8 @@
                     <option value="{{ $doctor->area->id }}" selected>{{ $doctor->area->name }}</option>
                 </select>
                 @error('area_id')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label for="fees" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fees</label>
@@ -189,9 +189,9 @@
                         <input type="number" id="new_patient_fee" name="new_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                             value="{{ $doctor->new_patient_fee }}">
-                            @error('new_patient_fee')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                        @error('new_patient_fee')
+                            <span class="text-red-700">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="w-1/2">
                         <label for="old_patient_fee" class="block mb-2 text-sm text-gray-900 dark:text-white">Old
@@ -199,9 +199,9 @@
                         <input type="number" id="old_patient_fee" name="old_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                             value="{{ $doctor->old_patient_fee }}">
-                            @error('old_patient_fee')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                        @error('old_patient_fee')
+                            <span class="text-red-700">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
             </div>
@@ -215,17 +215,17 @@
                     <option @if ($doctor->status == 'inactive') selected @endif value="inactive">Inactive</option>
                 </select>
                 @error('status')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="bio">Bio <span class="text-red-700">*</span></label>
                 <textarea id="bio" type="textarea" name="bio"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     required>{{ $doctor->bio }}</textarea>
-                    @error('bio')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                @error('bio')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="description">Description <span
@@ -233,9 +233,9 @@
                 <textarea id="description" type="textarea" name="description"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     required>{{ $doctor->description }}</textarea>
-                    @error('description')
-                        <span class="text-red-700">{{ $message }}</span>
-                    @enderror
+                @error('description')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             <div class="mb-6">
                 <label class="block text-sm font-medium">
@@ -276,10 +276,10 @@
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <div class="flex text-sm text-gray-600">
-                            <label for="file-upload"
+                            <label for="background-upload"
                                 class="relative cursor-pointer bg-gray-100 rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
                                 <span class="">Upload an Image</span>
-                                <input id="file-upload" name="background_image" type="file" class="sr-only">
+                                <input id="background-upload" name="background_image" type="file" class="sr-only">
                             </label>
                         </div>
                         <p class="text-xs">

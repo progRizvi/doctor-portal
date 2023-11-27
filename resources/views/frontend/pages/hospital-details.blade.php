@@ -1,7 +1,18 @@
 @extends('frontend.layout')
 @section('title', $hospital->name)
 
+@push("style")
+    <style>
+        .bg_image{
+            background-image:url("{{ url('uploads/hospitals', $hospital->background_image) }}"), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-repeat:no-repeat;
+        }
+    </style>
+@endpush
 @section('content')
+{{-- @dd($hospital) --}}
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row inner-banner">
@@ -10,22 +21,24 @@
                         <div class="md-container">
                             <div class="bg-white" style="box-shadow:0px 0px 10px 1px rgba(0, 0, 0, 0.1)">
                                 <div class="col-md-12">
-                                    <div class="tab-content profile-tab-cont">
+                                    <div class="tab-content profile-tab-cont bg_image">
                                         <div class="profile-header">
                                             <div class="">
                                                 <div class="col-auto profile-image">
-                                                    <a href="#">
-                                                        <img class="img-fluid w-25" style="clip-path:circle()"
+                                                    <div class="w-25 mx-auto mt-2">
+                                                        <a href="#" style="display:inline-block; border: 10px solid white; border-radius:50%">
+                                                        <img class="img-fluid mt-4 px-4" style="clip-path:circle()"
                                                             alt="{{ $hospital->name }}"
                                                             @if ($hospital->image) src="{{ asset('public/uploads/hospitals/' . $hospital->image) }}"
                                                             @else
                                                             src="{{ asset('images/hospital.svg') }}" @endif>
                                                     </a>
+                                                    </div>
                                                 </div>
                                                 <div class="ml-md-n2 profile-user-info">
-                                                    <h4 class="user-name mb-0">{{ $hospital->name }}</h4>
+                                                    <h4 class="user-name mb-0 text-white">{{ $hospital->name }}</h4>
                                                     <div class="user-Location"></div>
-                                                    <div class="about-text">
+                                                    <div class="about-text text-white">
                                                         {{ $hospital->description }}
                                                     </div>
                                                     <p class="px-4">
@@ -55,34 +68,15 @@
                                     <div class="card" style="box-shadow:0px 0px 10px 1px rgba(0, 0, 0, 0.1)">
                                         <div class="card-body">
                                             <h5
-                                                class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
+                                                class="card-title d-flex justify-content-center bg-info text-white py-3 fw-bold">
                                                 <span>{{ __('website.about_us') }}</span>
                                             </h5>
                                             <div class="row">
 
-                                                <p class="co-12 col-md-6 text-muted">
+                                                <p class="co-12 text-muted">
                                                     {{ $hospital->description }}
                                                 </p>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card" style="box-shadow:0px 0px 10px 1px rgba(0, 0, 0, 0.1)">
-                                        <div class="card-body">
-                                            <h5
-                                                class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
-                                                <span><i class="fa fa-medkit"></i> {{ __('website.our_services') }}</span>
-                                            </h5>
-                                            <div class="row">
-                                                @foreach ($hospital->departments as $department)
-                                                    <div class="col-12 col-md-6">
-                                                        <p
-                                                            class="d-flex justify-content-center align-items-center bg-info text-secodary py-2 fw-bold gap-1">
-                                                            <i class="fa fa-medkit "></i>
-                                                            {{ $department->name }}
-                                                        </p>
-                                                    </div>
-                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -100,7 +94,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5
-                                                class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
+                                                class="card-title d-flex justify-content-center bg-info text-white py-3 fw-bold">
                                                 <span>{{ __('website.address') }}</span>
                                             </h5>
                                         </div>
@@ -113,33 +107,23 @@
                                             </div>
                                             <div class="pt-3">
                                                 <b>{{ __('website.schedule') }}: </b>
-                                                @php
-                                                    $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'all_days'];
-                                                @endphp
-                                                @foreach ($hospital->schedules as $key => $schedule)
-                                                    <div class="row">
+                                                <div class="row">
                                                         <div class="col-5">
                                                             <i class="far fa-calendar-check"></i>
-                                                            @if ($key == 'all_day')
+                                                            @if ($hospital->schedules == 'all_day')
                                                                 All Days
-                                                            @else
-                                                                {{ ucfirst($key) }}
                                                             @endif
 
                                                         </div>
                                                         <div class="col-7">
-                                                            {{ \Carbon\Carbon::parse($schedule['start_time'])->format('g:i A') }}
-                                                            -
-                                                            {{ \Carbon\Carbon::parse($schedule['end_time'])->format('g:i A') }}
                                                         </div>
                                                     </div>
-                                                @endforeach
                                             </div>
                                             <div class="pt-3">
                                                 <b>{{ __('website.contact') }}: </b>
                                                 <p class="text-center fs-4">
-                                                    <i class="fa fa-mobile text-danger"></i>
-                                                    {{ $hospital->phone }}
+                                                    <a href="tel:{{ $hospital->phone }}"><i class="fa fa-mobile text-danger"></i>
+                                                    {{ $hospital->phone }}</a>
                                                 </p>
                                             </div>
                                         </div>

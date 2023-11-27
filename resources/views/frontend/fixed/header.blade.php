@@ -42,13 +42,12 @@
                     <li class="has-submenu @if (request()->route()->getName() == 'blogs') active @endif">
                         <a href="{{ route('blogs') }}">{{ __('website.blog') }}</a>
                     </li>
-                    <li class="has-submenu d-flex justify-content-center align-items-center">
-                        <select name="language" id="" onchange="location = this.value;" class="form-control">
-                            <option @if (session()->get('loc') == 'en') selected @endif
-                                value="{{ route('switch.lang', 'en') }}">{{ __('website.en') }}</option>
-                            <option @if (session()->get('loc') == 'bn') selected @endif
-                                value="{{ route('switch.lang', 'bn') }}">{{ __('website.bn') }}</option>
-                        </select>
+                    <li class="has-submenu">
+                        @if (session()->get('loc') == 'en')
+                        <a href="{{ route('switch.lang', 'bn') }}">{{ __('website.bn') }}</a>
+                        @else
+                        <a href="{{ route('switch.lang', 'en') }}">{{ __('website.en') }}</a>
+                        @endif
                     </li>
                 </ul>
             </div>

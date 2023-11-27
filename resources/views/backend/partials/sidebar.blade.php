@@ -11,6 +11,7 @@
             </a>
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <nav class="mt-5 flex-1 px-2 bg-white">
+                             
                 <a href="{{ route('admin.dashboard') }}"
                     class=" group flex items-center px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none  transition ease-in-out duration-150">
                     <svg class="mr-3 h-6 w-6 text-gray-600 group-hover:text-gray-800 group-focus:text-gray-100 transition ease-in-out duration-150"
@@ -20,14 +21,19 @@
                     </svg>
                     Dashboard
                 </a>
+                
                 <div
                     class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                     <span class="pl-4">
                         Location
                     </span>
                     <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        @if(hasAnyPermissions('areas.index'))
                         <li><a href="{{ route('areas.index') }}" class="block py-2 ml-3">Area</a></li>
+                        @endif
+                        @if(hasAnyPermissions('areas.create'))
                         <li><a href="{{ route('areas.create') }}" class="block py-2 ml-3">Create Area</a></li>
+                        @endif
                     </ul>
                 </div>
                 <div
@@ -36,8 +42,12 @@
                         Departments
                     </span>
                     <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        @if (hasAnyPermissions('departments.index'))
                         <li><a href="{{ route('departments.index') }}" class="block py-2 ml-3">Departments</a></li>
+                        @endif
+                        @if (hasAnyPermissions('departments.create'))
                         <li><a href="{{ route('departments.create') }}" class="block py-2 ml-3">Create Department</a></li>
+                        @endif
                     </ul>
                 </div>
                 <div
@@ -46,8 +56,12 @@
                         Doctors
                     </span>
                     <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        @if (hasAnyPermissions('doctors.index'))
                         <li><a href="{{ route('doctors.index') }}" class="block py-2 ml-3">Doctors List</a></li>
+                        @endif
+                        @if (hasAnyPermissions('doctors.create'))
                         <li><a href="{{ route('doctors.create') }}" class="block py-2 ml-3">Add Doctor</a></li>
+                        @endif
                     </ul>
                 </div>
                 <div
@@ -56,8 +70,12 @@
                         Hospital
                     </span>
                     <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        @if (hasAnyPermissions('hospitals.index'))
                         <li><a href="{{ route('hospitals.index') }}" class="block py-2 ml-3">Hospitals List</a></li>
+                        @endif
+                        @if (hasAnyPermissions('hospitals.create'))
                         <li><a href="{{ route('hospitals.create') }}" class="block py-2 ml-3">Add Hospital</a></li>
+                        @endif
                     </ul>
                 </div>
 
@@ -67,10 +85,18 @@
                         Blog
                     </span>
                     <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        @if (hasAnyPermissions('categories.index'))
                         <li><a href="{{ route('categories.index') }}" class="block py-2 ml-3">Category List</a></li>
+                        @endif
+                        @if (hasAnyPermissions('categories.create'))
                         <li><a href="{{ route('categories.create') }}" class="block py-2 ml-3">Add Category</a></li>
+                        @endif
+                        @if (hasAnyPermissions('posts.index'))
                         <li><a href="{{ route('posts.index') }}" class="block py-2 ml-3">Posts</a></li>
+                        @endif
+                        @if (hasAnyPermissions('posts.create'))
                         <li><a href="{{ route('posts.create') }}" class="block py-2 ml-3">Add Post</a></li>
+                        @endif
                     </ul>
                 </div>
                 <div

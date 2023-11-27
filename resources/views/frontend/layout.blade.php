@@ -45,6 +45,14 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/custom.css') }}">
+    <style>
+        a:hover{
+            color:#0E82FD;
+        }
+        a.active {
+            color: #0E82FD;
+        }
+    </style>
     @stack('style')
 </head>
 
@@ -83,17 +91,21 @@
                             <ul class="list-unstyled ps-0">
                                 @foreach ($locations as $div)
                                     @php
+                                        $currRoute = request()->route()->getName();
                                         $districts = $div->districts;
                                         $districtsId = $districts->pluck('id');
                                         $areasId = Area::whereIn('district_id', $districtsId)->pluck('id');
                                         $doctors = App\Models\Doctor::whereIn('area_id', $areasId)->get();
+                                        $hospitals = App\Models\Hospital::whereIn('area_id', $areasId)->get();
+                                        $url = $currRoute == 'service.hospitals' ? 'service.location.hospitals' : 'service.location.doctors';
+                                        $count = $currRoute == 'service.hospitals' ? $hospitals->count() : $doctors->count();
                                     @endphp
                                     <li class="mb-1">
                                         <button class="btn btn-toggle align-items-center rounded collapsed"
                                             data-bs-toggle="collapse" data-bs-target="#{{ $div->name }}"
                                             aria-expanded="false">
                                             {{ $div->name }} <span
-                                                class="badge bg-info rounded-pill">{{ $doctors->count() }}</span>
+                                                class="badge bg-info rounded-pill">{{ $count }}</span>
                                         </button>
                                         <div class="collapse" id="{{ $div->name }}">
                                             <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
@@ -112,10 +124,10 @@
                                                                         style="background: #F2F6F6;">
                                                                         @foreach ($dis->areas as $area)
                                                                             <li class="px-3 py-2">
-                                                                                <a href="{{ route('service.location.doctors',$area->id) }}"
+                                                                                <a href="{{ route($url,$area->id) }}"
                                                                                     class="link-dark rounded text-black">{{ $area->name }}
                                                                                     <span
-                                                                                        class="badge bg-info">{{ $area->doctors->count() }}</span></a>
+                                                                                        class="badge bg-info">{{ $currRoute == 'service.hospitals'? $area->hospitals->count() : $area->doctors->count() }}</span></a>
                                                                             </li>
                                                                         @endforeach
                                                                     </ul>

@@ -18,7 +18,7 @@ class HospitalController extends Controller
      */
     public function index()
     {
-        $hospitals = Hospital::with("departments", "area")->orderBy("id", "desc")->paginate(10);
+        $hospitals = Hospital::with( "area")->orderBy("id", "desc")->paginate(10);
         return view("backend.pages.hospitals.index", compact("hospitals"));
 
     }
@@ -43,17 +43,6 @@ class HospitalController extends Controller
      */
     public function store(Request $request)
     {
-        $days = $request->schedules;
-        $schedules = [];
-        if (!empty($days)) {
-            foreach ($days as $day) {
-                $schedules[$day] = [
-                    "start_time" => $request["$day" . "_start_time"],
-                    "end_time" => $request["$day" . "_end_time"],
-                ];
-            }
-
-        }
 
         $this->hospitalValidation($request);
 
@@ -71,6 +60,7 @@ class HospitalController extends Controller
             $hospital->background_image = $fileName;
         }
 
+        dd($hospital);
         $slug = $request->input("slug");
         $generateSlug = strtolower(str_replace(" ", "-", $request->name)) . '-' . uniqid();
         $hospital->name = $request->name;
@@ -79,13 +69,12 @@ class HospitalController extends Controller
         $hospital->phone = $request->phone;
         $hospital->area_id = $request->area_id;
         $hospital->website = $request->website;
-        $hospital->schedules = $schedules;
+        $hospital->schedules = "all_day";
         $hospital->description = $request->description;
         $hospital->status = $request->status;
         $hospital->type = $request->type;
         $hospital->address = $request->address;
-        $hospital->save();
-        $hospital->departments()->sync($request->department_id);
+        // $hospital->save();
         if ($hospital) {
             toastr()->success("Hospital created successfully");
             return redirect()->route("hospitals.index");
@@ -127,17 +116,6 @@ class HospitalController extends Controller
     public function update(Request $request, $id)
     {
         $hospital = Hospital::findOrFail($id);
-        $days = $request->schedules;
-        $schedules = [];
-        if (!empty($days)) {
-            foreach ($days as $day) {
-                $schedules[$day] = [
-                    "start_time" => $request["$day" . "_start_time"],
-                    "end_time" => $request["$day" . "_end_time"],
-                ];
-            }
-
-        }
 
         $this->hospitalValidation($request);
 
@@ -173,13 +151,11 @@ class HospitalController extends Controller
         $hospital->phone = $request->phone;
         $hospital->area_id = $request->area_id;
         $hospital->website = $request->website;
-        $hospital->schedules = $schedules;
         $hospital->description = $request->description;
         $hospital->status = $request->status;
         $hospital->type = $request->type;
         $hospital->address = $request->address;
-        $hospital->save();
-        $hospital->departments()->sync($request->department_id);
+        // $hospital->save();
         if ($hospital) {
             toastr()->success("Hospital updated successfully");
             return redirect()->route("hospitals.index");
@@ -217,13 +193,10 @@ class HospitalController extends Controller
             "background_image" => "nullable|image",
             "address" => "required",
             "website" => "nullable|url",
-            "type" => "required|in:hospital,clinic",
+            "type" => "required|in:hospital,clinic,diagnostic",
             "area_id" => "required|numeric",
-            "department_id" => "required|array",
-            "department_id.*" => "required|numeric|exists:departments,id",
             "description" => "required",
             "status" => "required",
-            "schedules" => "required|array",
         ]);
     }
 }

@@ -7,11 +7,9 @@ $reversedTranslates = array_flip($translates);
 
 
 
-if(count($reversedTranslates)){
-    return $reversedTranslates;
-}
 
-return [
+
+$list =  [
     "doctors" => "Doctors",
     "hospitals" => "Hospitals",
     "surgery_support" => "Surgery Support",
@@ -69,5 +67,13 @@ return [
     "huge_medical_nformation" => "Huge Medical Information: Need information on blood groups, hospitals, clinics, diagnostic centers, or ambulance services. Doctorinfobd.com is your comprehensive guide. Find contact details and phone numbers very easily.",
     "user_friendly_medical_content" => "User-Friendly Medical Content: We believe that medical information should be accessible to everyone. That's why we've designed Doctorinfobd.com to present complex medical content in a simple, user-friendly manner.",
     "vast_network" => "Vast Network: With Doctorinfobd.com, you can easily book appointments with experienced doctors in specialized categories. Your health needs are our priority.",
-    "health_related_consultation" => "Also, you can contact our call center for any health-related consultation and receive your required services very easily."
+    "health_related_consultation" => "Also, you can contact our call center for any health-related consultation and receive your required services very easily.",
+    "book_appointment" => "Book Appointment",
+    "call_for_appointment" => "Call For Appointment",
+    "diagnostic" => "Diagnostic",
 ];
+
+if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {
+    return $reversedTranslates;
+}
+return $list;

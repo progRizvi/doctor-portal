@@ -6,11 +6,7 @@ $translates = Localization::pluck('word',"bangla")->toArray();
 $reversedTranslates = array_flip($translates);
 
 
-if(count($reversedTranslates)){
-    return $reversedTranslates;
-}
-
-return [
+$list = [
     "doctors" => "ডাক্তার",
     "hospitals" => "হাসপাতাল",
     "surgery_support" => "সার্জারী সাপোর্ট",
@@ -69,4 +65,11 @@ return [
     "user_friendly_medical_content" => "ব্যবহারকারী বন্ধুত্বপূর্ণ চিকিৎসা বিষয়বস্তু: আমরা মনে করি যে সবার জন্য চিকিৎসা তথ্য অ্যাক্সেসযোগ্য হওয়া উচিত। এই কারণেই আমরা ডাক্তারদের সম্প্রসারিত কমপ্লেক্স চিকিৎসা বিষয়বস্তুকে একটি সহজ, ব্যবহারকারী বন্ধুত্বপূর্ণ পদ্ধতিতে প্রদর্শন করার জন্য Doctorinfobd.com ডিজাইন করেছি।",
     "vast_network" => "বিশাল নেটওয়ার্ক: Doctorinfobd.com দিয়ে আপনি বিশেষজ্ঞ বিভাগের অভিজ্ঞ ডাক্তারদের সাথে সহজেই অ্যাপয়েন্টমেন্ট করতে পারেন। আপনার স্বাস্থ্য প্রয়োজনগুলি আমাদের প্রাথমিকতা।",
     "health_related_consultation" => "এছাড়াও, আপনি যে কোনও স্বাস্থ্য-সম্পর্কিত পরামর্শের জন্য আমাদের কল সেন্টারে যোগাযোগ করতে পারেন এবং খুব সহজেই আপনার প্রয়োজনীয় পরিষেবাগুলি পেতে পারেন।",
+    "book_appointment" => "অ্যাপয়েন্টমেন্ট বুক করুন",
+    "call_for_appointment" => "অ্যাপয়েন্টমেন্টের জন্য কল করুন",
+    "diagnostic" => "ডায়াগনস্টিক",
 ];
+if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {
+    return $reversedTranslates;
+}
+return $list;

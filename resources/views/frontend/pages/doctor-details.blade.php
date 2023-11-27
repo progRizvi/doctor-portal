@@ -1,11 +1,22 @@
 @extends('frontend.layout')
 @section('title', $doctor->name)
 
+@push("style")
+    <style>
+        .bg_image{
+            background-image:url("{{ url('uploads/doctors', $doctor->background_image) }}"), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+            background-blend-mode: overlay;
+            background-size: cover;
+            background-repeat:no-repeat;
+        }
+    </style>
+@endpush
 @section('content')
     @php
         $treatments = explode(',', $doctor->treatments);
         $treatments = array_map('trim', $treatments);
     @endphp
+    
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row inner-banner">
@@ -14,22 +25,25 @@
                         <div class="md-container">
                             <div class="bg-white" style="box-shadow:0px 0px 10px 1px rgba(0, 0, 0, 0.1)">
                                 <div class="col-md-12">
-                                    <div class="tab-content profile-tab-cont">
+                                    <div class="tab-content profile-tab-cont bg_image">
                                         <div class="profile-header">
                                             <div class="">
                                                 <div class="col-auto profile-image">
-                                                    <a href="#">
-                                                        <img class="img-fluid w-25" alt="{{ $doctor->name }}"
-                                                            @if ($doctor->image) src="{{ asset('public/uploads/doctors/' . $doctor->image) }}"
+                                                    <div class="w-25 mx-auto mt-2">
+                                                        <a href="#"
+                                                            style="display:inline-block; border: 10px solid white; border-radius:50%">
+                                                            <img class="img-fluid mt-4 px-4" alt="{{ $doctor->name }}"
+                                                                @if ($doctor->image) src="{{ asset('public/uploads/doctors/' . $doctor->image) }}"
                                                             @else
                                                             src="{{ asset('images/' . $doctor->gender . '_avatar.jpg') }}" @endif
-                                                            style="clip-path:circle()">
-                                                    </a>
+                                                                style="clip-path:circle()">
+                                                        </a>
+                                                    </div>
                                                 </div>
                                                 <div class="ml-md-n2 profile-user-info">
-                                                    <h4 class="user-name mb-0">{{ $doctor->name }}</h4>
+                                                    <h4 class="user-name mb-0 text-white">{{ $doctor->name }}</h4>
                                                     <div class="user-Location"></div>
-                                                    <div class="about-text">
+                                                    <div class="about-text text-white">
                                                         {{ $doctor->bio }}
                                                     </div>
                                                     <p class="px-4">
@@ -37,7 +51,7 @@
                                                     </p>
 
                                                 </div>
-                                                <div class="col-auto profile-btn pb-3">
+                                                <div class="col-auto profile-btn pb-3 text-white">
                                                     @foreach ($doctor->departments as $department)
                                                         <span class="me-4"><i class="fa fa-medkit"></i>
                                                             {{ $department->name }}</span>
@@ -65,7 +79,7 @@
                                     <div class="card" style="box-shadow:0px 0px 10px 1px rgba(0, 0, 0, 0.1)">
                                         <div class="card-body">
                                             <h5
-                                                class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
+                                                class="card-title d-flex justify-content-center bg-info text-white py-3 fw-bold">
                                                 <span>{{ __('website.treated_conditions_include') }}</span>
                                             </h5>
                                             <div class="row">
@@ -81,19 +95,19 @@
                                     <div class="card" style="box-shadow:0px 0px 10px 1px rgba(0, 0, 0, 0.1)">
                                         <div class="card-body">
                                             <h5
-                                                class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
+                                                class="card-title d-flex justify-content-center bg-info text-white py-3 fw-bold">
                                                 <span>{{ __('website.doctor_fee') }}</span>
                                             </h5>
 
                                             <div class="row">
                                                 <div class="col-12 col-md-6">
-                                                    <p>{{ __('website.new_patient') }} <span class="badge bg-success"
+                                                    <p>{{ __('website.new_patient') }} <span class="badge bg-info"
                                                             style="font-size:14px">৳
                                                             {{ $doctor->new_patient_fee }}</span>
                                                     </p>
                                                 </div>
                                                 <div class="col-12 col-md-6">
-                                                    <p>{{ __('website.old_patient') }} <span class="badge bg-success"
+                                                    <p>{{ __('website.old_patient') }} <span class="badge bg-info"
                                                             style="font-size:14px">৳
                                                             {{ $doctor->old_patient_fee }}</span>
                                                     </p>
@@ -115,7 +129,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h5
-                                                class="card-title d-flex justify-content-center bg-success text-secodary py-3 fw-bold">
+                                                class="card-title d-flex justify-content-center bg-info text-white py-3 fw-bold">
                                                 <span>{{ __('website.chamber_address_schedule') }}</span>
                                             </h5>
                                         </div>
@@ -144,6 +158,32 @@
                                                     </div>
                                                 @endforeach
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content profile-tab-cont">
+                        <div class="tab-pane fade show active" id="per_details_tab">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5
+                                                class="card-title d-flex justify-content-center bg-info text-white py-3 fw-bold">
+                                                <span>{{ __('website.book_appointment') }}</span>
+                                            </h5>
+                                        </div>
+                                        <div class="border mx-4 mb-2 p-3">
+                                            <div style="text-align:center">
+                                                <p>
+                                                    {{ __('website.call_for_appointment') }}
+                                                </p>
+                                                <a href="tel:{{ $doctor->phone }}"><i class="fa fa-mobile text-danger"></i>
+                                                    {{ $doctor->phone }}</a>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

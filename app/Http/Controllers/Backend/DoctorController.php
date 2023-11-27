@@ -237,7 +237,7 @@ class DoctorController extends Controller
             "status" => "required|in:active,inactive",
             "area_id" => "required|numeric",
             "treatments" => "required",
-            "department_id[]" => "required|array",
+            "department_id" => "required|array",
             "department_id.*" => "required|numeric|exists:departments,id",
             "new_patient_fee" => "nullable|numeric",
             "old_patient_fee" => "nullable|numeric",

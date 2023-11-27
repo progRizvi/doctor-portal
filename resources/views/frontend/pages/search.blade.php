@@ -1,5 +1,21 @@
+<style>
+    .search-line {
+        width: 59% !important;
+    }
+    @media (max-width: 767px) {
+        .search-line {
+            width: 100% !important;
+            margin:8px 0px;
+        }
+        .form-search-btn{
+            width:100% !important;
+        }
+    }
+</style>
+
+
 <form action="{{ isset($url) ? $url : route('service.doctors') }}" id="search">
-    <div class="search-input search-line" style="width:59%!important">
+    <div class="search-input search-line">
         <i class="feather-search bficon"></i>
         <div class=" mb-0">
             <input type="text" class="form-control"

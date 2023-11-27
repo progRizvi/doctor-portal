@@ -66,7 +66,6 @@ class HomeController extends Controller
     public function getDoctorsByDepartment(Request $request, $id)
     {
 
-
         $department = Department::find($id);
         $departmentName = $request->departmentName;
         if ($department) {
@@ -77,7 +76,7 @@ class HomeController extends Controller
 
             $doctors = $department->doctors()->paginate(20, ['*'], 'page', $pageNUm);
             if ($doctors->count() > 0 && $request->ajax()) {
-                return view('frontend.pages.doctor-result', compact('doctors',"departmentName"));
+                return view('frontend.pages.doctor-result', compact('doctors', "departmentName"));
             } else {
                 return view('frontend.pages.no-data-found');
             }
@@ -151,5 +150,32 @@ class HomeController extends Controller
     {
         session()->put('loc', $lang);
         return redirect()->back();
+    }
+    public function doctorsByDepartment($slug)
+    {
+        $department = Department::where("slug", $slug)->first();
+        $doctors = $department->doctors()->paginate(20);
+        $departments = Department::all();
+        return view('frontend.pages.doctors-list', compact("doctors", "departments", "department"));
+
+    }
+    public function hospitalsByType($type)
+    {
+        $hospitals = Hospital::where("type", $type)->paginate(20);
+        $locations = Division::with(['districts.areas'])->get();
+
+        $districts = District::get();
+
+        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'type'));
+    }
+    public function serviceLocationHospital($id)
+    {
+        $hospitals = Hospital::where("area_id", $id)->with("area")->paginate(20);
+        $locations = Division::with(['districts.areas'])->get();
+
+        $districts = District::get();
+
+        return view('frontend.pages.hospital-list', compact("hospitals", "districts"));
+
     }
 }

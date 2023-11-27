@@ -27,16 +27,28 @@
                                 @php
                                     $hosCat = App\Models\Hospital::where('type', 'hospital')->count();
                                     $clinicCat = App\Models\Hospital::where('type', 'clinic')->count();
+                                    $diagnosticCat = App\Models\Hospital::where('type', 'diagnostic')->count();
                                 @endphp
                                 <div class="py-2 cursor-pointer type" style="cursor:pointer" data-type="hospital">
-                                    <span class="checkmark"></span> {{ __('website.hospital') }} <span
-                                        class="badge bg-success">{{ $hosCat }}</span>
-                                    </span>
+                                    <a href="{{ route('hospitals.by.type', 'hospital') }}">
+                                        <span class="checkmark"></span> {{ __('website.hospital') }} <span
+                                            class="badge bg-info">{{ $hosCat }}</span>
+                                        </span>
+                                    </a>
                                 </div>
                                 <div class="py-2 cursor-pointer type" style="cursor:pointer" data-type="clinic">
-                                    <span class="checkmark"></span> {{ __('website.clinic') }} <span
-                                        class="badge bg-success">{{ $clinicCat }}</span>
-                                    </span>
+                                    <a href="{{ route('hospitals.by.type', 'clinic') }}">
+                                        <span class="checkmark"></span> {{ __('website.clinic') }} <span
+                                            class="badge bg-info">{{ $clinicCat }}</span>
+                                        </span>
+                                    </a>
+                                </div>
+                                <div class="py-2 cursor-pointer type" style="cursor:pointer" data-type="clinic">
+                                    <a href="{{ route('hospitals.by.type', 'diagnostic') }}">
+                                        <span class="checkmark"></span> {{ __('website.diagnostic') }} <span
+                                            class="badge bg-info">{{ $diagnosticCat }}</span>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +63,7 @@
                                         <div class="py-2 cursor-pointer district" style="cursor:pointer"
                                             data-id="{{ $dis->id }}">
                                             <span class="checkmark"></span> {{ $dis->name }} <span
-                                                class="badge bg-success">{{ $hospitalsCount->count() }}</span>
+                                                class="badge bg-info">{{ $hospitalsCount->count() }}</span>
                                             </span>
                                         </div>
                                     @endif
@@ -65,6 +77,15 @@
                     <div class="breadcrumb-bar-two">
                         <div class="container">
                             <div class="row">
+                                <div class="col-sx-12">
+                                    <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
+                                        <p>{{ isset($type) ? ucwords($type) : 'Hospitals, Clinics & Diagnostic Centers' }}
+                                        </p>
+                                        <p>
+                                            <hr>
+                                        </p>
+                                    </div>
+                                </div>
                                 @foreach ($hospitals as $hospital)
                                     <div class="col-xs-12">
                                         <a href="{{ route('service.hospital.details', $hospital->slug) }}">
@@ -82,7 +103,7 @@
                                                             src="{{ asset('images/hospital.svg') }}" @endif
                                                                     alt="{{ $hospital->name }}">
                                                                 <div class="px-3 pt-2">
-                                                                    <h4 style="color:#09DCA4">{{ $hospital->name }}</h4>
+                                                                    <h4 style="color:#0E82FD">{{ $hospital->name }}</h4>
                                                                     <p>
                                                                         Address: {{ $hospital->address }},
                                                                         {{ $hospital->area?->name }},
@@ -102,6 +123,13 @@
                                         </a>
                                     </div>
                                 @endforeach
+                                @if ($hospitals->count() == 0)
+                                    <div class="col-12">
+                                        <div class="mx-2 mt-2">
+                                            @include('frontend.pages.no-data-found')
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -133,7 +161,7 @@
                     data: {
                         type: type
                     },
-                    success: function(data) {
+                    info: function(data) {
                         $(".hospitals").html(data);
                     }
                 });
@@ -151,7 +179,7 @@
                 $.ajax({
                     url: myurl,
                     type: "GET",
-                    success: function(data) {
+                    info: function(data) {
                         $(".hospitals").html(data);
                     }
                 });

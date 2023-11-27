@@ -27,7 +27,7 @@ return new class extends Migration
             $table->json("schedules");
             $table->string("address")->nullable();
             $table->integer("area_id")->nullable();
-            $table->enum("type", ["hospital","clinic"])->default("hospital");
+            $table->enum("type", ["hospital","clinic","diagnostic"])->default("hospital");
             $table->enum("status", ["active", "inactive"])->default("active");
             $table->timestamps();
         });

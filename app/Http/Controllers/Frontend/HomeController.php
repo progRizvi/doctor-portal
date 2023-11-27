@@ -17,7 +17,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-
+        $loc = session('loc');
+        if(!$loc) session()->put('loc','en');
         return view('frontend.pages.home');
     }
     public function serviceDoctors()

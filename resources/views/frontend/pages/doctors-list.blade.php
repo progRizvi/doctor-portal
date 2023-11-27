@@ -107,6 +107,12 @@
                                                                         {{ $doctor->bio }}
                                                                     </p>
                                                                 </div>
+                                                                
+                                                            </div>
+                                                            <div class="d-flex justify-content-center pb-3">
+                                                                <div class="form-search-btn">
+                                                                    <a class="btn" href="tel:{{ $doctor->phone }}">{{ __('website.appointment_now') }}</a>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

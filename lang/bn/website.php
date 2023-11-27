@@ -68,6 +68,7 @@ $list = [
     "book_appointment" => "অ্যাপয়েন্টমেন্ট বুক করুন",
     "call_for_appointment" => "অ্যাপয়েন্টমেন্টের জন্য কল করুন",
     "diagnostic" => "ডায়াগনস্টিক",
+    "appointment_now" => "অ্যাপয়েন্টমেন্ট নিন",
 ];
 if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {
     return $reversedTranslates;

@@ -71,6 +71,7 @@ $list =  [
     "book_appointment" => "Book Appointment",
     "call_for_appointment" => "Call For Appointment",
     "diagnostic" => "Diagnostic",
+    "appointment_now" => "Appointment Now",
 ];
 
 if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {

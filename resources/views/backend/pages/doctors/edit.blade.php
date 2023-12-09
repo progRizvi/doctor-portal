@@ -10,7 +10,7 @@
                     Name <span class="text-red-700">*</span></label>
                 <input type="text" id="name" name="name"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ $doctor->name }}" required>
+                    value="{{ old('name',$doctor->name) }}" required>
                 @error('name')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
@@ -19,7 +19,7 @@
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ $doctor->slug }}">
+                    value="{{ old('slug',$doctor->slug) }}">
                 @error('slug')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
@@ -31,7 +31,7 @@
                             <span class="text-red-700">*</span></label>
                         <input type="text" id="email" name="email"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ $doctor->email }}">
+                            value="{{ old('email',$doctor->email) }}">
                         @error('email')
                             <span class="text-red-700">{{ $message }}</span>
                         @enderror
@@ -41,7 +41,7 @@
                             <span class="text-red-700">*</span></label>
                         <input type="text" id="phone" name="phone"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ $doctor->phone }}" required>
+                            value="{{old('phone',$doctor->phone) }}" required>
                         @error('phone')
                             <span class="text-red-700">{{ $message }}</span>
                         @enderror
@@ -66,7 +66,7 @@
                 <label for="hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital</label>
                 <input type="text" id="hospital" name="hospital"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ $doctor->hospital }}">
+                    value="{{old('hospital',$doctor->hospital)}}">
                 @error('hospital')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
@@ -76,7 +76,7 @@
                         class="text-red-700">*</span></label>
                 <input type="text" id="address" name="address"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ $doctor->address }}" required>
+                    value="{{old('address',$doctor->address) }}" required>
                 @error('address')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
@@ -102,7 +102,7 @@
                     <span class="text-red-700">*</span></label>
                 <textarea name="treatments" id="treatments" cols="30" rows="5"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    placeholder="ex. Pneumonia, Chest Pain">{{ $doctor->treatments }}</textarea>
+                    placeholder="ex. Pneumonia, Chest Pain" required>{{old('treatments',$doctor->treatments) }}</textarea>
                 <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
                 <div>
                     @error('treatments')
@@ -112,7 +112,7 @@
             </div>
             {{-- working hours by day wise --}}
             <div class="mb-6">
-                <label for="schedules">Schedules<span class="text-red-700">*</span> </label>
+                <label for="schedules">Schedules</label>
                 @php
                     $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
                 @endphp
@@ -188,7 +188,7 @@
                             Patient </label>
                         <input type="number" id="new_patient_fee" name="new_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ $doctor->new_patient_fee }}">
+                            value="{{old('new_patient_fee',$doctor->new_patient_fee) }}">
                         @error('new_patient_fee')
                             <span class="text-red-700">{{ $message }}</span>
                         @enderror
@@ -198,7 +198,7 @@
                             Patient </label>
                         <input type="number" id="old_patient_fee" name="old_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ $doctor->old_patient_fee }}">
+                            value="{{old('old_patient_fee',$doctor->old_patient_fee)  }}">
                         @error('old_patient_fee')
                             <span class="text-red-700">{{ $message }}</span>
                         @enderror
@@ -222,7 +222,7 @@
                 <label class="dark:text-gray-200" for="bio">Bio <span class="text-red-700">*</span></label>
                 <textarea id="bio" type="textarea" name="bio"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    required>{{ $doctor->bio }}</textarea>
+                    required>{{old('bio',$doctor->bio)}}</textarea>
                 @error('bio')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
@@ -232,7 +232,7 @@
                         class="text-red-700">*</span></label>
                 <textarea id="description" type="textarea" name="description"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    required>{{ $doctor->description }}</textarea>
+                    required>{{old('bio',$doctor->description)}}</textarea>
                 @error('description')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror

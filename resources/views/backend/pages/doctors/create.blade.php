@@ -52,7 +52,7 @@
                     <span class="text-red-700">*</span>
                 </label>
                 <select id="gender" name="gender"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="male" {{ old('gender') === 'male' ? 'selected' : '' }}>Male</option>
                     <option value="female" {{ old('gender') === 'female' ? 'selected' : '' }}>Female</option>
                     <option value="other" {{ old('gender') === 'other' ? 'selected' : '' }}>Other</option>
@@ -85,7 +85,7 @@
                     <span class="text-red-700">*</span></label>
                 <select name="department_id[]" id="department_id"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    multiple>
+                    multiple required>
                     <option value="">Select</option>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -100,14 +100,14 @@
                     <span class="text-red-700">*</span></label>
                 <textarea name="treatments" id="treatments" cols="30" rows="5"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    placeholder="ex. Pneumonia, Chest Pain">{{ old('treatments') }}</textarea>
+                    placeholder="ex. Pneumonia, Chest Pain" required>{{ old('treatments') }}</textarea>
                 <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
                 @error('treatments')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="schedules">Schedules<span class="text-red-700">*</span> </label>
+                <label for="schedules">Schedules</label>
                 @php
                     $days = ['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
                 @endphp
@@ -137,7 +137,7 @@
                 <label for="division_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Division
                     <span class="text-red-700">*</span></label>
                 <select name="division_id" id="division_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="">Select</option>
                     @foreach ($divisions as $division)
                         <option value="{{ $division->id }}">{{ $division->name }}</option>
@@ -151,7 +151,7 @@
                 <label for="district_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">District
                     <span class="text-red-700">*</span></label>
                 <select name="district_id" id="district_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="" selected>Select</option>
                 </select>
                 @error('district_id')
@@ -162,7 +162,7 @@
                 <label for="area_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Area <span
                         class="text-red-700">*</span></label>
                 <select name="area_id" id="area_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="" selected>Select</option>
                 </select>
                 @error('area_id')
@@ -198,7 +198,7 @@
                 <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
                     <span class="text-red-700">*</span></label>
                 <select name="status" id="status"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="">Select</option>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>

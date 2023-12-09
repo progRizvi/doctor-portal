@@ -10,7 +10,7 @@
                     Name <span class="text-red-700">*</span></label>
                 <input type="text" id="name" name="name"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ $hospital->name }}" required>
+                    value="{{ old('name',$hospital->name) }}" required>
                 @error('name')
                     <small class="text-red-700">
                         {{ $message }}
@@ -22,14 +22,14 @@
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ $hospital->slug }}">
+                    value="{{ old('slug',$hospital->slug) }}">
 
             </div>
             <div class="mb-6">
                 <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website</label>
                 <input type="text" id="website" name="website"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ $hospital->website }}">
+                    value="{{ old('website',$hospital->website) }}">
             </div>
             <div class="mb-6">
                 <div class="flex space-x-4">
@@ -38,7 +38,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
                         <input type="text" id="email" name="email"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ $hospital->email }}">
+                            value="{{ old('email',$hospital->email) }}">
                         @error('email')
                             <small class="text-red-700">
                                 {{ $message }}
@@ -50,7 +50,7 @@
                             <span class="text-red-700">*</span></label>
                         <input type="text" id="phone" name="phone"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ $hospital->phone }}" required>
+                            value="{{ old('phone',$hospital->phone) }}" required>
                         @error('phone')
                             @foreach ($errors->get('phone') as $message)
                                 <small class="text-red-700">
@@ -67,7 +67,7 @@
                         class="text-red-700">*</span></label>
                 <input type="text" id="address" name="address"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ $hospital->address }}" required>
+                    value="{{ old('address',$hospital->address) }}" required>
                 @error('address')
                     <small class="text-red-700">
                         {{ $message }}
@@ -78,7 +78,7 @@
                 <label for="division_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Division
                     <span class="text-red-700">*</span></label>
                 <select name="division_id" id="division_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="" selected>Select</option>
                     @foreach ($divisions as $division)
                         <option @if ($hospital->area->district->division_id == $division->id) selected @endif value="{{ $division->id }}">
@@ -90,7 +90,7 @@
                 <label for="district_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">District
                     <span class="text-red-700">*</span></label>
                 <select name="district_id" id="district_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="">Select</option>
                     <option value="{{ $hospital->area->district->id }}" selected>{{ $hospital->area->district->name }}
                     </option>
@@ -100,7 +100,7 @@
                 <label for="area_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Area <span
                         class="text-red-700">*</span></label>
                 <select name="area_id" id="area_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="">Select</option>
                     <option value="{{ $hospital->area->id }}" selected>{{ $hospital->area->name }}</option>
                 </select>
@@ -110,7 +110,7 @@
                 <label for="type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type
                     <span class="text-red-700">*</span></label>
                 <select name="type" id="type"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="">Type</option>
                     <option value="hospital" @if ($hospital->type == 'hospital') selected @endif>Hospital</option>
                     <option value="clinic" @if ($hospital->type == 'clinic') selected @endif>Clinic</option>
@@ -127,7 +127,7 @@
                         class="text-red-700">*</span>
                 </label>
                 <select name="status" id="status"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring">
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
                     <option value="">Select</option>
                     <option value="active" @if ($hospital->status == 'active') selected @endif>Active</option>
                     <option value="inactive" @if ($hospital->status == 'inactive') selected @endif>Inactive</option>
@@ -142,7 +142,7 @@
                 <label class="dark:text-gray-200" for="description">Description <span
                         class="text-red-700">*</span></label>
                 <textarea id="description" type="textarea" name="description"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{{ $hospital->description }}</textarea>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required>{{ $hospital->description }}</textarea>
                 @error('description')
                     <small class="text-red-700">
                         {{ $message }}

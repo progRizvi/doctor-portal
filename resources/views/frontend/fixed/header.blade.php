@@ -24,25 +24,25 @@
                     </a>
                 </div>
                 <ul class="main-nav">
-                    <li class="has-submenu megamenu @if (request()->route()->getName() == 'service.doctors') active @endif">
+                    <li class="megamenu @if (request()->route()->getName() == 'service.doctors') active @endif">
                         <a href="{{ route('service.doctors') }}">{{ __('website.doctors') }}</a>
                     </li>
-                    <li class="has-submenu">
+                    <li class="megamenu">
                         <a href="javascript:void(0);">{{ __('website.surgery_support') }}</a>
                     </li>
-                    <li class="has-submenu">
+                    <li class="megamenu">
                         <a href="{{ route('service.hospitals') }}">{{ __('website.hospital_diagnostic') }}</a>
                     </li>
-                    <li class="has-submenu">
+                    <li class="megamenu">
                         <a href="javascript:void(0);">{{ __('website.blood_donors_club') }}</a>
                     </li>
-                    <li class="has-submenu">
+                    <li class="megamenu">
                         <a href="javascript:void(0);">{{ __('website.home_medical_service') }}</a>
                     </li>
-                    <li class="has-submenu @if (request()->route()->getName() == 'blogs') active @endif">
+                    <li class=" @if (request()->route()->getName() == 'blogs') active @endif">
                         <a href="{{ route('blogs') }}">{{ __('website.blog') }}</a>
                     </li>
-                    <li class="has-submenu">
+                    <li class="megamenu">
                         @if (session()->get('loc') == 'en')
                         <a href="{{ route('switch.lang', 'bn') }}">{{ __('website.bn') }}</a>
                         @else
@@ -55,3 +55,11 @@
     </div>
 </header>
 <!-- /Header -->
+
+<style>
+    @media (max-width: 991.98px){
+        .header-one .main-menu-wrapper .main-nav > li > a {
+            font-size: 17px;
+        }
+    }
+</style>

@@ -8,7 +8,7 @@ use App\Models\Department;
 use App\Models\Doctor;
 use Devfaysal\BangladeshGeocode\Models\Division;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class DoctorController extends Controller
 {
@@ -19,7 +19,23 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::with("departments", "area")->orderBy("id", "desc")->paginate(10);
+        $query = Doctor::query();
+
+        $searchTerm = request()->search;
+
+        if ($searchTerm) {
+            $query->orWhere(function ($query) use ($searchTerm) {
+                $fields = ['name', 'bn_name', 'email', 'phone', 'address'];
+
+                foreach ($fields as $field) {
+                    $query->orWhere($field, 'LIKE', "%" . $searchTerm . "%");
+                }
+                // debug($query->toSql());
+            });
+        } else {
+            $query->orderBy("serial", "asc");
+        }
+        $doctors = $query->with("departments", "area")->paginate(10);
         return view("backend.pages.doctors.index", compact("doctors"));
     }
 
@@ -58,6 +74,9 @@ class DoctorController extends Controller
         $this->doctorValidation($request);
 
         $doctor = new Doctor();
+
+        $serial = ($request->serial != -1 && $request->serial != 0 && gettype($doctor->serial) != "NULL") ? $doctor->serial : Doctor::count() + 1;
+
         if ($request->hasFile("image")) {
             $image = $request->file("image");
             $fileName = time() . "." . $image->getClientOriginalExtension();
@@ -71,20 +90,27 @@ class DoctorController extends Controller
             $doctor->background_image = $fileName;
         }
         $doctor->name = $request->name;
-        $doctor->slug = strtolower(str_replace(" ", "-", $request->name));
+        $doctor->bn_name = $request->bn_name;
+        $doctor->slug = Str::slug($request->slug ? $request->slug : $request->name);
         $doctor->email = $request->email;
         $doctor->phone = $request->phone;
+        $doctor->serial = $serial;
         $doctor->area_id = $request->area_id;
         $doctor->gender = $request->gender;
         $doctor->treatments = preg_replace('/\s+/', ' ', $request->treatments);
+        $doctor->bn_treatments = preg_replace('/\s+/', ' ', $request->bn_treatments);
         $doctor->schedules = $schedules;
         $doctor->new_patient_fee = $request->new_patient_fee;
         $doctor->old_patient_fee = $request->old_patient_fee;
         $doctor->bio = $request->bio;
+        $doctor->bn_bio = $request->bn_bio;
         $doctor->description = $request->description;
+        $doctor->bn_description = $request->bn_description;
         $doctor->status = $request->status ? $request->status : "active";
         $doctor->hospital = $request->hospital;
+        $doctor->bn_hospital = $request->bn_hospital;
         $doctor->address = $request->address;
+        $doctor->bn_address = $request->bn_address;
         $doctor->save();
         $doctor->departments()->sync($request->department_id);
         if ($doctor) {
@@ -160,21 +186,28 @@ class DoctorController extends Controller
             $doctor->background_image = $fileName;
         }
         $doctor->name = $request->name;
-        $doctor->slug = strtolower(str_replace(" ", "-", $request->name));
+        $doctor->bn_name = $request->bn_name;
+        $doctor->slug = Str::slug($request->slug ? $request->slug : $request->name);
         $doctor->email = $request->email;
         $doctor->phone = $request->phone;
+        $doctor->serial = $request->serial;
         $doctor->area_id = $request->area_id;
         $doctor->gender = $request->gender;
         $doctor->treatments = preg_replace('/\s+/', ' ', $request->treatments);
+        $doctor->bn_treatments = preg_replace('/\s+/', ' ', $request->bn_treatments);
         $doctor->new_patient_fee = $request->new_patient_fee;
         $doctor->old_patient_fee = $request->old_patient_fee;
         $doctor->bio = $request->bio;
+        $doctor->bn_bio = $request->bn_bio;
         $doctor->departments()->sync($request->department_id);
         $doctor->schedules = $schedules;
         $doctor->description = $request->description;
+        $doctor->bn_description = $request->bn_description;
         $doctor->status = $request->status;
         $doctor->hospital = $request->hospital;
+        $doctor->bn_hospital = $request->bn_hospital;
         $doctor->address = $request->address;
+        $doctor->bn_address = $request->bn_address;
         $doctor->save();
         if ($doctor) {
             toastr()->success("Doctor Updated Successfully");

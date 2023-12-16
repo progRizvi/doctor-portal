@@ -77,11 +77,11 @@
             $locations = Division::with(['districts.areas'])->get();
         @endphp
 
-        <div class="modal fade custom-modal" id="searchLocation">
+        <div class="modal fade custom-modal mt-5" id="searchLocation">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Choose from the option below.</h5>
+                        <h5 class="modal-title">{{ __('website.choose_from_below') }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
@@ -99,12 +99,13 @@
                                         $hospitals = App\Models\Hospital::whereIn('area_id', $areasId)->get();
                                         $url = $currRoute == 'service.hospitals' ? 'service.location.hospitals' : 'service.location.doctors';
                                         $count = $currRoute == 'service.hospitals' ? $hospitals->count() : $doctors->count();
+                                        $loc = session('loc');
                                     @endphp
                                     <li class="mb-1">
                                         <button class="btn btn-toggle align-items-center rounded collapsed"
                                             data-bs-toggle="collapse" data-bs-target="#{{ $div->name }}"
                                             aria-expanded="false">
-                                            {{ $div->name }} <span
+                                            {{$loc== 'en' ? $div->name : $div->bn_name }} <span
                                                 class="badge bg-info rounded-pill">{{ $count }}</span>
                                         </button>
                                         <div class="collapse" id="{{ $div->name }}">
@@ -118,14 +119,14 @@
                                                                 data-bs-toggle="collapse"
                                                                 data-bs-target="#{{ $dis->name . $dis->id }}"
                                                                 aria-expanded="false">
-                                                                {{ $dis->name }}
+                                                                {{ $loc== 'en' ? $dis->name : $dis->bn_name }}
                                                                 <div class="collapse" id="{{ $dis->name . $dis->id }}">
                                                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
                                                                         style="background: #F2F6F6;">
                                                                         @foreach ($dis->areas as $area)
                                                                             <li class="px-3 py-2">
-                                                                                <a href="{{ route($url,$area->id) }}"
-                                                                                    class="link-dark rounded text-black">{{ $area->name }}
+                                                                                <a href="{{ route($url,$area->slug) }}"
+                                                                                    class="link-dark rounded text-black">{{ $loc== 'en' ? $area->name : (isset($area->bn_name)? $area->bn_name : $area->name) }}
                                                                                     <span
                                                                                         class="badge bg-info">{{ $currRoute == 'service.hospitals'? $area->hospitals->count() : $area->doctors->count() }}</span></a>
                                                                             </li>

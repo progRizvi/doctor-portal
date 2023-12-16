@@ -21,4 +21,9 @@ class Area extends Model
     public function hospitals(){
         return $this->hasMany(Hospital::class, "area_id", "id");
     }
+
+    public function extraInfo()
+    {
+        return $this->hasMany(ExtraInfo::class);
+    }
 }

@@ -28,7 +28,7 @@
                         <a href="{{ route('service.doctors') }}">{{ __('website.doctors') }}</a>
                     </li>
                     <li class="megamenu">
-                        <a href="javascript:void(0);">{{ __('website.surgery_support') }}</a>
+                        <a href="{{ route('surgery.support') }}">{{ __('website.surgery_support') }}</a>
                     </li>
                     <li class="megamenu">
                         <a href="{{ route('service.hospitals') }}">{{ __('website.hospital_diagnostic') }}</a>

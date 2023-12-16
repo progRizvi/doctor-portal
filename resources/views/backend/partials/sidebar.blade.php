@@ -11,7 +11,7 @@
             </a>
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <nav class="mt-5 flex-1 px-2 bg-white">
-                             
+
                 <a href="{{ route('admin.dashboard') }}"
                     class=" group flex items-center px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none  transition ease-in-out duration-150">
                     <svg class="mr-3 h-6 w-6 text-gray-600 group-hover:text-gray-800 group-focus:text-gray-100 transition ease-in-out duration-150"
@@ -21,7 +21,7 @@
                     </svg>
                     Dashboard
                 </a>
-                
+
                 <div
                     class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                     <span class="pl-4">
@@ -48,6 +48,28 @@
                         @if (hasAnyPermissions('departments.create'))
                         <li><a href="{{ route('departments.create') }}" class="block py-2 ml-3">Create Department</a></li>
                         @endif
+                    </ul>
+                </div>
+                <div
+                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                    <span class="pl-4">
+                        Extra Data
+                    </span>
+                    <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        <li><a href="{{ route('extra.index') }}" class="block py-2 ml-3">Extra Data</a></li>
+                        <li><a href="{{ route('extra.create') }}" class="block py-2 ml-3">Create Extra Data</a></li>
+
+                    </ul>
+                </div>
+                <div
+                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                    <span class="pl-4">
+                        Surgery & Support
+                    </span>
+                    <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        <li><a href="{{ route('surgerySupport.index') }}" class="block py-2 ml-3">Surgery & Support List</a></li>
+                        <li><a href="{{ route('surgerySupport.create') }}" class="block py-2 ml-3">Create Surgery & Support</a></li>
+
                     </ul>
                 </div>
                 <div

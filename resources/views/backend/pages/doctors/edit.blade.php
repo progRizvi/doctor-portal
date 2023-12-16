@@ -10,8 +10,18 @@
                     Name <span class="text-red-700">*</span></label>
                 <input type="text" id="name" name="name"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ old('name',$doctor->name) }}" required>
+                    value="{{ old('name', $doctor->name) }}" required>
                 @error('name')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-6">
+                <label for="bn_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Doctor
+                    Name in Bangla</label>
+                <input type="text" id="bn_name" name="bn_name"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('bn_name', $doctor->bn_name) }}">
+                @error('bn_name')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
@@ -19,7 +29,7 @@
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{ old('slug',$doctor->slug) }}">
+                    value="{{ old('slug', $doctor->slug) }}">
                 @error('slug')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
@@ -31,7 +41,7 @@
                             <span class="text-red-700">*</span></label>
                         <input type="text" id="email" name="email"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{ old('email',$doctor->email) }}">
+                            value="{{ old('email', $doctor->email) }}">
                         @error('email')
                             <span class="text-red-700">{{ $message }}</span>
                         @enderror
@@ -41,7 +51,7 @@
                             <span class="text-red-700">*</span></label>
                         <input type="text" id="phone" name="phone"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{old('phone',$doctor->phone) }}" required>
+                            value="{{ old('phone', $doctor->phone) }}" required>
                         @error('phone')
                             <span class="text-red-700">{{ $message }}</span>
                         @enderror
@@ -62,12 +72,32 @@
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
+
+            <div class="mb-6">
+                <label for="serial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial</label>
+                <input type="number" id="serial" name="serial"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('serial', $doctor->serial) }}">
+                @error('serial')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
             <div class="mb-6">
                 <label for="hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital</label>
                 <input type="text" id="hospital" name="hospital"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{old('hospital',$doctor->hospital)}}">
+                    value="{{ old('hospital', $doctor->hospital) }}">
                 @error('hospital')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-6">
+                <label for="bn_hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital in
+                    Bangla</label>
+                <input type="text" id="bn_hospital" name="bn_hospital"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('bn_hospital', $doctor->bn_hospital) }}">
+                @error('bn_hospital')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
@@ -76,8 +106,19 @@
                         class="text-red-700">*</span></label>
                 <input type="text" id="address" name="address"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    value="{{old('address',$doctor->address) }}" required>
+                    value="{{ old('address', $doctor->address) }}" required>
                 @error('address')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label for="bn_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address in
+                    Bangla</label>
+                <input type="text" id="bn_address" name="bn_address"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('bn_address', $doctor->bn_address) }}">
+                @error('bn_address')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
@@ -102,13 +143,25 @@
                     <span class="text-red-700">*</span></label>
                 <textarea name="treatments" id="treatments" cols="30" rows="5"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    placeholder="ex. Pneumonia, Chest Pain" required>{{old('treatments',$doctor->treatments) }}</textarea>
+                    placeholder="ex. Pneumonia, Chest Pain" required>{{ old('treatments', $doctor->treatments) }}</textarea>
                 <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
                 <div>
                     @error('treatments')
                         <span class="text-red-700">{{ $message }}</span>
                     @enderror
                 </div>
+            </div>
+
+            <div class="mb-6">
+                <label for="bn_treatments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Treatments
+                    in Bangla</label>
+                <textarea name="bn_treatments" id="bn_treatments" cols="30" rows="5"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
+                    placeholder="ex. মেডিসিন">{{ old('treatments', $doctor->bn_treatments) }}</textarea>
+                <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
+                @error('bn_treatments')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
             </div>
             {{-- working hours by day wise --}}
             <div class="mb-6">
@@ -188,7 +241,7 @@
                             Patient </label>
                         <input type="number" id="new_patient_fee" name="new_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{old('new_patient_fee',$doctor->new_patient_fee) }}">
+                            value="{{ old('new_patient_fee', $doctor->new_patient_fee) }}">
                         @error('new_patient_fee')
                             <span class="text-red-700">{{ $message }}</span>
                         @enderror
@@ -198,7 +251,7 @@
                             Patient </label>
                         <input type="number" id="old_patient_fee" name="old_patient_fee"
                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            value="{{old('old_patient_fee',$doctor->old_patient_fee)  }}">
+                            value="{{ old('old_patient_fee', $doctor->old_patient_fee) }}">
                         @error('old_patient_fee')
                             <span class="text-red-700">{{ $message }}</span>
                         @enderror
@@ -222,18 +275,32 @@
                 <label class="dark:text-gray-200" for="bio">Bio <span class="text-red-700">*</span></label>
                 <textarea id="bio" type="textarea" name="bio"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    required>{{old('bio',$doctor->bio)}}</textarea>
+                    required>{{ old('bio', $doctor->bio) }}</textarea>
                 @error('bio')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
+            </div>
+            <div class="mb-6">
+                <label class="dark:text-gray-200" for="bio">Bio in Bangla</label>
+                <textarea id="bn_bio" type="textarea" name="bn_bio"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{{ old('bn_bio', $doctor->bn_bio) }}</textarea>
             </div>
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="description">Description <span
                         class="text-red-700">*</span></label>
                 <textarea id="description" type="textarea" name="description"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    required>{{old('bio',$doctor->description)}}</textarea>
+                    required>{{ old('description', $doctor->description) }}</textarea>
                 @error('description')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="mb-6">
+                <label class="dark:text-gray-200" for="bn_description">Description in Bangla</label>
+                <textarea id="bn_description" type="textarea" name="bn_description"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{{ old('bn_description', $doctor->bn_description) }}</textarea>
+                @error('bn_description')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>

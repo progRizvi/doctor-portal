@@ -1,5 +1,5 @@
 @extends('frontend.layout')
-@section('title', 'Hospitals')
+@section('title', __('website.hospitals'))
 @section('content')
     <div class="breadcrumb-bar-two">
         <div class="container">
@@ -28,6 +28,7 @@
                                     $hosCat = App\Models\Hospital::where('type', 'hospital')->count();
                                     $clinicCat = App\Models\Hospital::where('type', 'clinic')->count();
                                     $diagnosticCat = App\Models\Hospital::where('type', 'diagnostic')->count();
+                                    $loc = session('loc');
                                 @endphp
                                 <div class="py-2 cursor-pointer type" style="cursor:pointer" data-type="hospital">
                                     <a href="{{ route('hospitals.by.type', 'hospital') }}">
@@ -79,11 +80,19 @@
                             <div class="row">
                                 <div class="col-sx-12">
                                     <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
-                                        <p>{{ isset($type) ? ucwords($type) : 'Hospitals, Clinics & Diagnostic Centers' }}
+                                        <p>{{ isset($type) ? __("website.$type") : __('website.hospital_clinic_diagnostic') }}
                                         </p>
                                         <p>
                                             <hr>
                                         </p>
+                                        @if (isset($area) && $area->extraInfo[0]->for != 'doctor')
+                                            @php
+                                                $data = $area->extraInfo[0];
+                                            @endphp
+                                            <p>
+                                                {{ $loc == 'en' ? $data->title : (isset($data->bn_title) ? $data->bn_title : $data->title) }}
+                                            </p>
+                                        @endif
                                     </div>
                                 </div>
                                 @foreach ($hospitals as $hospital)
@@ -123,6 +132,20 @@
                                         </a>
                                     </div>
                                 @endforeach
+                                @if (isset($area) && $area->extraInfo[0]->for != 'doctor')
+                                    @php
+                                        $data = $area->extraInfo[0];
+                                    @endphp
+                                    <div class="col-sx-12 mb-4">
+                                        <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
+                                            {!! $loc == 'en'
+                                                ? $data->description
+                                                : (isset($data->bn_description)
+                                                    ? $data->bn_description
+                                                    : $data->description) !!}
+                                        </div>
+                                    </div>
+                                @endif
                                 @if ($hospitals->count() == 0)
                                     <div class="col-12">
                                         <div class="mx-2 mt-2">

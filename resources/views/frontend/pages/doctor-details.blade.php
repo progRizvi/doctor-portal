@@ -13,10 +13,12 @@
 @endpush
 @section('content')
     @php
-        $treatments = explode(',', $doctor->treatments);
+        $loc = session('loc');
+        $treatmentsList = $loc == 'en' ? $doctor->treatments : ($doctor->bn_treatments != ""?$doctor->bn_treatments: $doctor->treatments );
+        $treatments = explode(',', $treatmentsList);
         $treatments = array_map('trim', $treatments);
     @endphp
-    
+
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row inner-banner">
@@ -32,7 +34,7 @@
                                                     <div class="w-25 mx-auto mt-2">
                                                         <a href="#"
                                                             style="display:inline-block; border: 10px solid white; border-radius:50%">
-                                                            <img class="img-fluid mt-4 px-4" alt="{{ $doctor->name }}"
+                                                            <img class="img-fluid mt-4 px-4" alt="{{ $loc == 'en'? $doctor->name : (isset($doctor->bn_name)?$doctor->bn_name: $doctor->name )}}"
                                                                 @if ($doctor->image) src="{{ asset('public/uploads/doctors/' . $doctor->image) }}"
                                                             @else
                                                             src="{{ asset('images/' . $doctor->gender . '_avatar.jpg') }}" @endif
@@ -40,11 +42,11 @@
                                                         </a>
                                                     </div>
                                                 </div>
-                                                <div class="ml-md-n2 profile-user-info">
-                                                    <h4 class="user-name mb-0 text-white">{{ $doctor->name }}</h4>
+                                                <div class="ml-md-n2 profile-user-info pt-2">
+                                                    <h4 class="user-name mb-0 text-white">{{ $loc == 'en'? $doctor->name : (isset($doctor->bn_name)?$doctor->bn_name: $doctor->name )}}</h4>
                                                     <div class="user-Location"></div>
                                                     <div class="about-text text-white">
-                                                        {{ $doctor->bio }}
+                                                        {{ $loc == 'en'? $doctor->bio : (isset($doctor->bn_bio)?$doctor->bn_bio: $doctor->bio ) }}
                                                     </div>
                                                     <p class="px-4">
                                                         <hr>
@@ -54,7 +56,8 @@
                                                 <div class="col-auto profile-btn pb-3 text-white">
                                                     @foreach ($doctor->departments as $department)
                                                         <span class="me-4"><i class="fa fa-medkit"></i>
-                                                            {{ $department->name }}</span>
+                                                        {{ $loc == 'en'? $department->name : (isset($department->bn_name)?$department->bn_name: $department->name )}}
+                                                        </span>
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -135,10 +138,14 @@
                                         </div>
                                         <div class="border mx-4 mb-2 p-3">
                                             <div>
-                                                <b>{{ __('website.address') }}: </b>{{ $doctor->address }},
-                                                {{ $doctor->area?->name }},
-                                                {{ $doctor->area?->district?->name }},
-                                                {{ $doctor->area?->district?->division?->name }}.
+
+                                                <b>{{ __('website.address') }}: </b>{{$loc == 'en'? $doctor->address : (isset($doctor->bn_address)?$doctor->bn_address: $doctor->address )}},
+                                                {{$loc == 'en'? $doctor->area?->name : (isset($doctor->area?->bn_name)?$doctor->area?->bn_name: $doctor->area?->name )}},
+                                                {{ $loc == 'en'? $doctor->area?->district?->name : (isset($doctor->area?->district?->bn_name)?$doctor->area?->district?->bn_name: $doctor->area?->district?->name )}},
+
+                                                 {{ $loc == 'en'? $doctor->area?->district?->division?->name : (isset($doctor->area?->district?->division?->bn_name)?$doctor->area?->district?->division?->bn_name: $doctor->area?->district?->division?->name )}}.
+
+
                                             </div>
                                             <div class="pt-3">
                                                 <b>{{ __('website.schedule') }}: </b>

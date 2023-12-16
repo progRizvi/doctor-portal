@@ -3,10 +3,25 @@
 @section('title', 'Doctors List')
 @section('main')
 
+    <div class="sm:rounded-lg my-16 mx-10">
+        <form action="" method="get">
+            <div class="flex items-center justify-end w-1/3 ml-auto">
+                <input type="text"
+                    class='inline-block px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring'
+                    name='search' value="{{ request()->search }}">
+                <button type="submit"
+                    class="ml-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+            </div>
+        </form>
+    </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg my-16 mx-10">
+
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Sl.
+                    </th>
                     <th scope="col" class="px-6 py-3">
                         Doctor Name
                     </th>
@@ -34,6 +49,9 @@
                 @foreach ($doctors as $doctor)
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ $loop->iteration }}
+                        </th>
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ $doctor->name }}
                         </th>

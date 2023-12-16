@@ -12,9 +12,13 @@ use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ExtraInfoController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SurgerySupportController;
+use App\Models\ExtraInfo;
+use App\Models\SurgerySupport;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +59,7 @@ Route::group(['middleware' => 'localization'], function () {
     Route::get("/service/doctors/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");
     Route::get("service/get-doctors/by-department/{id}", [HomeController::class, "getDoctorsByDepartment"])->name("get.doctors.by.department");
     Route::get("/service/hospitals", [HomeController::class, "serviceHospitals"])->name("service.hospitals");
+    Route::get("/surgery-and-support", [HomeController::class, "surgerySupport"])->name("surgery.support");
     Route::get("/service/hospitals/{slug}", [HomeController::class, "hospitalDetails"])->name("service.hospital.details");
     Route::get("service/get-hospitals/by-type/", [HomeController::class, "getHospitalsByType"])->name("get.hospitals.by.type");
     Route::get('/switch-lang/{lang}', [HomeController::class, 'changeLanguage'])->name('switch.lang');
@@ -126,5 +131,7 @@ Route::group(["prefix" => "admin", 'middleware' => ['auth']], function () {
 
     Route::resource("categories", CategoryController::class);
     Route::resource("posts", PostController::class);
+    Route::resource("extra", ExtraInfoController::class);
+    Route::resource("surgerySupport", SurgerySupportController::class);
 
 });

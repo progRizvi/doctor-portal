@@ -7,8 +7,10 @@ use App\Models\Area;
 use App\Models\Category;
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\ExtraInfo;
 use App\Models\Hospital;
 use App\Models\Post;
+use App\Models\SurgerySupport;
 use Devfaysal\BangladeshGeocode\Models\District;
 use Devfaysal\BangladeshGeocode\Models\Division;
 use Illuminate\Http\Request;
@@ -18,7 +20,10 @@ class HomeController extends Controller
     public function index()
     {
         $loc = session('loc');
-        if(!$loc) session()->put('loc','en');
+        if (!$loc) {
+            session()->put('loc', 'en');
+        }
+
         return view('frontend.pages.home');
     }
     public function serviceDoctors()
@@ -28,7 +33,7 @@ class HomeController extends Controller
             $doctors->where("name", "like", "%" . request()->search . "%");
         }
 
-        $doctors = $doctors->with("area", "departments")->paginate(20);
+        $doctors = $doctors->with("area", "departments")->orderBy('serial')->orderBy('updated_at', 'desc')->paginate(20);
         $departments = Department::all();
         return view('frontend.pages.doctors-list', compact("doctors", "departments"));
     }
@@ -46,16 +51,26 @@ class HomeController extends Controller
 
         return view('frontend.pages.hospital-list', compact("hospitals", "districts"));
     }
-    public function serviceLocationDoctors($id)
+    public function serviceLocationDoctors($slug)
     {
-        $doctors = Doctor::where("area_id", $id)->with("area", "departments")->paginate(20);
+
+        $area = Area::with(['extraInfo' => function ($query) {
+            $query->where('for', 'doctor')->first();
+        }])->where("slug", $slug)->first();
+        $doctors = Doctor::where("area_id", $area->id)
+            ->with("area", "departments")
+            ->orderBy('serial')
+            ->orderBy('updated_at', 'desc')
+            ->paginate(20);
+
         $departments = Department::all();
-        return view('frontend.pages.doctors-list', compact("doctors", "departments"));
+        return view('frontend.pages.doctors-list', compact("doctors", "departments", 'area'));
 
     }
     public function doctorDetails($slug)
     {
-        $doctor = Doctor::with("area", "departments")->where("slug", $slug)->first();
+        $doctor = Doctor::with("area", "departments")->where("slug", $slug)->orderBy('serial')
+            ->orderBy('updated_at', 'desc')->first();
         return view('frontend.pages.doctor-details', compact("doctor"));
     }
     public function postSearch()
@@ -66,8 +81,8 @@ class HomeController extends Controller
     }
     public function getDoctorsByDepartment(Request $request, $id)
     {
-
         $department = Department::find($id);
+
         $departmentName = $request->departmentName;
         if ($department) {
             $pageNUm = 1;
@@ -154,7 +169,10 @@ class HomeController extends Controller
     }
     public function doctorsByDepartment($slug)
     {
-        $department = Department::where("slug", $slug)->first();
+
+        $department = Department::with(['extraInfo' => function ($query) {
+            $query->where('for', 'doctor')->first();
+        }])->where("slug", $slug)->first();
         $doctors = $department->doctors()->paginate(20);
         $departments = Department::all();
         return view('frontend.pages.doctors-list', compact("doctors", "departments", "department"));
@@ -169,14 +187,23 @@ class HomeController extends Controller
 
         return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'type'));
     }
-    public function serviceLocationHospital($id)
+    public function serviceLocationHospital($slug)
     {
-        $hospitals = Hospital::where("area_id", $id)->with("area")->paginate(20);
+        $area = Area::with(['extraInfo' => function ($query) {
+            $query->where('for', 'hospital')->first();
+        }])->where("slug", $slug)->first();
+        $hospitals = Hospital::where("area_id", $area->id)->with("area")->paginate(20);
         $locations = Division::with(['districts.areas'])->get();
 
         $districts = District::get();
 
-        return view('frontend.pages.hospital-list', compact("hospitals", "districts"));
+        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'area'));
 
+    }
+    public function surgerySupport()
+    {
+        $surgerySupports = SurgerySupport::paginate(20);
+        $extraData = ExtraInfo::where('for','surgery')->orderBy('id','DESC')->first();
+        return view('frontend.pages.surgery-support',compact('surgerySupports','extraData'));
     }
 }

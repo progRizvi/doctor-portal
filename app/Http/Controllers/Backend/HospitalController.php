@@ -7,7 +7,7 @@ use App\Models\Department;
 use App\Models\Hospital;
 use Devfaysal\BangladeshGeocode\Models\Division;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class HospitalController extends Controller
 {
@@ -18,7 +18,7 @@ class HospitalController extends Controller
      */
     public function index()
     {
-        $hospitals = Hospital::with( "area")->orderBy("id", "desc")->paginate(10);
+        $hospitals = Hospital::with("area")->orderBy("id", "desc")->paginate(10);
         return view("backend.pages.hospitals.index", compact("hospitals"));
 
     }
@@ -60,11 +60,10 @@ class HospitalController extends Controller
             $hospital->background_image = $fileName;
         }
 
-        dd($hospital);
         $slug = $request->input("slug");
-        $generateSlug = strtolower(str_replace(" ", "-", $request->name)) . '-' . uniqid();
+        $generateSlug = Str::slug($slug ? $slug : $request->name) . '-' . uniqid();
         $hospital->name = $request->name;
-        $hospital->slug = $slug ? $slug . '-' . uniqid() : $generateSlug;
+        $hospital->slug = $generateSlug;
         $hospital->email = $request->email;
         $hospital->phone = $request->phone;
         $hospital->area_id = $request->area_id;
@@ -74,7 +73,7 @@ class HospitalController extends Controller
         $hospital->status = $request->status;
         $hospital->type = $request->type;
         $hospital->address = $request->address;
-        // $hospital->save();
+        $hospital->save();
         if ($hospital) {
             toastr()->success("Hospital created successfully");
             return redirect()->route("hospitals.index");
@@ -144,9 +143,9 @@ class HospitalController extends Controller
             $hospital->background_image = $fileName;
         }
         $slug = $request->input("slug");
-        $generateSlug = strtolower(str_replace(" ", "-", $request->name)) . '-' . uniqid();
+        $generateSlug = Str::slug($slug ? $slug : $request->name) . '-' . uniqid();
         $hospital->name = $request->name;
-        $hospital->slug = $slug ? $slug . '-' . uniqid() : $generateSlug;
+        $hospital->slug = $generateSlug;
         $hospital->email = $request->email;
         $hospital->phone = $request->phone;
         $hospital->area_id = $request->area_id;
@@ -155,7 +154,7 @@ class HospitalController extends Controller
         $hospital->status = $request->status;
         $hospital->type = $request->type;
         $hospital->address = $request->address;
-        // $hospital->save();
+        $hospital->save();
         if ($hospital) {
             toastr()->success("Hospital updated successfully");
             return redirect()->route("hospitals.index");

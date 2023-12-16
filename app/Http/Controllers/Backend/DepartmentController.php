@@ -53,9 +53,7 @@ class DepartmentController extends Controller
             $image->move(public_path("uploads/departments"), $fileName);
             $data["image"] = $fileName;
         }
-        if (!isset($data["slug"])) {
-            $data["slug"] = Str::slug($data["name"]);
-        }
+        $data["slug"] = Str::slug(isset($data["slug"]) ? $data["slug"] : $data["name"]);
         $department = Department::create($data);
         if ($department) {
             toastr()->success("Department Created Successfully");
@@ -115,9 +113,10 @@ class DepartmentController extends Controller
             $image->move(public_path("uploads/departments"), $fileName);
             $data["image"] = $fileName;
         }
-        if (!isset($data["slug"])) {
-            $data["slug"] = Str::slug($data["name"]);
-        }
+
+            $data["slug"] = Str::slug(isset($data["slug"]) ? $data["slug"] : $data["name"]);
+
+
 
         $department->update($data);
         toastr()->success("Department Updated Successfully");

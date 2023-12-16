@@ -18,4 +18,8 @@ class Department extends Model
     {
         return $this->belongsToMany(Hospital::class, 'hospital_departments');
     }
+    public function extraInfo()
+    {
+        return $this->hasMany(ExtraInfo::class);
+    }
 }

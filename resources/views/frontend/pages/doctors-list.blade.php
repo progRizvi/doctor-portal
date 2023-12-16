@@ -1,28 +1,32 @@
 @extends('frontend.layout')
-@section('title', 'Doctors')
+@section('title', __('website.doctors'))
 @section('content')
 
     <style>
         a.active {
             color: #0E82FD;
         }
-        .doctor-image{
-            border-top-left-radius:20px;
-            border-bottom-left-radius:20px;
+
+        .doctor-image {
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
             /* margin: auto; */
         }
+
         @media (max-width: 767px) {
-            .doctor-image{
+            .doctor-image {
                 width: 100px;
-                height: 100px;              
-                border-top-left-radius:0px;
-                border-bottom-left-radius:0px;
+                height: 100px;
+                border-top-left-radius: 0px;
+                border-bottom-left-radius: 0px;
                 margin: auto 0;
             }
         }
     </style>
 
-
+    @php
+        $loc = session('loc');
+    @endphp
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row align-items-center inner-banner">
@@ -49,10 +53,12 @@
                                 <h4>{{ __('website.departments') }}</h4>
                                 @foreach ($departments as $data)
                                     <div class="py-2 cursor-pointer department" style="cursor:pointer">
-                                        <a class="{{ (isset($department) && $department->slug == $data->slug) ? 'active' : '' }}" href="{{ route('doctors.by.department',$data->slug) }}">
-                                            <span class="checkmark"></span> {{ $data->name }} <span
-                                            class="badge bg-info">{{ $data->doctors->count() }}</span>
-                                        </span>
+                                        <a class="{{ isset($department) && $department->slug == $data->slug ? 'active' : '' }}"
+                                            href="{{ route('doctors.by.department', $data->slug) }}">
+                                            <span class="checkmark"></span>
+                                            {{ $loc == 'en' ? $data->name : (isset($data->bn_name) ? $data->bn_name : $data->name) }}
+                                            <span class="badge bg-info">{{ $data->doctors->count() }}</span>
+                                            </span>
                                         </a>
                                     </div>
                                 @endforeach
@@ -65,14 +71,26 @@
                     <div class="breadcrumb-bar-two">
                         <div class="container">
                             <div class="row">
+
                                 <div class="col-sx-12 ">
                                     <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
-                                        <p>{{ isset($department) ? $department->name : 'All' }} Specialized Doctors</p>
+                                        <p>{{ isset($department) ? ($loc == 'en' ? $department->name : $department->bn_name) : __('website.all') }}
+                                            {{ __('website.specialized_doctors') }}</p>
                                         <p>
                                             <hr>
                                         </p>
+                                        @php
+                                            $data = isset($department) ? $department : (isset($area) ? $area : '');
+                                            $dataCount = gettype($data) != 'string' ? count($data?->extraInfo) : 0;
+                                            $data = $dataCount ? $data->extraInfo[0] : '';
+                                        @endphp
+                                        @if ($dataCount)
+                                            <p>{{ $loc == 'en' ? $data->title : (isset($data->bn_title) ? $data->bn_title : $data->title) }}
+                                            </p>
+                                        @endif
                                     </div>
                                 </div>
+
                                 @foreach ($doctors as $doctor)
                                     <div class="col-xs-12">
                                         <a href="{{ route('service.doctor.details', $doctor->slug) }}">
@@ -83,35 +101,38 @@
                                                         <div class="accordion-collapse shade collapse show bg-white"
                                                             style="box-shadow:-8px 13px 80px rgba(27, 41, 80, 0.1); border-radius:20px">
                                                             <div class="d-flex">
-                                                                <img
-                                                                    class="img-fluid w-25 doctor-image"
+                                                                <img class="img-fluid w-25 doctor-image"
                                                                     @if ($doctor->image) src="{{ asset('public/uploads/doctors/' . $doctor->image) }}"
                                                             @else
                                                             src="{{ asset('images/' . $doctor->gender . '_avatar.jpg') }}" @endif
                                                                     alt="{{ $doctor->name }}">
                                                                 <div class="px-3 pt-2">
-                                                                    <h4 class="text-info">{{ $doctor->name }}</h4>
+                                                                    <h4 class="text-info">
+                                                                        {{ $loc == 'en' ? $doctor->name : (isset($doctor->bn_name) ? $doctor->bn_name : $doctor->name) }}
+                                                                    </h4>
                                                                     <p>
-                                                                        @foreach ($doctor->departments as $department)
+                                                                        @foreach ($doctor->departments as $dpt)
                                                                             @if ($loop->last)
-                                                                                {{ $department->name }}
+                                                                                {{ $loc == 'en' ? $dpt->name : (isset($dpt->bn_name) ? $dpt->bn_name : $dpt->name) }}
                                                                             @else
-                                                                                {{ $department->name }} ,
+                                                                                {{ $loc == 'en' ? $dpt->name : (isset($dpt->bn_name) ? $dpt->bn_name : $dpt->name) }}
+                                                                                ,
                                                                             @endif
                                                                         @endforeach ,
-                                                                        {{ $doctor->area?->name }},
-                                                                        {{ $doctor->area?->district?->name }}
+                                                                        {{ $loc == 'en' ? $doctor->area?->name : (isset($doctor->area?->bn_name) ? $doctor->area?->bn_name : $doctor->area?->name) }},
+                                                                        {{ $loc == 'en' ? $doctor->area?->district?->name : (isset($doctor->area?->district?->bn_name) ? $doctor->area?->district?->bn_name : $doctor->area?->district?->name) }}
                                                                     </p>
                                                                     <hr style="color:gray" />
                                                                     <p>
-                                                                        {{ $doctor->bio }}
+                                                                        {{ $loc == 'en' ? $doctor->bio : (isset($doctor->bn_bio) ? $doctor->bn_bio : $doctor->bio) }}
                                                                     </p>
                                                                 </div>
-                                                                
+
                                                             </div>
                                                             <div class="d-flex justify-content-center pb-3">
                                                                 <div class="form-search-btn">
-                                                                    <a class="btn" href="tel:{{ $doctor->phone }}">{{ __('website.appointment_now') }}</a>
+                                                                    <a class="btn"
+                                                                        href="tel:{{ $doctor->phone }}">{{ __('website.appointment_now') }}</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -121,13 +142,25 @@
                                         </a>
                                     </div>
                                 @endforeach
+                                @if ($dataCount)
+                                    <div class="col-sx-12 mb-4">
+                                        <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
 
-                                @if($doctors->count() == 0)
-                                <div class="col-12">
-                                    <div class="mx-2 mt-2">
-                                        @include('frontend.pages.no-data-found')
+                                            {!! $loc == 'en'
+                                                ? $data->description
+                                                : (isset($data->bn_description)
+                                                    ? $data->bn_description
+                                                    : $data->description) !!}
+
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
+                                @if ($doctors->count() == 0)
+                                    <div class="col-12">
+                                        <div class="mx-2 mt-2">
+                                            @include('frontend.pages.no-data-found')
+                                        </div>
+                                    </div>
                                 @endif
                             </div>
                         </div>

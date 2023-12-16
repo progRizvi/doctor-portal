@@ -72,6 +72,16 @@ $list =  [
     "call_for_appointment" => "Call For Appointment",
     "diagnostic" => "Diagnostic",
     "appointment_now" => "Appointment Now",
+    "specialized_doctors" => "Specialized Doctors",
+    "all" => "All",
+    "hospital_clinic_diagnostic" => "Hospitals, Clinics & Diagnostic Centers",
+    "hospital" => "Hospitals",
+    "clinic" => "Clinics",
+    "diagnostic_center" => "Diagnostic Center",
+    "choose_from_below" => "Choose from the option below.",
+    "call_now" => "Call Now",
+    "most_common_surgeries" => "Most Common Surgeries",
+    "we_are_experts_in_surgical_solution" => "We are experts in Surgical solutions.",
 ];
 
 if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {

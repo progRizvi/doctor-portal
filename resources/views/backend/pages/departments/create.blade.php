@@ -11,6 +11,14 @@
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ old('name') }}" required>
             </div>
+
+            <div class="mb-6">
+                <label for="bn_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bangla
+                    Name </label>
+                <input type="text" id="bn_name" name="bn_name"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('bn_name') }}">
+            </div>
             <div class="mb-6">
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"

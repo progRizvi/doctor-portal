@@ -15,6 +15,16 @@
                 @enderror
             </div>
             <div class="mb-6">
+                <label for="bn_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Doctor
+                    Name in Bangla</label>
+                <input type="text" id="bn_name" name="bn_name"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('bn_name') }}">
+                @error('bn_name')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-6">
                 <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
                 <input type="text" id="slug" name="slug"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
@@ -62,11 +72,29 @@
                 @enderror
             </div>
             <div class="mb-6">
+                <label for="serial" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Serial</label>
+                <input type="number" id="serial" name="serial"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('serial') }}" min="0">
+                @error('serial')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-6">
                 <label for="hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital</label>
                 <input type="text" id="hospital" name="hospital"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ old('hospital') }}">
                 @error('hospital')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-6">
+                <label for="bn_hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital in Bangla</label>
+                <input type="text" id="bn_hospital" name="bn_hospital"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('bn_hospital') }}">
+                @error('bn_hospital')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
@@ -77,6 +105,15 @@
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ old('address') }}" required>
                 @error('address')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-6">
+                <label for="bn_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address in Bangla</label>
+                <input type="text" id="bn_address" name="bn_address"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('bn_address') }}">
+                @error('bn_address')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
@@ -103,6 +140,16 @@
                     placeholder="ex. Pneumonia, Chest Pain" required>{{ old('treatments') }}</textarea>
                 <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
                 @error('treatments')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-6">
+                <label for="bn_treatments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Treatments in Bangla</label>
+                <textarea name="bn_treatments" id="bn_treatments" cols="30" rows="5"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
+                    placeholder="ex. Pneumonia, Chest Pain">{{ old('bn_treatments') }}</textarea>
+                <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
+                @error('bn_treatments')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
@@ -214,12 +261,27 @@
                     required>{{ old('bio') }}</textarea>
             </div>
             <div class="mb-6">
+                <label class="dark:text-gray-200" for="bio">Bio in Bangla</label>
+                <textarea id="bn_bio" type="textarea" name="bn_bio"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    >{{ old('bn_bio') }}</textarea>
+            </div>
+            <div class="mb-6">
                 <label class="dark:text-gray-200" for="description">Description <span
                         class="text-red-700">*</span></label>
                 <textarea id="description" type="textarea" name="description"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     required>{{ old('description') }}</textarea>
                 @error('description')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-6">
+                <label class="dark:text-gray-200" for="bn_description">Description in Bangla</label>
+                <textarea id="bn_description" type="textarea" name="bn_description"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    required>{{ old('bn_description') }}</textarea>
+                @error('bn_description')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>

@@ -69,6 +69,17 @@ $list = [
     "call_for_appointment" => "অ্যাপয়েন্টমেন্টের জন্য কল করুন",
     "diagnostic" => "ডায়াগনস্টিক",
     "appointment_now" => "অ্যাপয়েন্টমেন্ট নিন",
+    "specialized_doctors" => "বিশেষজ্ঞ ডাক্তাররা",
+    "all" => "সকল",
+    "hospital_clinic_diagnostic" => "হাসপাতাল, ক্লিনিক এবং ডায়াগনস্টিক সেন্টার",
+    "hospital" => "হাসপাতালগুলো",
+    "clinic" => "ক্লিনিকগুলো",
+    "diagnostic" => "ডায়াগনস্টিক সেন্টারগুলো",
+    "choose_from_below" => "নীচের বিকল্প গুলি থেকে পছন্দ করুন।",
+    "call_now" => "এখনই কল করুন",
+    "most_common_surgeries" => "সবচেয়ে সাধারণ সার্জারীগুলো",
+    "we_are_experts_in_surgical_solution" => "আমরা সার্জিক্যাল সমাধানে অভিজ্ঞ।",
+
 ];
 if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {
     return $reversedTranslates;

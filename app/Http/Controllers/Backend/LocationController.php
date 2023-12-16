@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Area;
-use Devfaysal\BangladeshGeocode\Models\Division;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Devfaysal\BangladeshGeocode\Models\Division;
 
 class LocationController extends Controller
 {
@@ -33,9 +34,9 @@ class LocationController extends Controller
             return back();
         }
         $data = $request->except(["_token", "division"]);
+        $data["slug"] = Str::slug($request->name);
         $area = Area::create($data);
         if ($area) {
-
             toastr()->success("Area created successfully");
             return redirect()->route('areas.index');
         }
@@ -60,7 +61,7 @@ class LocationController extends Controller
             return back();
         }
         $data = $request->except(["_token", "division"]);
-
+        $data["slug"] = Str::slug($request->name);
         $area = $area->update($data);
         if ($area) {
             toastr()->success("Area updated successfully");

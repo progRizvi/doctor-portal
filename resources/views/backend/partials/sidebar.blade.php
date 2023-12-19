@@ -75,6 +75,16 @@
                 <div
                     class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                     <span class="pl-4">
+                        Home Services
+                    </span>
+                    <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        <li><a href="{{ route('homeService.index') }}" class="block py-2 ml-3">Home Service</a></li>
+                        <li><a href="{{ route('homeService.create') }}" class="block py-2 ml-3">Create Home Service</a></li>
+                    </ul>
+                </div>
+                <div
+                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                    <span class="pl-4">
                         Doctors
                     </span>
                     <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">

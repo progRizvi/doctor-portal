@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\ExtraInfo;
+use App\Models\HomeService;
 use App\Models\Hospital;
 use App\Models\Post;
 use App\Models\SurgerySupport;
@@ -205,5 +206,11 @@ class HomeController extends Controller
         $surgerySupports = SurgerySupport::paginate(20);
         $extraData = ExtraInfo::where('for','surgery')->orderBy('id','DESC')->first();
         return view('frontend.pages.surgery-support',compact('surgerySupports','extraData'));
+    }
+    public function homeServices()
+    {
+        $surgerySupports = HomeService::paginate(20);
+        $extraData = ExtraInfo::where('for','homeService')->orderBy('id','DESC')->first();
+        return view('frontend.pages.home-service',compact('surgerySupports','extraData'));
     }
 }

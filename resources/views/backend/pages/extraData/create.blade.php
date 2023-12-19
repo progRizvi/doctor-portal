@@ -58,6 +58,7 @@
                     <option value="doctor">Doctor</option>
                     <option value="hospital">Hospital</option>
                     <option value="surgery">Surgery & Support</option>
+                    <option value="homeService">Home Service</option>
                 </select>
                  @error('for')
                     <span class="text-red-700">{{ $message }}</span>

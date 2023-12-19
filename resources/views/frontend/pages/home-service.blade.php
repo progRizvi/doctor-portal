@@ -1,5 +1,5 @@
 @extends('frontend.layout')
-@section('title', __('website.surgery_support'))
+@section('title', __('website.home_medical_service'))
 @section('content')
 
     <style>
@@ -19,9 +19,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-11 mx-auto">
-                    <h3>
-                        {{ __('website.we_are_experts_in_surgical_solution') }}
-                    </h3>
                     @if (isset($extraData))
                     <h4 class="my-5">
                         {{$loc == 'en'? $extraData?->title : (isset( $extraData?->bn_title)? $extraData?->bn_title : $extraData?->title) }}
@@ -58,9 +55,8 @@
                 </div>
                 <div class="col-sm-11 mx-auto pt-5">
                     @if (isset($extraData))
-                        {!!$loc == 'en'? $extraData?->description : (isset( $extraData?->bn_description)? $extraData?->bn_description : $extraData?->description) !!}
+                        {!!  loc == 'en'? $extraData?->description : (isset( $extraData?->bn_description)? $extraData?->bn_description : $extraData?->description)  !!}
                     @endif
-
                 </div>
             </div>
         </div>

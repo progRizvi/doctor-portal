@@ -37,7 +37,7 @@
                         <a href="javascript:void(0);">{{ __('website.blood_donors_club') }}</a>
                     </li>
                     <li class="megamenu">
-                        <a href="javascript:void(0);">{{ __('website.home_medical_service') }}</a>
+                        <a href="{{route('home.services')}}">{{ __('website.home_medical_service') }}</a>
                     </li>
                     <li class=" @if (request()->route()->getName() == 'blogs') active @endif">
                         <a href="{{ route('blogs') }}">{{ __('website.blog') }}</a>

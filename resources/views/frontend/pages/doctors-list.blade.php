@@ -39,6 +39,10 @@
         </div>
     </div>
 
+@php
+    
+    $currRoute = request()->route()->getName();
+@endphp
     <div class="content">
         <div class="container">
             <div class="row">
@@ -54,7 +58,8 @@
                                 @foreach ($departments as $data)
                                     <div class="py-2 cursor-pointer department" style="cursor:pointer">
                                         <a class="{{ isset($department) && $department->slug == $data->slug ? 'active' : '' }}"
-                                            href="{{ route('doctors.by.department', $data->slug) }}">
+                                            href="{{ !isset(request()->area) ? route('doctors.by.department', $data->slug) : route('service.location.department.doctors', ['department'=>$data->slug,'area'=>request()->area]) }}">
+
                                             <span class="checkmark"></span>
                                             {{ $loc == 'en' ? $data->name : (isset($data->bn_name) ? $data->bn_name : $data->name) }}
                                             <span class="badge bg-info">{{ $data->doctors->count() }}</span>

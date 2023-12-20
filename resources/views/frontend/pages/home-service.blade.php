@@ -42,6 +42,9 @@
                                                     <div class="form-search-btn">
                                                         <a class="btn call-now-button"
                                                             href="tel:{{ $data->phone }}">{{ __('website.call_now') }}</a>
+                                                            <div class="mt-1">
+                                                                <span>{{ $data->phone }}</span>
+                                                            </div>
                                                     </div>
                                                 </div>
                                             </div>

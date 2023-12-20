@@ -52,9 +52,10 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::get("service/{department}/doctors",[HomeController::class, "doctorsByDepartment"])->name('doctors.by.department');
     Route::get('service/{type}/all',[HomeController::class, "hospitalsByType"])->name('hospitals.by.type');
-    Route::get("/service/location/{id}/doctors", [HomeController::class, "serviceLocationDoctors"])
+    Route::get("/service/location/{area}/doctors", [HomeController::class, "serviceLocationDoctors"])
         ->name("service.location.doctors");
-    Route::get("/service/location/{id}/hospitals", [HomeController::class, "serviceLocationHospital"])
+    Route::get("/service/location/{area}/doctors/department/{department?}", [HomeController::class, "serviceLocationDepartmentDoctors"])->name("service.location.department.doctors");
+    Route::get("/service/location/{area}/hospitals", [HomeController::class, "serviceLocationHospital"])
         ->name("service.location.hospitals");
 
     Route::get("/service/doctors/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");

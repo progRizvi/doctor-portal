@@ -204,13 +204,32 @@ class HomeController extends Controller
     public function surgerySupport()
     {
         $surgerySupports = SurgerySupport::paginate(20);
-        $extraData = ExtraInfo::where('for','surgery')->orderBy('id','DESC')->first();
-        return view('frontend.pages.surgery-support',compact('surgerySupports','extraData'));
+        $extraData = ExtraInfo::where('for', 'surgery')->orderBy('id', 'DESC')->first();
+        return view('frontend.pages.surgery-support', compact('surgerySupports', 'extraData'));
     }
     public function homeServices()
     {
         $surgerySupports = HomeService::paginate(20);
-        $extraData = ExtraInfo::where('for','homeService')->orderBy('id','DESC')->first();
-        return view('frontend.pages.home-service',compact('surgerySupports','extraData'));
+        $extraData = ExtraInfo::where('for', 'homeService')->orderBy('id', 'DESC')->first();
+        return view('frontend.pages.home-service', compact('surgerySupports', 'extraData'));
+    }
+    public function serviceLocationDepartmentDoctors(string $location, string $dpt)
+    {
+        // get area
+        $area = Area::with(['extraInfo' => function ($query) {
+            $query->where('for', 'doctor')->first();
+        }])->where("slug", $location)->first();
+
+        // get department
+        $department = Department::with(['extraInfo' => function ($query) {
+            $query->where('for', 'doctor')->first();
+        }])->where("slug", $dpt)->first();
+        $doctors = $department->doctors()->where('area_id', $area->id)->with("area", "departments")
+            ->orderBy('serial')
+            ->orderBy('updated_at', 'desc')->paginate(20);
+
+        $departments = Department::all();
+        return view('frontend.pages.doctors-list', compact("doctors", "departments", 'area', 'department'));
+
     }
 }

@@ -11,7 +11,8 @@
                     </span>
                 </a>
                 <a href="{{ route('home') }}" class="navbar-brand logo">
-                    <img src="{{ url('images/logo.png') }}" class="img-fluid d-sm-none d-md-block" alt="Logo">
+                    {{--  d-sm-none d-md-block --}}
+                    <img src="{{ url('images/logo.png') }}" class="img-fluid" alt="Logo" style="max-width: 200px;">
                 </a>
             </div>
             <div class="main-menu-wrapper">

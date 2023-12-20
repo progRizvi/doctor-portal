@@ -53,6 +53,19 @@
             color: #0E82FD;
         }
     </style>
+    <style>
+        @media (max-width: 992px) {
+            .comprehensive_details {
+                font-size: 16px;
+            }
+            .header-one .logo.navbar-brand{
+                /* width: 0px !important; */
+            }
+        .header .header-nav .logo img{
+                height: 40px !important;
+            }
+        }
+    </style>
     @stack('style')
 </head>
 
@@ -104,7 +117,7 @@
                                     <li class="mb-1">
                                         <button class="btn btn-toggle align-items-center rounded collapsed"
                                             data-bs-toggle="collapse" data-bs-target="#{{ $div->name }}"
-                                            aria-expanded="false">
+                                            aria-expanded="false" style="font-size: 17px">
                                             {{$loc== 'en' ? $div->name : $div->bn_name }} <span
                                                 class="badge bg-info rounded-pill">{{ $count }}</span>
                                         </button>
@@ -118,7 +131,7 @@
                                                                 class="link-dark btn-toggle rounded text-black collapsed"
                                                                 data-bs-toggle="collapse"
                                                                 data-bs-target="#{{ $dis->name . $dis->id }}"
-                                                                aria-expanded="false">
+                                                                aria-expanded="false" style="font-size: 15px">
                                                                 {{ $loc== 'en' ? $dis->name : $dis->bn_name }}
                                                                 <div class="collapse" id="{{ $dis->name . $dis->id }}">
                                                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
@@ -126,7 +139,7 @@
                                                                         @foreach ($dis->areas as $area)
                                                                             <li class="px-3 py-2">
                                                                                 <a href="{{ route($url,$area->slug) }}"
-                                                                                    class="link-dark rounded text-black">{{ $loc== 'en' ? $area->name : (isset($area->bn_name)? $area->bn_name : $area->name) }}
+                                                                                    class="link-dark rounded text-black" style="font-size: 13px">{{ $loc== 'en' ? $area->name : (isset($area->bn_name)? $area->bn_name : $area->name) }}
                                                                                     <span
                                                                                         class="badge bg-info">{{ $currRoute == 'service.hospitals'? $area->hospitals->count() : $area->doctors->count() }}</span></a>
                                                                             </li>

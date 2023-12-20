@@ -1,6 +1,9 @@
 @extends('frontend.layout')
 @section('title', 'Doctorinfobd')
 
+@push("style")
+    
+@endpush
 @section('content')
     <!-- Home Banner -->
     <section class="banner-section">
@@ -130,7 +133,7 @@
             </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-sm-10 mx-auto aos" data-aos="fade-up">
-                    <p>
+                    <p class="comprehensive_details">
                         {{__("website.comprehensive_healthcare_details")}}
                     </p>
                 </div>

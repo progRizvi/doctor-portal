@@ -109,6 +109,8 @@ class DoctorController extends Controller
         $doctor->status = $request->status ? $request->status : "active";
         $doctor->hospital = $request->hospital;
         $doctor->bn_hospital = $request->bn_hospital;
+        $doctor->meta_description = $request->meta_description;
+        $doctor->meta_keywords = $request->meta_keywords;
         $doctor->address = $request->address;
         $doctor->bn_address = $request->bn_address;
         $doctor->save();
@@ -206,6 +208,8 @@ class DoctorController extends Controller
         $doctor->status = $request->status;
         $doctor->hospital = $request->hospital;
         $doctor->bn_hospital = $request->bn_hospital;
+        $doctor->meta_description = $request->meta_description;
+        $doctor->meta_keywords = $request->meta_keywords;
         $doctor->address = $request->address;
         $doctor->bn_address = $request->bn_address;
         $doctor->save();

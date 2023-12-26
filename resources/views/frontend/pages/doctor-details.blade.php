@@ -1,5 +1,7 @@
 @extends('frontend.layout')
 @section('title', $doctor->name)
+@section('meta_keywords', $doctor->meta_keywords)
+@section('meta_description', $doctor->meta_description)
 
 @push('style')
     <style>
@@ -14,9 +16,6 @@
 @section('content')
     @php
         $loc = session('loc');
-        $treatmentsList = $loc == 'en' ? $doctor->treatments : ($doctor->bn_treatments != '' ? $doctor->bn_treatments : $doctor->treatments);
-        $treatments = explode(',', $treatmentsList);
-        $treatments = array_map('trim', $treatments);
     @endphp
     
     <div class="breadcrumb-bar-two">
@@ -49,7 +48,7 @@
                                                     </h4>
                                                     <div class="user-Location"></div>
                                                     <div class="about-text text-white">
-                                                        {{ $loc == 'en' ? $doctor->bio : (isset($doctor->bn_bio) ? $doctor->bn_bio : $doctor->bio) }}
+                                                        {!! $loc == 'en' ? $doctor->bio : (isset($doctor->bn_bio) ? $doctor->bn_bio : $doctor->bio) !!}
                                                     </div>
                                                     <p class="px-4">
                                                         <hr>
@@ -82,7 +81,7 @@
                     <div class="card" style="box-shadow:0px 0px 10px 1px rgba(0, 0, 0, 0.1)">
                         <div class="card-body">
                             <p class="text-muted">
-                                    {{ $loc == 'en' ? $doctor->description : (isset($doctor->bn_description) ? $doctor->bn_description : $doctor->description) }}
+                                    {!! $loc == 'en' ? $doctor->description : (isset($doctor->bn_description) ? $doctor->bn_description : $doctor->description) !!}
                                 </p>
                         </div>
                     </div>
@@ -99,12 +98,7 @@
                                                 <span>{{ __('website.treated_conditions_include') }}</span>
                                             </h5>
                                             <div class="row">
-                                                @foreach ($treatments as $treatment)
-                                                    <p class="co-12 col-md-6 text-muted"><i
-                                                            class="fas fa-angle-double-right"></i>
-                                                        {{ preg_replace('/\s+/', ' ', $treatment) }}
-                                                    </p>
-                                                @endforeach
+                                               {!! $loc == 'en' ? $doctor->treatments : (isset($doctor->bn_treatments) ? $doctor->bn_treatments : $doctor->treatments) !!}
                                             </div>
                                         </div>
                                     </div>
@@ -217,5 +211,19 @@
     </div>
 @endsection
 @push('script')
-    <script></script>
+    
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "Person",
+            "name": "{{ $doctor->name }}",
+            "email": "{{ $doctor->email }}",
+            "image": "{{ asset('public/uploads/doctors/' . $doctor->image) }}",
+            "jobTitle": "doctor",
+            "worksFor": {
+                "@type": "Organization",
+                "name": "hospital"
+            }  
+        }
+    </script>
 @endpush

@@ -1,6 +1,9 @@
 @extends('frontend.layout')
 @section('title', __('website.hospitals'))
 @section('content')
+@php
+    $currRoute = request()->route()->getName();
+@endphp
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row align-items-center inner-banner">
@@ -31,21 +34,21 @@
                                     $loc = session('loc');
                                 @endphp
                                 <div class="py-2 cursor-pointer type" style="cursor:pointer" data-type="hospital">
-                                    <a href="{{ route('hospitals.by.type', 'hospital') }}">
+                                    <a href="{{($currRoute == 'service.location.hospitals') ? route('service.location.hospitals.type', ['area'=>request()->area,"type"=>"hospital"]) : route('hospitals.by.type', 'hospital') }}">
                                         <span class="checkmark"></span> {{ __('website.hospital') }} <span
                                             class="badge bg-info">{{ $hosCat }}</span>
                                         </span>
                                     </a>
                                 </div>
                                 <div class="py-2 cursor-pointer type" style="cursor:pointer" data-type="clinic">
-                                    <a href="{{ route('hospitals.by.type', 'clinic') }}">
+                                    <a href="{{($currRoute == 'service.location.hospitals') ? route('service.location.hospitals.type', ['area'=>request()->area,"type"=>"clinic"]) : route('hospitals.by.type', 'clinic') }}">
                                         <span class="checkmark"></span> {{ __('website.clinic') }} <span
                                             class="badge bg-info">{{ $clinicCat }}</span>
                                         </span>
                                     </a>
                                 </div>
                                 <div class="py-2 cursor-pointer type" style="cursor:pointer" data-type="clinic">
-                                    <a href="{{ route('hospitals.by.type', 'diagnostic') }}">
+                                    <a href="{{($currRoute == 'service.location.hospitals') ? route('service.location.hospitals.type', ['area'=>request()->area,"type"=>"diagnostic"]) : route('hospitals.by.type', 'diagnostic') }}">
                                         <span class="checkmark"></span> {{ __('website.diagnostic') }} <span
                                             class="badge bg-info">{{ $diagnosticCat }}</span>
                                         </span>
@@ -85,14 +88,16 @@
                                         <p>
                                             <hr>
                                         </p>
-                                        @if (isset($area) && $area->extraInfo[0]->for != 'doctor')
                                             @php
-                                                $data = $area->extraInfo[0];
+                                                $data = isset($department) ? $department : (isset($area) ? $area : '');
+                                                $dataCount = gettype($data) != 'string' ? count($data?->extraInfo) : 0;
+                                                $data = $dataCount ? $data->extraInfo[0] : '';
                                             @endphp
+                                                @if ($dataCount)
                                             <p>
                                                 {{ $loc == 'en' ? $data->title : (isset($data->bn_title) ? $data->bn_title : $data->title) }}
                                             </p>
-                                        @endif
+                                            @endif
                                     </div>
                                 </div>
                                 @foreach ($hospitals as $hospital)
@@ -110,18 +115,19 @@
                                                                     @if ($hospital->image) src="{{ asset('public/uploads/hospitals/' . $hospital->image) }}"
                                                             @else
                                                             src="{{ asset('images/hospital.svg') }}" @endif
-                                                                    alt="{{ $hospital->name }}">
+                                                                    alt="{{ $loc == 'en' ? $hospital->name : (isset($hospital->bn_name) ? $hospital->bn_name : $hospital->name) }}">
                                                                 <div class="px-3 pt-2">
-                                                                    <h4 style="color:#0E82FD">{{ $hospital->name }}</h4>
+                                                                    <h4 style="color:#0E82FD">{{ $loc == 'en' ? $hospital->name : (isset($hospital->bn_name) ? $hospital->bn_name : $hospital->name) }}</h4>
                                                                     <p>
-                                                                        Address: {{ $hospital->address }},
-                                                                        {{ $hospital->area?->name }},
-                                                                        {{ $hospital->area?->district?->name }},
-                                                                        {{ $hospital->area?->district?->division?->name }}
+                                                                        Address: {{ $loc == 'en' ? $hospital->address : (isset($hospital->bn_address) ? $hospital->bn_address : $hospital->address) }},
+                                                {{ $loc == 'en' ? $hospital->area?->name : (isset($hospital->area?->bn_name) ? $hospital->area?->bn_name : $hospital->area?->name) }},
+                                                {{ $loc == 'en' ? $hospital->area?->district?->name : (isset($hospital->area?->district?->bn_name) ? $hospital->area?->district?->bn_name : $hospital->area?->district?->name) }},
+
+                                                {{ $loc == 'en' ? $hospital->area?->district?->division?->name : (isset($hospital->area?->district?->division?->bn_name) ? $hospital->area?->district?->division?->bn_name : $hospital->area?->district?->division?->name) }}.
                                                                     </p>
                                                                     <hr style="color:gray" />
                                                                     <p>
-                                                                        {{ $hospital->bio }}
+                                                                        {!! $loc == 'en' ? $hospital->description : (isset($hospital->bn_description) ? $hospital->bn_description : $hospital->description) !!}
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -132,10 +138,7 @@
                                         </a>
                                     </div>
                                 @endforeach
-                                @if (isset($area) && $area->extraInfo[0]->for != 'doctor')
-                                    @php
-                                        $data = $area->extraInfo[0];
-                                    @endphp
+                                @if ($dataCount)
                                     <div class="col-sx-12 mb-4">
                                         <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
                                             {!! $loc == 'en'

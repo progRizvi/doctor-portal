@@ -1,5 +1,7 @@
 @extends('frontend.layout')
 @section('title', $hospital->name)
+@section('meta_keywords', $hospital->meta_keywords)
+@section('meta_description', $hospital->meta_description)
 
 @push("style")
     <style>
@@ -12,7 +14,9 @@
     </style>
 @endpush
 @section('content')
-{{-- @dd($hospital) --}}
+ @php
+        $loc = session('loc');
+    @endphp
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row inner-banner">
@@ -28,7 +32,7 @@
                                                     <div class="w-25 mx-auto mt-2">
                                                         <a href="#" style="display:inline-block; border: 10px solid white; border-radius:50%">
                                                         <img class="img-fluid mt-4 px-4" style="clip-path:circle()"
-                                                            alt="{{ $hospital->name }}"
+                                                            alt="{{ $loc == 'en' ? $hospital->name : (isset($hospital->bn_name) ? $hospital->bn_name : $hospital->name) }}"
                                                             @if ($hospital->image) src="{{ asset('public/uploads/hospitals/' . $hospital->image) }}"
                                                             @else
                                                             src="{{ asset('images/hospital.svg') }}" @endif>
@@ -36,10 +40,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="ml-md-n2 profile-user-info">
-                                                    <h4 class="user-name mb-0 text-white">{{ $hospital->name }}</h4>
+                                                    <h4 class="user-name mb-0 text-white">
+                                                    {{ $loc == 'en' ? $hospital->name : (isset($hospital->bn_name) ? $hospital->bn_name : $hospital->name) }}
+                                                    </h4>
                                                     <div class="user-Location"></div>
                                                     <div class="about-text text-white">
-                                                        {{ $hospital->description }}
+                                                        {!! $loc == 'en' ? $hospital->description : (isset($hospital->bn_description) ? $hospital->bn_description : $hospital->description) !!}
                                                     </div>
                                                     <p class="px-4">
                                                         <hr>
@@ -74,7 +80,7 @@
                                             <div class="row">
 
                                                 <p class="co-12 text-muted">
-                                                    {{ $hospital->description }}
+                                                    {!! $loc == 'en' ? $hospital->description : (isset($hospital->bn_description) ? $hospital->bn_description : $hospital->description) !!}
                                                 </p>
 
                                             </div>
@@ -100,10 +106,12 @@
                                         </div>
                                         <div class="border mx-4 mb-2 p-3">
                                             <div>
-                                                <b><i class="fa fa-location-arrow"></i> </b>{{ $hospital->address }},
-                                                {{ $hospital->area?->name }},
-                                                {{ $hospital->area?->district?->name }},
-                                                {{ $hospital->area?->district?->division?->name }}.
+                                                <b><i class="fa fa-location-arrow"></i> </b>
+                                                {{ $loc == 'en' ? $hospital->address : (isset($hospital->bn_address) ? $hospital->bn_address : $hospital->address) }},
+                                                {{ $loc == 'en' ? $hospital->area?->name : (isset($hospital->area?->bn_name) ? $hospital->area?->bn_name : $hospital->area?->name) }},
+                                                {{ $loc == 'en' ? $hospital->area?->district?->name : (isset($hospital->area?->district?->bn_name) ? $hospital->area?->district?->bn_name : $hospital->area?->district?->name) }},
+
+                                                {{ $loc == 'en' ? $hospital->area?->district?->division?->name : (isset($hospital->area?->district?->division?->bn_name) ? $hospital->area?->district?->division?->bn_name : $hospital->area?->district?->division?->name) }}.
                                             </div>
                                             <div class="pt-3">
                                                 <b>{{ __('website.schedule') }}: </b>
@@ -139,5 +147,21 @@
 
 @endsection
 @push('script')
-    <script></script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "{{ $hospital->type }}",
+            "name": "{{ $hospital->name }}",
+            "alternateName": "{{ $hospital->bn_name }}",
+            "url": "{{ $hospital->name }}",
+            "logo": "{{ asset('public/uploads/hospitals/' . $hospital->image) }}",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "{{ $hospital->phone }}",
+                "contactType": "emergency",
+                "areaServed": "{{ $hospital->area?->name }}",
+                "availableLanguage": "en,bn"
+            }
+        }
+    </script>
 @endpush

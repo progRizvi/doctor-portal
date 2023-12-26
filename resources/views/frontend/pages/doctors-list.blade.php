@@ -129,7 +129,7 @@
                                                                     </p>
                                                                     <hr style="color:gray" />
                                                                     <p>
-                                                                        {{ $loc == 'en' ? $doctor->bio : (isset($doctor->bn_bio) ? $doctor->bn_bio : $doctor->bio) }}
+                                                                        {!! $loc == 'en' ? $doctor->bio : (isset($doctor->bn_bio) ? $doctor->bn_bio : $doctor->bio) !!}
                                                                     </p>
                                                                 </div>
 

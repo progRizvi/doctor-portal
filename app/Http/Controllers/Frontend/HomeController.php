@@ -232,4 +232,17 @@ class HomeController extends Controller
         return view('frontend.pages.doctors-list', compact("doctors", "departments", 'area', 'department'));
 
     }
+    public function serviceLocationHospitalType(string $area, string $type)
+    {
+        $area = Area::with(['extraInfo' => function ($query) {
+            $query->where('for', 'hospital')->first();
+        }])->where("slug", $area)->first();
+        $hospitals = Hospital::where("area_id", $area->id)->where("type",$type)->with("area")->paginate(20);
+        $locations = Division::with(['districts.areas'])->get();
+
+        $districts = District::get();
+
+        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'area','type'));
+
+    }
 }

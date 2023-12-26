@@ -63,6 +63,7 @@ class HospitalController extends Controller
         $slug = $request->input("slug");
         $generateSlug = Str::slug($slug ? $slug : $request->name) . '-' . uniqid();
         $hospital->name = $request->name;
+        $hospital->bn_name = $request->bn_name;
         $hospital->slug = $generateSlug;
         $hospital->email = $request->email;
         $hospital->phone = $request->phone;
@@ -70,9 +71,11 @@ class HospitalController extends Controller
         $hospital->website = $request->website;
         $hospital->schedules = "all_day";
         $hospital->description = $request->description;
+        $hospital->bn_description = $request->bn_description;
         $hospital->status = $request->status;
         $hospital->type = $request->type;
         $hospital->address = $request->address;
+        $hospital->bn_address = $request->bn_address;
         $hospital->save();
         if ($hospital) {
             toastr()->success("Hospital created successfully");
@@ -145,15 +148,16 @@ class HospitalController extends Controller
         $slug = $request->input("slug");
         $generateSlug = Str::slug($slug ? $slug : $request->name) . '-' . uniqid();
         $hospital->name = $request->name;
+        $hospital->bn_name = $request->bn_name;
         $hospital->slug = $generateSlug;
         $hospital->email = $request->email;
         $hospital->phone = $request->phone;
         $hospital->area_id = $request->area_id;
         $hospital->website = $request->website;
-        $hospital->description = $request->description;
+        $hospital->bn_description = $request->bn_description;
         $hospital->status = $request->status;
         $hospital->type = $request->type;
-        $hospital->address = $request->address;
+        $hospital->bn_address = $request->bn_address;
         $hospital->save();
         if ($hospital) {
             toastr()->success("Hospital updated successfully");

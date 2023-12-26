@@ -62,7 +62,8 @@
                     <span class="text-red-700">*</span>
                 </label>
                 <select id="gender" name="gender"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    required>
                     <option value="male" {{ old('gender') === 'male' ? 'selected' : '' }}>Male</option>
                     <option value="female" {{ old('gender') === 'female' ? 'selected' : '' }}>Female</option>
                     <option value="other" {{ old('gender') === 'other' ? 'selected' : '' }}>Other</option>
@@ -90,7 +91,8 @@
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="bn_hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital in Bangla</label>
+                <label for="bn_hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital in
+                    Bangla</label>
                 <input type="text" id="bn_hospital" name="bn_hospital"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ old('bn_hospital') }}">
@@ -109,7 +111,8 @@
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="bn_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address in Bangla</label>
+                <label for="bn_address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address in
+                    Bangla</label>
                 <input type="text" id="bn_address" name="bn_address"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                     value="{{ old('bn_address') }}">
@@ -137,18 +140,17 @@
                     <span class="text-red-700">*</span></label>
                 <textarea name="treatments" id="treatments" cols="30" rows="5"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    placeholder="ex. Pneumonia, Chest Pain" required>{{ old('treatments') }}</textarea>
-                <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
+                    placeholder="ex. Pneumonia Chest Pain" required>{{ old('treatments') }}</textarea>
                 @error('treatments')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
             <div class="mb-6">
-                <label for="bn_treatments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Treatments in Bangla</label>
+                <label for="bn_treatments" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Treatments
+                    in Bangla</label>
                 <textarea name="bn_treatments" id="bn_treatments" cols="30" rows="5"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    placeholder="ex. Pneumonia, Chest Pain">{{ old('bn_treatments') }}</textarea>
-                <small class="text-red-700">Note: Please list the treatments using commas (,) as separators.</small>
+                    placeholder="ex. Pneumonia Chest Pain">{{ old('bn_treatments') }}</textarea>
                 @error('bn_treatments')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
@@ -184,7 +186,8 @@
                 <label for="division_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Division
                     <span class="text-red-700">*</span></label>
                 <select name="division_id" id="division_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
+                    required>
                     <option value="">Select</option>
                     @foreach ($divisions as $division)
                         <option value="{{ $division->id }}">{{ $division->name }}</option>
@@ -198,7 +201,8 @@
                 <label for="district_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">District
                     <span class="text-red-700">*</span></label>
                 <select name="district_id" id="district_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
+                    required>
                     <option value="" selected>Select</option>
                 </select>
                 @error('district_id')
@@ -209,7 +213,8 @@
                 <label for="area_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Area <span
                         class="text-red-700">*</span></label>
                 <select name="area_id" id="area_id"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
+                    required>
                     <option value="" selected>Select</option>
                 </select>
                 @error('area_id')
@@ -245,7 +250,8 @@
                 <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
                     <span class="text-red-700">*</span></label>
                 <select name="status" id="status"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring" required>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
+                    required>
                     <option value="">Select</option>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
@@ -263,8 +269,7 @@
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="bio">Bio in Bangla</label>
                 <textarea id="bn_bio" type="textarea" name="bn_bio"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    >{{ old('bn_bio') }}</textarea>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{{ old('bn_bio') }}</textarea>
             </div>
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="description">Description <span
@@ -336,6 +341,20 @@
                     </div>
                 </div>
             </div>
+            <div class="mb-6">
+                <label for="meta_keywords" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meta
+                    Keywords</label>
+                <input type="text" id="meta_keywords" name="meta_keywords"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    placeholder="Enter keywords comma separated">
+            </div>
+            <div class="mb-6">
+                <label for="meta_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meta
+                    Description</label>
+                <input type="text" id="meta_description" name="meta_description"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    placeholder="Enter Description">
+            </div>
             <button type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create
             </button>
@@ -392,6 +411,21 @@
                 }
             });
 
+        }
+    </script>
+    <script>
+        makeEditor('#treatments');
+        makeEditor('#bn_treatments');
+        makeEditor('#bn_bio');
+        makeEditor('#bio');
+        makeEditor('#description');
+        makeEditor('#bn_description');
+        function makeEditor(selector) {
+            ClassicEditor
+                .create(document.querySelector(selector))
+                .catch(error => {
+                    console.error(error);
+                });
         }
     </script>
 @endpush

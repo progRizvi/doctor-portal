@@ -16,6 +16,8 @@
     <meta name="description" content="@yield('meta_description')" />
     <meta name="author" content="@yield('author')" />
 
+    <meta name="google-site-verification" content="" />
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('frontend/assets/img/favicon.png') }}" type="image/x-icon">
 

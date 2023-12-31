@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string("bn_slug")->nullable();
             $table->text("description")->nullable();
             $table->text("bn_description")->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keywords')->nullable();
             $table->timestamps();
         });
     }

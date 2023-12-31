@@ -143,7 +143,7 @@
                     <span class="text-red-700">*</span></label>
                 <textarea name="treatments" id="treatments" cols="30" rows="5"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:focus:border-blue-500 focus:border-blue-500 focus:outline-none focus:ring"
-                    placeholder="ex. Pneumonia, Chest Pain" required>{{ old('treatments', $doctor->treatments) }}</textarea>
+                    placeholder="ex. Pneumonia, Chest Pain">{{ old('treatments', $doctor->treatments) }}</textarea>
                 <div>
                     @error('treatments')
                         <span class="text-red-700">{{ $message }}</span>
@@ -178,9 +178,11 @@
                             </label>
                             <span
                                 class="{{ isset($doctor->schedules) && array_key_exists($day, $doctor->schedules) ? '' : 'hidden' }}">
-                                <input type="time" name="{{ $day }}_start_time"
-                                    value="{{ isset($doctor->schedules) && array_key_exists($day, $doctor->schedules) ? $doctor->schedules[$day]['start_time'] : '' }}">
-                                <input type="time" name="{{ $day }}_end_time" class="form-controll"
+                                <input type="text" name="{{ $day }}_start_time"
+                                    value="{{ isset($doctor->schedules) && array_key_exists($day, $doctor->schedules) ? $doctor->schedules[$day]['start_time'] : '' }}"
+                                    class="w-1/3" style="border: 1px solid #333;">
+                                <input type="text" name="{{ $day }}_end_time" class="w-1/3"
+                                    style="border: 1px solid #333;"
                                     value="{{ isset($doctor->schedules) && array_key_exists($day, $doctor->schedules) ? $doctor->schedules[$day]['end_time'] : '' }}"
                                     @if ($doctor->schedules && !array_key_exists($day, $doctor->schedules)) disabled @endif>
                             </span>
@@ -271,24 +273,22 @@
             </div>
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="bio">Bio <span class="text-red-700">*</span></label>
-                <textarea id="bio" type="textarea" name="bio"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    required>{{ old('bio', $doctor->bio) }}</textarea>
+                <textarea id="bio" name="bio"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{{ old('bio', $doctor->bio) }}</textarea>
                 @error('bio')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
             </div>
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="bio">Bio in Bangla</label>
-                <textarea id="bn_bio" type="textarea" name="bn_bio"
+                <textarea id="bn_bio" name="bn_bio"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{{ old('bn_bio', $doctor->bn_bio) }}</textarea>
             </div>
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="description">Description <span
                         class="text-red-700">*</span></label>
-                <textarea id="description" type="textarea" name="description"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                    required>{{ old('description', $doctor->description) }}</textarea>
+                <textarea id="description" name="description"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{{ old('description', $doctor->description) }}</textarea>
                 @error('description')
                     <span class="text-red-700">{{ $message }}</span>
                 @enderror
@@ -296,7 +296,7 @@
 
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="bn_description">Description in Bangla</label>
-                <textarea id="bn_description" type="textarea" name="bn_description"
+                <textarea id="bn_description" name="bn_description"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring">{{ old('bn_description', $doctor->bn_description) }}</textarea>
                 @error('bn_description')
                     <span class="text-red-700">{{ $message }}</span>
@@ -453,6 +453,7 @@
         makeEditor('#bio');
         makeEditor('#description');
         makeEditor('#bn_description');
+
         function makeEditor(selector) {
             ClassicEditor
                 .create(document.querySelector(selector))

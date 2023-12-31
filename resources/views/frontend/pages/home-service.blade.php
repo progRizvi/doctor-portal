@@ -1,5 +1,10 @@
 @extends('frontend.layout')
 @section('title', __('website.home_medical_service'))
+
+@if (isset($extraData))
+    @section('meta_keywords',$extraData->meta_keywords)
+    @section('meta_description',$extraData->meta_description)
+@endif
 @section('content')
 
     <style>
@@ -58,7 +63,7 @@
                 </div>
                 <div class="col-sm-11 mx-auto pt-5">
                     @if (isset($extraData))
-                        {!!  loc == 'en'? $extraData?->description : (isset( $extraData?->bn_description)? $extraData?->bn_description : $extraData?->description)  !!}
+                        {!!  $loc == 'en'? $extraData?->description : (isset( $extraData?->bn_description)? $extraData?->bn_description : $extraData?->description)  !!}
                     @endif
                 </div>
             </div>

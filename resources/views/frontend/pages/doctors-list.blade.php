@@ -1,13 +1,11 @@
 @extends('frontend.layout')
-@section('title', __('website.doctors'))
-@php
-    $data = isset($department) ? $department : (isset($area) ? $area : '');
-    $dataCount = gettype($data) != 'string' ? count($data?->extraInfo) : 0;
-    $data = $dataCount ? $data->extraInfo[0] : '';
-@endphp
-@if ($dataCount)
-    @section('meta_keywords',$data->meta_keywords)
-    @section('meta_description',$data->meta_description)
+
+@if (isset($department))
+    @section('meta_keywords',$department->meta_keywords)
+    @section('meta_description',$department->meta_description)
+    @section('title', $department->name)
+@else
+    @section('title', __('website.doctors'))
 @endif
 @section('content')
 

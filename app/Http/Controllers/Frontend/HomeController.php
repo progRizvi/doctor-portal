@@ -140,13 +140,15 @@ class HomeController extends Controller
     }
     public function categoryDetails(string $slug)
     {
+        
         $posts = Post::whereHas('category', function ($query) use ($slug) {
             $query->where('slug', $slug);
         })->paginate(10);
 
         $latestPosts = Post::latest()->orderBy("id", "DESC")->take(5)->get();
         $categories = Category::all();
-        return view('frontend.pages.blogs.index', compact('posts', "latestPosts", "categories"));
+        $category = Category::where("slug",$slug)->first();
+        return view('frontend.pages.blogs.index', compact('posts', "latestPosts", "categories",'category'));
     }
     public function postDetails(string $slug)
     {
@@ -170,7 +172,6 @@ class HomeController extends Controller
     }
     public function doctorsByDepartment($slug)
     {
-
         $department = Department::with(['extraInfo' => function ($query) {
             $query->where('for', 'doctor')->first();
         }])->where("slug", $slug)->first();
@@ -207,6 +208,7 @@ class HomeController extends Controller
         $extraData = ExtraInfo::where('for', 'surgery')->orderBy('id', 'DESC')->first();
         return view('frontend.pages.surgery-support', compact('surgerySupports', 'extraData'));
     }
+    
     public function homeServices()
     {
         $surgerySupports = HomeService::paginate(20);

@@ -18,8 +18,6 @@ use App\Http\Controllers\HomeServiceController;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SurgerySupportController;
-use App\Models\ExtraInfo;
-use App\Models\SurgerySupport;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -50,8 +48,8 @@ Route::group(['middleware' => 'localization'], function () {
     Route::get("/service/doctors", [HomeController::class, "serviceDoctors"])
         ->name("service.doctors");
 
-    Route::get("service/{department}/doctors",[HomeController::class, "doctorsByDepartment"])->name('doctors.by.department');
-    Route::get('service/{type}/all',[HomeController::class, "hospitalsByType"])->name('hospitals.by.type');
+    Route::get("service/{department}/doctors", [HomeController::class, "doctorsByDepartment"])->name('doctors.by.department');
+    Route::get('service/{type}/all', [HomeController::class, "hospitalsByType"])->name('hospitals.by.type');
     Route::get("/service/location/{area}/doctors", [HomeController::class, "serviceLocationDoctors"])
         ->name("service.location.doctors");
     Route::get("/service/location/{area}/doctors/department/{department?}", [HomeController::class, "serviceLocationDepartmentDoctors"])->name("service.location.department.doctors");

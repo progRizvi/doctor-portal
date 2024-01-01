@@ -2,14 +2,10 @@
 
 use App\Models\Localization;
 
-$translates = Localization::pluck('word',"english")->toArray();
+$translates = Localization::pluck('word', "english")->toArray();
 $reversedTranslates = array_flip($translates);
 
-
-
-
-
-$list =  [
+$list = [
     "doctors" => "Doctors",
     "hospitals" => "Hospitals",
     "surgery_support" => "Surgery Support",
@@ -54,7 +50,7 @@ $list =  [
     "home" => "Home",
     "search" => "Search",
     "blog_categories" => "Blog Categories",
-    "blog_details"=>"Blog Details",
+    "blog_details" => "Blog Details",
     "latest_post" => "Latest Post",
     "related_post" => "Related Post",
     "view_blog" => "View Blog",

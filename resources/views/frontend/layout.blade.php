@@ -16,7 +16,7 @@
     <meta name="description" content="@yield('meta_description')" />
     <meta name="author" content="@yield('author')" />
 
-    <meta name="google-site-verification" content="" />
+    <meta name="google-site-verification" content="nhMk9Wt2wKbVTN3m5Dc9ZVVsbpopqNmU08v5n7GKSb4" />
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('frontend/assets/img/favicon.png') }}" type="image/x-icon">
@@ -48,9 +48,10 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/custom.css') }}">
     <style>
-        a:hover{
-            color:#0E82FD;
+        a:hover {
+            color: #0E82FD;
         }
+
         a.active {
             color: #0E82FD;
         }
@@ -60,15 +61,41 @@
             .comprehensive_details {
                 font-size: 16px;
             }
-            .header-one .logo.navbar-brand{
+
+            .header-one .logo.navbar-brand {
                 /* width: 0px !important; */
             }
-        .header .header-nav .logo img{
+
+            .header .header-nav .logo img {
                 height: 40px !important;
             }
         }
     </style>
     @stack('style')
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-K92KKD46');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K92KKD46" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 </head>
 
 <body>
@@ -106,7 +133,9 @@
                             <ul class="list-unstyled ps-0">
                                 @foreach ($locations as $div)
                                     @php
-                                        $currRoute = request()->route()->getName();
+                                        $currRoute = request()
+                                            ->route()
+                                            ->getName();
                                         $districts = $div->districts;
                                         $districtsId = $districts->pluck('id');
                                         $areasId = Area::whereIn('district_id', $districtsId)->pluck('id');
@@ -120,7 +149,7 @@
                                         <button class="btn btn-toggle align-items-center rounded collapsed"
                                             data-bs-toggle="collapse" data-bs-target="#{{ $div->name }}"
                                             aria-expanded="false" style="font-size: 17px">
-                                            {{$loc== 'en' ? $div->name : $div->bn_name }} <span
+                                            {{ $loc == 'en' ? $div->name : $div->bn_name }} <span
                                                 class="badge bg-info rounded-pill">{{ $count }}</span>
                                         </button>
                                         <div class="collapse" id="{{ $div->name }}">
@@ -134,16 +163,17 @@
                                                                 data-bs-toggle="collapse"
                                                                 data-bs-target="#{{ $dis->name . $dis->id }}"
                                                                 aria-expanded="false" style="font-size: 15px">
-                                                                {{ $loc== 'en' ? $dis->name : $dis->bn_name }}
+                                                                {{ $loc == 'en' ? $dis->name : $dis->bn_name }}
                                                                 <div class="collapse" id="{{ $dis->name . $dis->id }}">
                                                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"
                                                                         style="background: #F2F6F6;">
                                                                         @foreach ($dis->areas as $area)
                                                                             <li class="px-3 py-2">
-                                                                                <a href="{{ route($url,$area->slug) }}"
-                                                                                    class="link-dark rounded text-black" style="font-size: 13px">{{ $loc== 'en' ? $area->name : (isset($area->bn_name)? $area->bn_name : $area->name) }}
+                                                                                <a href="{{ route($url, $area->slug) }}"
+                                                                                    class="link-dark rounded text-black"
+                                                                                    style="font-size: 13px">{{ $loc == 'en' ? $area->name : (isset($area->bn_name) ? $area->bn_name : $area->name) }}
                                                                                     <span
-                                                                                        class="badge bg-info">{{ $currRoute == 'service.hospitals'? $area->hospitals->count() : $area->doctors->count() }}</span></a>
+                                                                                        class="badge bg-info">{{ $currRoute == 'service.hospitals' ? $area->hospitals->count() : $area->doctors->count() }}</span></a>
                                                                             </li>
                                                                         @endforeach
                                                                     </ul>

@@ -1,10 +1,5 @@
 @extends('frontend.layout')
 @section('title', __('website.surgery_support'))
-
-@if (isset($extraData))
-    @section('meta_keywords',$extraData->meta_keywords)
-    @section('meta_description',$extraData->meta_description)
-@endif
 @section('content')
 
     <style>

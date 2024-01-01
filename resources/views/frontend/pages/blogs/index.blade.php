@@ -1,5 +1,10 @@
 @extends('frontend.layout')
 @section('title', 'Blog')
+@if (isset($category))
+    @section('meta_description', $category->meta_description)
+@section('meta_keywords', $category->meta_keywords)
+@endif
+
 @section('content')
     <!-- Breadcrumb -->
     <div class="breadcrumb-bar-two">
@@ -24,8 +29,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-12">
-
-                    <!-- Blog Post -->
+                    @if ($posts->count() > 0)
+                        <!-- Blog Post -->
                     @foreach ($posts as $post)
                         <div class="blog">
                             <div class="blog-image">
@@ -66,6 +71,11 @@
                         </div>
                     </div>
                     <!-- /Blog Pagination -->
+
+                    @else
+                        @include('frontend.pages.no-data-found')
+                    @endif
+                    
                 </div>
 
                 <!-- Blog Sidebar -->

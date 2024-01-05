@@ -1,5 +1,14 @@
 @extends('frontend.layout')
-@section('title', __('website.surgery_support'))
+
+@if(isset($extraData) && $extraData->meta_title)
+    @section('title', $extraData->meta_title)
+@else
+    @section('title', __('website.surgery_support'))
+@endif
+@if (isset($extraData))
+    @section('meta_keywords', $extraData->meta_keywords)
+    @section('meta_description', $extraData->meta_description)
+@endif
 @section('content')
 
     <style>
@@ -39,7 +48,7 @@
                                                 <div class="accordion-collapse shade collapse show bg-white"
                                                     style="box-shadow:-8px 13px 80px rgba(27, 41, 80, 0.3); border-radius:20px">
                                                     <div class="d-flex justify-content-center">
-                                                        <h4 class="py-3 support-heading">
+                                                        <h4 class="py-3 support-heading" style="cursor:pointer" onclick="showDetails({{ $data->id }})">
                                                             {{ $loc == 'en' ? $data->title : (isset($data->bn_title) ? $data->bn_title : $data->title) }}
                                                         </h4>
                                                     </div>
@@ -77,4 +86,27 @@
         </div>
     </div>
 
+    {{-- modal --}}
+
+    <div class="modal fade" id="supportModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+        </div>
+    </div>
 @endsection
+
+
+@push('script')
+    <script>
+        function showDetails(id) {
+            $.ajax({
+                url: "{{ route('surgery-support.show', '') }}" + "/" + id,
+                type: "GET",
+                success: function(response) {
+                    $('#supportModal').modal('show');
+                    $('#supportModal').find('.modal-dialog').html(response);
+                }
+            });
+        }
+    </script>
+@endpush

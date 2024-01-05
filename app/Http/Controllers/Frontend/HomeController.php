@@ -247,4 +247,18 @@ class HomeController extends Controller
         return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'area','type'));
 
     }
+
+    public function homeServiceDetails($id)
+    {
+        $data = HomeService::find($id);
+        $data->image = asset('uploads/home-service/' . $data->image);
+        return view('frontend.pages.service-details', compact('data'));
+    }
+
+    public function surgeryDetails($id)
+    {
+        $data = SurgerySupport::find($id);
+        $data->image = asset('uploads/surgery-support/' . $data->image);
+        return view('frontend.pages.service-details', compact('data'));
+    }
 }

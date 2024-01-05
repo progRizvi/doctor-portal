@@ -161,7 +161,7 @@
                 <label class="dark:text-gray-200" for="description">Description <span
                         class="text-red-700">*</span></label>
                 <textarea id="description" type="textarea" name="description"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" required></textarea>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
                 @error('description')
                     <small class="text-red-700">
                         {{ $message }}
@@ -171,7 +171,7 @@
             <div class="mb-6">
                 <label class="dark:text-gray-200" for="bn_description">Bangla Description</label>
                 <textarea id="bn_description" type="textarea" name="bn_description"
-                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring" ></textarea>
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
                 @error('bn_description')
                     <small class="text-red-700">
                         {{ $message }}

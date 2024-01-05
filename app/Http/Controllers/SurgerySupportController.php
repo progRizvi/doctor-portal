@@ -15,7 +15,7 @@ class SurgerySupportController extends Controller
     public function index()
     {
         $surgeries = SurgerySupport::paginate(20);
-        return view('backend.pages.surgery-support.index',compact('surgeries'));
+        return view('backend.pages.surgery-support.index', compact('surgeries'));
     }
 
     /**
@@ -38,9 +38,16 @@ class SurgerySupportController extends Controller
     {
         $this->validateRequest($request);
         $data = $request->except('_token');
+        if ($request->hasFile("image")) {
+            $image = $request->file("image");
+            $fileName = time() . "." . $image->getClientOriginalExtension();
+            $image->move(public_path("uploads/surgery-support"), $fileName);
+            $data['image'] = $fileName;
+        }
+
         SurgerySupport::create($data);
         toastr()->success('Surgery Support Created Successfully');
-        return redirect()->route('surgerySupport.index')->with('success','Surgery Support Created Successfully');
+        return redirect()->route('surgerySupport.index')->with('success', 'Surgery Support Created Successfully');
     }
 
     /**
@@ -62,7 +69,7 @@ class SurgerySupportController extends Controller
      */
     public function edit(SurgerySupport $surgerySupport)
     {
-        return view('backend.pages.surgery-support.edit',compact('surgerySupport'));
+        return view('backend.pages.surgery-support.edit', compact('surgerySupport'));
     }
 
     /**
@@ -76,9 +83,18 @@ class SurgerySupportController extends Controller
     {
         $this->validateRequest($request);
         $data = $request->except('_token');
+        if ($request->hasFile("image")) {
+            if (file_exists(public_path("uploads/surgery-support/" . $surgerySupport->image))) {
+                unlink(public_path("uploads/surgery-support/" . $surgerySupport->image));
+            }
+            $image = $request->file("image");
+            $fileName = time() . "." . $image->getClientOriginalExtension();
+            $image->move(public_path("uploads/surgery-support"), $fileName);
+            $data['image'] = $fileName;
+        }
         $surgerySupport->update($data);
         toastr()->success('Surgery Support Updated Successfully');
-        return redirect()->route('surgerySupport.index')->with('success','Surgery Support Updated Successfully');
+        return redirect()->route('surgerySupport.index')->with('success', 'Surgery Support Updated Successfully');
     }
 
     /**
@@ -89,7 +105,12 @@ class SurgerySupportController extends Controller
      */
     public function destroy(SurgerySupport $surgerySupport)
     {
-        //
+        if (file_exists(public_path("uploads/surgery-support/" . $surgerySupport->image))) {
+            unlink(public_path("uploads/surgery-support/" . $surgerySupport->image));
+        }
+        $surgerySupport->delete();
+        toastr()->success('Surgery Support Deleted Successfully');
+        return redirect()->route('surgerySupport.index')->with('success', 'Surgery Support Deleted Successfully');
     }
     private function validateRequest(Request $request)
     {

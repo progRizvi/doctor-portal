@@ -45,26 +45,28 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::get("/", [HomeController::class, "index"])->name("home");
 
-    Route::get("/service/doctors", [HomeController::class, "serviceDoctors"])
+    Route::get("/doctors", [HomeController::class, "serviceDoctors"])
         ->name("service.doctors");
 
-    Route::get("service/{department}/doctors", [HomeController::class, "doctorsByDepartment"])->name('doctors.by.department');
-    Route::get('service/{type}/all', [HomeController::class, "hospitalsByType"])->name('hospitals.by.type');
-    Route::get("/service/location/{area}/doctors", [HomeController::class, "serviceLocationDoctors"])
+    Route::get("doctors/{department}", [HomeController::class, "doctorsByDepartment"])->name('doctors.by.department');
+    Route::get('hospitals/{type}/', [HomeController::class, "hospitalsByType"])->name('hospitals.by.type');
+    Route::get("/doctors/{area}/", [HomeController::class, "serviceLocationDoctors"])
         ->name("service.location.doctors");
-    Route::get("/service/location/{area}/doctors/department/{department?}", [HomeController::class, "serviceLocationDepartmentDoctors"])->name("service.location.department.doctors");
-    Route::get("/service/location/{area}/all", [HomeController::class, "serviceLocationHospital"])
+    Route::get("/doctors/{area}/{department?}", [HomeController::class, "serviceLocationDepartmentDoctors"])->name("service.location.department.doctors");
+    Route::get("/hospitals/{area}/", [HomeController::class, "serviceLocationHospital"])
         ->name("service.location.hospitals");
-    Route::get("/service/location/{area}/{type}", [HomeController::class, "serviceLocationHospitalType"])
+    Route::get("/hospitals/{area}/{type}", [HomeController::class, "serviceLocationHospitalType"])
         ->name("service.location.hospitals.type");
 
-    Route::get("/service/doctors/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");
-    Route::get("service/get-doctors/by-department/{id}", [HomeController::class, "getDoctorsByDepartment"])->name("get.doctors.by.department");
-    Route::get("/service/hospitals", [HomeController::class, "serviceHospitals"])->name("service.hospitals");
+    Route::get("/doctors/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");
+    Route::get("get-doctors/by-department/{id}", [HomeController::class, "getDoctorsByDepartment"])->name("get.doctors.by.department");
+    Route::get("/hospitals", [HomeController::class, "serviceHospitals"])->name("service.hospitals");
     Route::get("/surgery-and-support", [HomeController::class, "surgerySupport"])->name("surgery.support");
+    Route::get("/surgery-support/details/{id}", [HomeController::class, "surgeryDetails"])->name("surgery-support.show");
+    Route::get("/home-service/details/{id}", [HomeController::class, "homeServiceDetails"])->name("home-service.show");
     Route::get("/home-and-services", [HomeController::class, "homeServices"])->name("home.services");
-    Route::get("/service/hospitals/{slug}", [HomeController::class, "hospitalDetails"])->name("service.hospital.details");
-    Route::get("service/get-hospitals/by-type/", [HomeController::class, "getHospitalsByType"])->name("get.hospitals.by.type");
+    Route::get("/hospitals/{slug}", [HomeController::class, "hospitalDetails"])->name("service.hospital.details");
+    Route::get("get-hospitals/by-type/", [HomeController::class, "getHospitalsByType"])->name("get.hospitals.by.type");
     Route::get('/switch-lang/{lang}', [HomeController::class, 'changeLanguage'])->name('switch.lang');
 
     Route::get("/about-us", [HomeController::class, "aboutUs"])->name("about_us");

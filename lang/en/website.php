@@ -78,6 +78,12 @@ $list = [
     "call_now" => "Call Now",
     "most_common_surgeries" => "Most Common Surgeries",
     "we_are_experts_in_surgical_solution" => "We are experts in Surgical solutions.",
+    'donar' => 'Donar',
+    'donars' => 'Donars',
+    'blood_group' => 'Blood Group',
+    'save' => 'Save',
+    'blood_group' => 'Blood Group',
+    'area' => "Area"
 ];
 
 if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {

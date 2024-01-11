@@ -15,15 +15,22 @@ class Area extends Model
     {
         return $this->belongsTo(District::class, "district_id", "id");
     }
-    public function doctors(){
+    public function doctors()
+    {
         return $this->hasMany(Doctor::class, "area_id", "id");
     }
-    public function hospitals(){
+    public function hospitals()
+    {
         return $this->hasMany(Hospital::class, "area_id", "id");
     }
 
     public function extraInfo()
     {
         return $this->hasMany(ExtraInfo::class);
+    }
+
+    public function donars()
+    {
+        return $this->hasMany(BloodDonation::class, "area_id", "id");
     }
 }

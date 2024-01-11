@@ -1,8 +1,8 @@
 @extends('frontend.layout')
 
 @if (isset($department))
-    @section('meta_keywords',$department->meta_keywords)
-    @section('meta_description',$department->meta_description)
+    @section('meta_keywords', $department->meta_keywords)
+    @section('meta_description', $department->meta_description)
     @section('title', $department->name)
 @else
     @section('title', __('website.doctors'))
@@ -46,10 +46,12 @@
         </div>
     </div>
 
-@php
-    
-    $currRoute = request()->route()->getName();
-@endphp
+    @php
+
+        $currRoute = request()
+            ->route()
+            ->getName();
+    @endphp
     <div class="content">
         <div class="container">
             <div class="row">
@@ -62,18 +64,20 @@
                         <div class="card-body">
                             <div class="filter-widget">
                                 <h4>{{ __('website.departments') }}</h4>
-                                @foreach ($departments as $data)
-                                    <div class="py-2 cursor-pointer department" style="cursor:pointer">
-                                        <a class="{{ isset($department) && $department->slug == $data->slug ? 'active' : '' }}"
-                                            href="{{ !isset(request()->area) ? route('doctors.by.department', $data->slug) : route('service.location.department.doctors', ['department'=>$data->slug,'area'=>request()->area]) }}">
+                                <div style="height:300px;overflow-y:scroll">
+                                    @foreach ($departments as $data)
+                                        <div class="py-2 cursor-pointer department" style="cursor:pointer">
+                                            <a class="{{ isset($department) && $department->slug == $data->slug ? 'active' : '' }}"
+                                                href="{{ !isset(request()->area) ? route('doctors.by.department', $data->slug) : route('service.location.department.doctors', ['department' => $data->slug, 'area' => request()->area]) }}">
 
-                                            <span class="checkmark"></span>
-                                            {{ $loc == 'en' ? $data->name : (isset($data->bn_name) ? $data->bn_name : $data->name) }}
-                                            <span class="badge bg-info">{{ $data->doctors->count() }}</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                @endforeach
+                                                <span class="checkmark"></span>
+                                                {{ $loc == 'en' ? $data->name : (isset($data->bn_name) ? $data->bn_name : $data->name) }}
+                                                <span class="badge bg-info">{{ $data->doctors->count() }}</span>
+                                                </span>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>

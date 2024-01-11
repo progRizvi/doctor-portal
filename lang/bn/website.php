@@ -78,6 +78,12 @@ $list = [
     "call_now" => "এখনই কল করুন",
     "most_common_surgeries" => "সবচেয়ে সাধারণ সার্জারীগুলো",
     "we_are_experts_in_surgical_solution" => "আমরা সার্জিক্যাল সমাধানে অভিজ্ঞ।",
+    'donar' => 'ডোনার',
+    'donars' => 'ডোনারগণ',
+    'blood_group' => 'রক্তের গ্রুপ',
+    'save' => 'সেভ',
+    'blood_group' => 'রক্তের গ্রুপ',
+    'area' => 'এলাকা',
 
 ];
 if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {

@@ -72,6 +72,9 @@
                     <option value="homeService" @if ($extraInfo->for == 'homeService')
                         selected
                     @endif>Home Service</option>
+                    <option value="bloodClub" @if ($extraInfo->for == 'bloodClub')
+                        selected
+                    @endif>Blood Club</option>
                 </select>
                  @error('for')
                     <span class="text-red-700">{{ $message }}</span>

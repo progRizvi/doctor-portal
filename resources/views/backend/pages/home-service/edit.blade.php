@@ -23,6 +23,15 @@
                 @enderror
             </div>
             <div class="mb-6">
+                <label for="slug" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Slug</label>
+                <input type="text" id="slug" name="slug"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    value="{{ old('slug', $homeService->slug) }}">
+                @error('slug')
+                    <span class="text-red-700">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="mb-6">
                 <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone<span
                         class="text-red-700">*</span></label>
                 <input type="text" id="phone" name="phone"
@@ -64,7 +73,20 @@
                     </div>
                 </div>
             </div>
-
+            <div class="mb-6">
+                <label for="meta_keywords" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meta
+                    Keywords</label>
+                <input type="text" id="meta_keywords" name="meta_keywords"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    placeholder="Enter keywords comma separated" value="{{ $homeService->meta_keywords }}">
+            </div>
+            <div class="mb-6">
+                <label for="meta_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Meta
+                    Description</label>
+                <input type="text" id="meta_description" name="meta_description"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    placeholder="Enter Description" value="{{ $homeService->meta_description }}">
+            </div>
             <button type="submit"
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update
             </button>

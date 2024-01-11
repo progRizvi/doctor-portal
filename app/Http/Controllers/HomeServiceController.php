@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HomeService;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class HomeServiceController extends Controller
@@ -45,6 +46,8 @@ class HomeServiceController extends Controller
             $image->move(public_path("uploads/home-service"), $fileName);
             $data['image'] = $fileName;
         }
+        $slug = $request->slug ? $request->slug : $request->title;
+        $data['slug'] = Str::slug($slug);
 
         HomeService::create($data);
         toastr()->success('Surgery Support Created Successfully');
@@ -85,14 +88,16 @@ class HomeServiceController extends Controller
         $this->validateRequest($request);
         $data = $request->except('_token');
         if ($request->hasFile("image")) {
-            if(file_exists(public_path("uploads/home-service/".$homeService->image))){
-                unlink(public_path("uploads/home-service/".$homeService->image));
+            if (file_exists(public_path("uploads/home-service/" . $homeService->image))) {
+                unlink(public_path("uploads/home-service/" . $homeService->image));
             }
             $image = $request->file("image");
             $fileName = time() . "." . $image->getClientOriginalExtension();
             $image->move(public_path("uploads/home-service"), $fileName);
             $data['image'] = $fileName;
         }
+        $slug = $request->slug ? $request->slug : $request->title;
+        $data['slug'] = Str::slug($slug);
 
         $homeService->update($data);
         toastr()->success('Surgery Support Updated Successfully');
@@ -107,12 +112,12 @@ class HomeServiceController extends Controller
      */
     public function destroy(HomeService $homeService)
     {
-        if(file_exists(public_path("uploads/home-service/".$homeService->image))){
-            unlink(public_path("uploads/home-service/".$homeService->image));
+        if (file_exists(public_path("uploads/home-service/" . $homeService->image))) {
+            unlink(public_path("uploads/home-service/" . $homeService->image));
         }
         $homeService->delete();
         toastr()->success('Surgery Support Deleted Successfully');
-        return redirect()->route('homeService.index')->with('success', 'Surgery Support Deleted Successfully'); 
+        return redirect()->route('homeService.index')->with('success', 'Surgery Support Deleted Successfully');
     }
     private function validateRequest(Request $request)
     {

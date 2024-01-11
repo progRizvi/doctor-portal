@@ -35,7 +35,7 @@
                         <a href="{{ route('service.hospitals') }}">{{ __('website.hospital_diagnostic') }}</a>
                     </li>
                     <li class="megamenu">
-                        <a href="javascript:void(0);">{{ __('website.blood_donors_club') }}</a>
+                        <a href="{{ route('blood.club') }}">{{ __('website.blood_donors_club') }}</a>
                     </li>
                     <li class="megamenu">
                         <a href="{{route('home.services')}}">{{ __('website.home_medical_service') }}</a>

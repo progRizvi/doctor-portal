@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SurgerySupport;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\SurgerySupport;
 
 class SurgerySupportController extends Controller
 {
@@ -44,6 +45,8 @@ class SurgerySupportController extends Controller
             $image->move(public_path("uploads/surgery-support"), $fileName);
             $data['image'] = $fileName;
         }
+        $slug = $request->slug ? $request->slug : $request->title;
+        $data['slug'] = Str::slug($slug);
 
         SurgerySupport::create($data);
         toastr()->success('Surgery Support Created Successfully');
@@ -92,6 +95,8 @@ class SurgerySupportController extends Controller
             $image->move(public_path("uploads/surgery-support"), $fileName);
             $data['image'] = $fileName;
         }
+        $slug = $request->slug ? $request->slug : $request->title;
+        $data['slug'] = Str::slug($slug);
         $surgerySupport->update($data);
         toastr()->success('Surgery Support Updated Successfully');
         return redirect()->route('surgerySupport.index')->with('success', 'Surgery Support Updated Successfully');

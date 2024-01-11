@@ -1,8 +1,13 @@
 @extends('frontend.layout')
-@section('title', 'Doctorinfobd')
+@if (isset($homeContent))
+    @section('title', $homeContent->meta_title)
+    @section('meta_description', $homeContent->meta_description)
+    @section('meta_keywords', $homeContent->meta_keywords)
+@else
+    @section('title', 'Doctor Info BD')
+@endif
 
-@push("style")
-    
+@push('style')
 @endpush
 @section('content')
     <!-- Home Banner -->
@@ -12,17 +17,23 @@
                 <div class="col-lg-6">
                     <div class="banner-content aos" data-aos="fade-up">
                         @if (session('loc') == 'bn')
-                            <h1>আপনার নিকটবর্তী অবস্থানের <span>ডাক্তারদের</span> সন্ধান করুন।</h1>
+                            <h1>{{ $homeContent->bn_heading }}</h1>
                         @else
-                            <h1>Find <span>Best Doctors</span> Your Nearby Location.</h1>
+                            <h1>{{ $homeContent->heading }}</h1>
                         @endif
 
                         <img src="{{ asset('frontend') }}/assets/img/icons/header-icon.svg" class="header-icon"
                             alt="header-icon">
                         <p>
-                            {{ __('website.find_healthcare_provider') }}
+                            @if (session('loc') == 'bn')
+                                {{ $homeContent->bn_sub_heading }}
+                            @else
+                                {{ $homeContent->sub_heading }}
+                            @endif
+                            {{-- {{ __('website.find_healthcare_provider') }} --}}
                         </p>
-                        <a href="{{ route('service.doctors') }}" class="btn">{{ __('website.start_finding') }}</a>
+                        <a href="{{ $homeContent->cta_url }}"
+                            class="btn">{{ session('loc') == 'bn' ? $homeContent->bn_cta_text : $homeContent->cta_text }}</a>
                         <div class="banner-arrow-img">
                             <img src="{{ asset('frontend') }}/assets/img/down-arrow-img.png" class="img-fluid"
                                 alt="down-arrow">
@@ -127,14 +138,24 @@
             <div class="row">
                 <div class="col-md-12 text-center aos" data-aos="fade-up">
                     <div class="section-header-one" style="margin-bottom:30px">
-                        <h2 class="section-title">{{ __('website.comprehensive_healthcare') }}</h2>
+                        <h2 class="section-title">
+                            @if (session('loc') == 'bn')
+                                {{ $homeContent->bn_summery }}
+                            @else
+                                {{ $homeContent->summery }}
+                            @endif
+                        </h2>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center align-items-center">
                 <div class="col-sm-10 mx-auto aos" data-aos="fade-up">
                     <p class="comprehensive_details">
-                        {{__("website.comprehensive_healthcare_details")}}
+                        @if (session('loc') == 'bn')
+                            {!! $homeContent->bn_description !!}
+                        @else
+                            {!! $homeContent->description !!}
+                        @endif
                     </p>
                 </div>
             </div>
@@ -143,3 +164,17 @@
     <!-- /Doctors Section -->
 
 @endsection
+
+@push('script')
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Doctor Info Bd",
+    "alternateName": "Doctor Info",
+    "url": "https://www.doctorinfobd.com/",
+    "logo": "https://doctorinfobd.com/images/logo.png",
+    "sameAs": "https://www.doctorinfobd.com/"
+    }
+</script>
+@endpush

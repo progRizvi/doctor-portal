@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Area;
+use App\Models\BloodDonation;
 use App\Models\Category;
 use App\Models\Department;
 use App\Models\Doctor;
 use App\Models\ExtraInfo;
+use App\Models\HomePage;
 use App\Models\HomeService;
 use App\Models\Hospital;
 use App\Models\Post;
 use App\Models\SurgerySupport;
+use Carbon\Carbon;
 use Devfaysal\BangladeshGeocode\Models\District;
 use Devfaysal\BangladeshGeocode\Models\Division;
 use Illuminate\Http\Request;
@@ -24,8 +27,8 @@ class HomeController extends Controller
         if (!$loc) {
             session()->put('loc', 'en');
         }
-
-        return view('frontend.pages.home');
+        $homeContent = HomePage::first();
+        return view('frontend.pages.home', compact('homeContent'));
     }
     public function serviceDoctors()
     {
@@ -140,15 +143,15 @@ class HomeController extends Controller
     }
     public function categoryDetails(string $slug)
     {
-        
+
         $posts = Post::whereHas('category', function ($query) use ($slug) {
             $query->where('slug', $slug);
         })->paginate(10);
 
         $latestPosts = Post::latest()->orderBy("id", "DESC")->take(5)->get();
         $categories = Category::all();
-        $category = Category::where("slug",$slug)->first();
-        return view('frontend.pages.blogs.index', compact('posts', "latestPosts", "categories",'category'));
+        $category = Category::where("slug", $slug)->first();
+        return view('frontend.pages.blogs.index', compact('posts', "latestPosts", "categories", 'category'));
     }
     public function postDetails(string $slug)
     {
@@ -175,7 +178,8 @@ class HomeController extends Controller
         $department = Department::with(['extraInfo' => function ($query) {
             $query->where('for', 'doctor')->first();
         }])->where("slug", $slug)->first();
-        $doctors = $department->doctors()->paginate(20);
+
+        $doctors = $department?->doctors?->paginate(20);
         $departments = Department::all();
         return view('frontend.pages.doctors-list', compact("doctors", "departments", "department"));
 
@@ -208,7 +212,7 @@ class HomeController extends Controller
         $extraData = ExtraInfo::where('for', 'surgery')->orderBy('id', 'DESC')->first();
         return view('frontend.pages.surgery-support', compact('surgerySupports', 'extraData'));
     }
-    
+
     public function homeServices()
     {
         $surgerySupports = HomeService::paginate(20);
@@ -239,26 +243,88 @@ class HomeController extends Controller
         $area = Area::with(['extraInfo' => function ($query) {
             $query->where('for', 'hospital')->first();
         }])->where("slug", $area)->first();
-        $hospitals = Hospital::where("area_id", $area->id)->where("type",$type)->with("area")->paginate(20);
+        $hospitals = Hospital::where("area_id", $area->id)->where("type", $type)->with("area")->paginate(20);
         $locations = Division::with(['districts.areas'])->get();
 
         $districts = District::get();
 
-        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'area','type'));
+        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'area', 'type'));
 
     }
 
-    public function homeServiceDetails($id)
+    public function surgeryDetails($slug)
     {
-        $data = HomeService::find($id);
+        $data = SurgerySupport::where('slug', $slug)->first();
+        $data->image = asset('uploads/surgery-support/' . $data->image);
+        return view('frontend.pages.service-details', compact('data'));
+    }
+    public function homeServiceDetails($slug)
+    {
+        $data = HomeService::where('slug', $slug)->first();
         $data->image = asset('uploads/home-service/' . $data->image);
         return view('frontend.pages.service-details', compact('data'));
     }
-
-    public function surgeryDetails($id)
+    public function bloodClub()
     {
-        $data = SurgerySupport::find($id);
-        $data->image = asset('uploads/surgery-support/' . $data->image);
-        return view('frontend.pages.service-details', compact('data'));
+        $extraData = ExtraInfo::where('for', 'bloodClub')->orderBy('id', 'DESC')->first();
+        $donars = BloodDonation::where('status', 'approved')->where('last_donation_date', '<', now()->subMonth(4))->orderBy('id', 'DESC')->paginate(20);
+        $areas = Area::all();
+        return view('frontend.pages.blood-club', compact('extraData', 'donars', 'areas'));
+    }
+    public function storeBloodDonation(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'blood_group' => 'required',
+            'phone' => 'required',
+            'area_id' => 'required',
+        ]);
+        $data = $request->except('_token');
+        $data['last_donation_date'] = Carbon::parse($request->last_donation_date)->format('Y-m-d');
+
+        BloodDonation::create($data);
+        session()->flash('success', 'Your request has been submitted successfully. We will contact you soon.');
+        return redirect()->back()->with('success', 'Your request has been submitted successfully. We will contact you soon.');
+    }
+    public function getAllCity()
+    {
+
+        $cities = Area::with(['donars' => function ($query) {
+            $query->where('status', 'approved');
+        }])->where('name', 'like', '%' . request()->search . '%')->get();
+        if (request()->group) {
+            $cities = Area::with(['donars' => function ($query) {
+                $query->where('status', 'approved')->where('blood_group', request()->group);
+            }])->where('name', 'like', '%' . request()->search . '%')->get();
+        }
+        return response()->json($cities);
+    }
+    public function getBloodDonars(Request $request)
+    {
+        $group = $request->group;
+        $donars = BloodDonation::where('status', 'approved')->where('blood_group', $group)->paginate(20);
+        $areas = Area::all();
+        $donarHtml = view('frontend.pages.blood-club-result', compact('donars', 'group'))->render();
+        $areaHtml = view('frontend.pages.areas-result', compact('group', 'areas'))->render();
+        return [
+            'donarHtml' => $donarHtml,
+            'areaHtml' => $areaHtml];
+    }
+    public function getBloodDonarsByCity(Request $request)
+    {
+        $donars = BloodDonation::query();
+
+        if ($request->group) {
+            $donars->where('blood_group', $request->group);
+        }
+        if ($request->city) {
+            $donars->where('area_id', $request->city);
+        }
+        $donars = $donars->where('status', 'approved')->paginate(20);
+
+        $areas = Area::all();
+        $donarHtml = view('frontend.pages.blood-club-result', compact('donars'))->render();
+        return [
+            'donarHtml' => $donarHtml];
     }
 }

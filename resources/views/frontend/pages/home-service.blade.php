@@ -47,8 +47,10 @@
                                                     style="box-shadow:-8px 13px 80px rgba(27, 41, 80, 0.3); border-radius:20px">
                                                     <div class="d-flex justify-content-center">
                                                         <h4 class="py-3 support-heading"
-                                                            onclick="showDetails({{ $data->id }})" style="cursor:pointer">
+                                                             style="cursor:pointer">
+                                                             <a href="{{ route('home-service.show', $data->slug) }}">
                                                             {{ $loc == 'en' ? $data->title : (isset($data->bn_title) ? $data->bn_title : $data->title) }}
+                                                             </a>
                                                         </h4>
                                                     </div>
                                                     <div class="d-flex justify-content-center pb-3">
@@ -82,29 +84,5 @@
         </div>
     </div>
 
-    {{-- modal --}}
-
-
-    <div class="modal fade" id="homeServiceModal" tabindex="-1" aria-labelledby="homeServiceModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-
-        </div>
-    </div>
-
-
 @endsection
 
-@push('script')
-    <script>
-        function showDetails(id) {
-            $.ajax({
-                url: "{{ route('home-service.show', '') }}" + "/" + id,
-                type: "GET",
-                success: function(response) {
-                    $('#homeServiceModal').modal('show');
-                    $('#homeServiceModal').find('.modal-dialog').html(response);
-                }
-            });
-        }
-    </script>
-@endpush

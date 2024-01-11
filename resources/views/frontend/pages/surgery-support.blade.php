@@ -48,8 +48,10 @@
                                                 <div class="accordion-collapse shade collapse show bg-white"
                                                     style="box-shadow:-8px 13px 80px rgba(27, 41, 80, 0.3); border-radius:20px">
                                                     <div class="d-flex justify-content-center">
-                                                        <h4 class="py-3 support-heading" style="cursor:pointer" onclick="showDetails({{ $data->id }})">
-                                                            {{ $loc == 'en' ? $data->title : (isset($data->bn_title) ? $data->bn_title : $data->title) }}
+                                                        <h4 class="py-3 support-heading" style="cursor:pointer">
+                                                            <a href="{{ route('surgery-support.show', $data->slug) }}">
+                                                                {{ $loc == 'en' ? $data->title : (isset($data->bn_title) ? $data->bn_title : $data->title) }}
+                                                            </a>
                                                         </h4>
                                                     </div>
                                                     <div class="d-flex justify-content-center pb-3">
@@ -85,28 +87,5 @@
             </div>
         </div>
     </div>
-
-    {{-- modal --}}
-
-    <div class="modal fade" id="supportModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-
-        </div>
-    </div>
 @endsection
 
-
-@push('script')
-    <script>
-        function showDetails(id) {
-            $.ajax({
-                url: "{{ route('surgery-support.show', '') }}" + "/" + id,
-                type: "GET",
-                success: function(response) {
-                    $('#supportModal').modal('show');
-                    $('#supportModal').find('.modal-dialog').html(response);
-                }
-            });
-        }
-    </script>
-@endpush

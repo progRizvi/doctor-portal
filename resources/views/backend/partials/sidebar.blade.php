@@ -110,6 +110,27 @@
                         @endif
                     </ul>
                 </div>
+                <div
+                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                    <span class="pl-4">
+                        Blood Donars
+                    </span>
+                    <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        <li><a href="{{ route('donars.index') }}" class="block py-2 ml-3">Donars List</a></li>
+                         <li><a href="{{ route('donars.create') }}" class="block py-2 ml-3">Add Donar</a></li>
+                    </ul>
+                </div>
+                <div
+                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                    <span class="pl-4">
+                        Pages
+                    </span>
+                    <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                        {{-- @if (hasAnyPermissions('pages.home')) --}}
+                        <li><a href="{{ route('pages.home') }}" class="block py-2 ml-3">Home Page</a></li>
+                        {{-- @endif --}}
+                    </ul>
+                </div>
 
                 <div
                     class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">

@@ -84,6 +84,9 @@ $list = [
     'save' => 'সেভ',
     'blood_group' => 'রক্তের গ্রুপ',
     'area' => 'এলাকা',
+    'view_all' => 'সকল',
+    'top_doctors' => 'সেরা ডাক্তারগণ',
+    'latest_blogs' => 'সর্বশেষ ব্লগগুলো',
 
 ];
 if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {

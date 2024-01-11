@@ -83,7 +83,10 @@ $list = [
     'blood_group' => 'Blood Group',
     'save' => 'Save',
     'blood_group' => 'Blood Group',
-    'area' => "Area"
+    'area' => "Area",
+    'view_all' => "View All",
+    'top_doctors' => "Top Doctors",
+    'latest_blog' => "Latest Blog",
 ];
 
 if (count($reversedTranslates) && count($reversedTranslates) == count($list)) {

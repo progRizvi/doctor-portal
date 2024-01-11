@@ -47,42 +47,50 @@ Route::group(['middleware' => 'localization'], function () {
 
     Route::get("/", [HomeController::class, "index"])->name("home");
 
-    Route::get("/doctors", [HomeController::class, "serviceDoctors"])
-        ->name("service.doctors");
+    Route::group(['prefix' => 'doctors'], function () {
+        Route::get("/", [HomeController::class, "serviceDoctors"])->name("service.doctors");
 
-    Route::get("doctors/department/{department}", [HomeController::class, "doctorsByDepartment"])->name('doctors.by.department');
-    Route::get('hospitals/type/{type}/', [HomeController::class, "hospitalsByType"])->name('hospitals.by.type');
-    Route::get("/doctors/location/{area}/", [HomeController::class, "serviceLocationDoctors"])
-        ->name("service.location.doctors");
-    Route::get("/doctors/{area}/{department?}", [HomeController::class, "serviceLocationDepartmentDoctors"])->name("service.location.department.doctors");
-    Route::get("/hospitals/location/{area}/", [HomeController::class, "serviceLocationHospital"])
-        ->name("service.location.hospitals");
-    Route::get("/hospitals/{area}/{type}", [HomeController::class, "serviceLocationHospitalType"])
-        ->name("service.location.hospitals.type");
+        Route::get("/department/{department}", [HomeController::class, "doctorsByDepartment"])->name('doctors.by.department');
+        Route::get("/location/{area}/", [HomeController::class, "serviceLocationDoctors"])
+            ->name("service.location.doctors");
+        Route::get("location/{area}/department/{department?}", [HomeController::class, "serviceLocationDepartmentDoctors"])->name("service.location.department.doctors");
+        Route::get("/details/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");
+        Route::get("get-doctors/by-department/{id}", [HomeController::class, "getDoctorsByDepartment"])->name("get.doctors.by.department");
+    });
 
-    Route::get("/doctors/details/{slug}", [HomeController::class, "doctorDetails"])->name("service.doctor.details");
-    Route::get("get-doctors/by-department/{id}", [HomeController::class, "getDoctorsByDepartment"])->name("get.doctors.by.department");
-    Route::get("/hospitals", [HomeController::class, "serviceHospitals"])->name("service.hospitals");
+    Route::group(['prefix' => 'hospitals'], function () {
+        Route::get("/", [HomeController::class, "serviceHospitals"])->name("service.hospitals");
+        Route::get("details/{slug}", [HomeController::class, "hospitalDetails"])->name("service.hospital.details");
+        Route::get('/type/{type}/', [HomeController::class, "hospitalsByType"])->name('hospitals.by.type');
+        Route::get("/location/{area}/", [HomeController::class, "serviceLocationHospital"])
+            ->name("service.location.hospitals");
+        Route::get("location/{area}/type/{type}", [HomeController::class, "serviceLocationHospitalType"])
+            ->name("service.location.hospitals.type");
+        Route::get("get-hospitals/by-type/", [HomeController::class, "getHospitalsByType"])->name("get.hospitals.by.type");
+    });
+
     Route::get("/surgery-and-support", [HomeController::class, "surgerySupport"])->name("surgery.support");
     Route::get("/surgery-support/details/{id}", [HomeController::class, "surgeryDetails"])->name("surgery-support.show");
     Route::get("/home-service/details/{id}", [HomeController::class, "homeServiceDetails"])->name("home-service.show");
     Route::get("/home-and-services", [HomeController::class, "homeServices"])->name("home.services");
-    Route::get("/hospitals/{slug}", [HomeController::class, "hospitalDetails"])->name("service.hospital.details");
-    Route::get("get-hospitals/by-type/", [HomeController::class, "getHospitalsByType"])->name("get.hospitals.by.type");
-    Route::get("/blood-donation-club", [HomeController::class, "bloodClub"])->name("blood.club");
-    Route::post("/blood-donation-club", [HomeController::class, "storeBloodDonation"])->name("blood.club.post");
+
+    Route::group(['prefix' => 'blood-donation-club'], function () {
+        Route::get("/", [HomeController::class, "bloodClub"])->name("blood.club");
+        Route::post("/", [HomeController::class, "storeBloodDonation"])->name("blood.club.post");
+        Route::post('/get-blood-donars', [HomeController::class, 'getBloodDonars'])->name('get.blood.donars');
+        Route::get('/get-blood-donars-by-city', [HomeController::class, 'getBloodDonarsByCity'])->name('get.blood.donars.by.city');
+    });
+
     Route::get("/get-all-city", [HomeController::class, "getAllCity"])->name("get.city");
-    Route::post('/get-blood-donars', [HomeController::class, 'getBloodDonars'])->name('get.blood.donars');
-    Route::get('/get-blood-donars-by-city', [HomeController::class, 'getBloodDonarsByCity'])->name('get.blood.donars.by.city');
+
     Route::get('/switch-lang/{lang}', [HomeController::class, 'changeLanguage'])->name('switch.lang');
 
     Route::get("/about-us", [HomeController::class, "aboutUs"])->name("about_us");
+
     Route::group(["prefix" => "blogs"], function () {
         Route::get("/", [HomeController::class, "blogs"])->name("blogs");
         Route::get("/category-details/{slug}", [HomeController::class, "categoryDetails"])->name("category.details");
-
         Route::get("/post-details/{slug}", [HomeController::class, "postDetails"])->name("post.details");
-
         Route::get("/post/search", [HomeController::class, "postSearch"])->name("post.search");
     });
 
@@ -137,6 +145,7 @@ Route::group(["prefix" => "admin", 'middleware' => ['auth']], function () {
     Route::resource("services", DepartmentController::class);
 
     Route::resource("doctors", DoctorController::class);
+    Route::get("doctors/top-doctor/status/{id}", [DoctorController::class,'updateStatusTopDoctor'])->name('doctors.update.top-doctor.status');
     Route::resource("hospitals", HospitalController::class);
     Route::get("doctors/get-districts/{id}", [DoctorController::class, "getDistricts"])->name("doctor.get_district");
     Route::get("doctors/get-upazilas/{id}", [DoctorController::class, "getAreas"])->name("doctor.get_areas");

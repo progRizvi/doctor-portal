@@ -32,9 +32,6 @@
                         Phone
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Address
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         Image
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -68,9 +65,6 @@
                             {{ $doctor->phone }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $doctor->address }}
-                        </td>
-                        <td class="px-6 py-4">
                             @if ($doctor->image)
                                 <img src="{{ asset('public/uploads/doctors/' . $doctor->image) }}" alt="{{ $doctor->name }}"
                                     class="w-10 h-10 rounded-full">
@@ -80,7 +74,7 @@
                             @endif
                         </td>
                         <td class="px-6 py-4">
-                            {{ Str::limit($doctor->bio, 10) }}
+                            {!! Str::limit($doctor->bio, 10) !!}
                         </td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ route('doctors.edit', $doctor->id) }}"
@@ -92,6 +86,15 @@
                                 <button type="submit"
                                     class="font-medium text-red-600 dark:text-red-400 hover:underline">Delete</button>
                             </form>
+                            @if ($doctor->top_doctor == 1)
+                                <a href="{{ route('doctors.update.top-doctor.status', $doctor->id) }}"
+                                    class="font-medium text-yellow-600 dark:text-yellow-400 hover:underline"
+                                    title="Mark as Top Doctor">UnMark Top</a>
+                            @else
+                                <a href="{{ route('doctors.update.top-doctor.status', $doctor->id) }}"
+                                    class="font-medium text-yellow-600 dark:text-yellow-400 hover:underline"
+                                    title="Mark as Top Doctor">Mark Top</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

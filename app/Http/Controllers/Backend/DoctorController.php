@@ -282,4 +282,14 @@ class DoctorController extends Controller
             "schedules" => "required|array",
         ]);
     }
+    public function updateStatusTopDoctor(string $id)
+    {
+        $doctor = Doctor::find($id);
+        $status = $doctor->top_doctor == 1 ? 0 : 1;
+        $doctor->update(['top_doctor' => $status]);
+        $doctor->save();
+        toastr()->success("Top Doctor Status Changed");
+        return back();
+
+    }
 }

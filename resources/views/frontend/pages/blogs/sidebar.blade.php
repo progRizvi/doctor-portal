@@ -23,7 +23,7 @@
                 @foreach ($latestPosts as $post)
                     <li>
                         <div class="post-thumb">
-                            <a href="blog-details.html">
+                            <a href="{{ route('post.details', $post->slug) }}">
                                 <img class="img-fluid" src="{{ asset('public/uploads/thumbnail/' . $post->thumbnail) }}"
                                     alt="{{ $post->title }}">
                             </a>

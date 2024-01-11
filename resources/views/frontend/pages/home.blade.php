@@ -10,6 +10,9 @@
 @push('style')
 @endpush
 @section('content')
+    @php
+        $loc = session('loc');
+    @endphp
     <!-- Home Banner -->
     <section class="banner-section">
         <div class="container">
@@ -131,8 +134,122 @@
     </section>
     <!-- /Specialities Section -->
 
-
     <!-- Doctors Section -->
+    <section class="doctors-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 aos" data-aos="fade-up">
+                    <div class="section-header-one section-header-slider">
+                        <h2 class="section-title">{{ __('website.top_doctors') }}</h2>
+                    </div>
+                </div>
+                <div class="col-md-6 aos" data-aos="fade-up">
+                    <div class="owl-nav slide-nav-2 text-end nav-control"></div>
+                </div>
+            </div>
+            <div class="owl-carousel doctor-slider-one owl-theme aos" data-aos="fade-up">
+                @foreach ($topDoctors as $topDoctor)
+                    <div class="item">
+                        <div class="doctor-profile-widget">
+                            <div class="doc-pro-img">
+                                <a href="{{ route('service.doctor.details', $topDoctor->slug) }}">
+                                    <div class="doctor-profile-img">
+                                        <img class="img-fluid doctor-image"
+                                            @if ($topDoctor->image) src="{{ asset('public/uploads/doctors/' . $topDoctor->image) }}"
+                                            @else
+                                            src="{{ asset('images/' . $topDoctor->gender . '_avatar.jpg') }}" @endif
+                                            alt="{{ $topDoctor->name }}">
+
+                                    </div>
+                                </a>
+                                <div></div>
+                            </div>
+                            <div class="doc-content">
+                                <div class="doc-pro-info">
+                                    <div class="doc-pro-name">
+                                        <a href="{{ route('service.doctor.details', $topDoctor->slug) }}"
+                                            title="{{ $topDoctor->name }}">{{ Str::limit($topDoctor->name, 20) }}</a>
+                                        <p>
+                                            @foreach ($topDoctor->departments as $dpt)
+                                                @if ($loop->last)
+                                                    {{ $loc == 'en' ? $dpt->name : (isset($dpt->bn_name) ? $dpt->bn_name : $dpt->name) }}
+                                                @endif
+                                            @endforeach
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="doc-pro-location">
+                                    <p><i class="feather-map-pin"></i> {{ $topDoctor->area->name }},
+                                        {{ $topDoctor->area->district->name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="row">
+                <div class="col-3 pt-5 mx-auto"><a
+                        href="{{ route('service.doctors') }}">{{ __('website.view_all') }}</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /Doctors Section -->
+
+    <!-- Articles Section -->
+    <section class="articles-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 aos" data-aos="fade-up">
+                    <div class="section-header-one text-center">
+                        <h2 class="section-title">{{ __('website.latest_blog') }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($latestPost as $post)
+                    <div class="col-lg-6 col-md-6 d-flex aos" data-aos="fade-up">
+                        <div class="articles-grid w-100">
+                            <div class="articles-info">
+                                <div class="articles-left">
+                                    <a href="{{ route('post.details', $post->slug) }}">
+                                        <div class="articles-img">
+                                            <img class="img-fluid"
+                                                src="{{ asset('public/uploads/thumbnail/' . $post->thumbnail) }}"
+                                                alt="{{ $post->title }}">
+                                    </a>
+                                </div>
+                                </a>
+                            </div>
+                            <div class="articles-right">
+                                <div class="articles-content">
+                                    <ul class="articles-list nav">
+                                        <li>
+                                            <i class="feather-user"></i> {{ $post->author->name }}
+                                        </li>
+                                        <li>
+                                            <i class="feather-calendar"></i>
+                                            {{ \Carbon\Carbon::parse($post->posted_at)->format('d M, Y') }}
+                                        </li>
+                                    </ul>
+                                    <h4>
+                                        <a href="{{ route('post.details', $post->slug) }}">{{ $post->title }}</a>
+                                    </h4>
+                                    <p>{!! Str::limit($post->content, 50) !!}</p>
+                                    <a href="{{ route('post.details', $post->slug) }}" class="btn">View Blog</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            @endforeach
+        </div>
+        <div class="row">
+            <div class="col-2 pt-5 mx-auto"><a href="{{ route('blogs') }}">{{ __('website.view_all') }}</a></div>
+        </div>
+        </div>
+    </section>
+    <!-- /Articles Section -->
     <section class="doctors-section">
         <div class="container">
             <div class="row">
@@ -161,7 +278,7 @@
             </div>
         </div>
     </section>
-    <!-- /Doctors Section -->
+
 
 @endsection
 

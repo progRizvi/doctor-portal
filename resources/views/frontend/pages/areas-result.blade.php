@@ -1,7 +1,7 @@
 <input type="text" class='form-control' style="border-color: #009EFB" name="city_name" onkeyup="getCity()">
 <div style="height:200px; overflow-y: scroll;" class="blood_content">
     @foreach ($areas as $data)
-        <div class="py-2 cursor-pointer" style="cursor:pointer" data-id="{{ $data->id }}">
+        <div class="py-2 cursor-pointer donar" style="cursor:pointer" data-id="{{ $data->id }}">
             <span class="checkmark"></span>
             <span class="filter-text">
                 {{ $data->name }}
@@ -48,7 +48,7 @@
     }
 
     $(document).ready(function() {
-        $('.blood_content').click(function() {
+        $('.donar').click(function() {
             const city = $(this).data('id')
             $.ajax({
                 method: "GET",

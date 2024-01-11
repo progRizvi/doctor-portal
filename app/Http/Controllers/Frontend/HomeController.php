@@ -28,7 +28,10 @@ class HomeController extends Controller
             session()->put('loc', 'en');
         }
         $homeContent = HomePage::first();
-        return view('frontend.pages.home', compact('homeContent'));
+        $topDoctors = Doctor::where('top_doctor', 1)->orderBy('serial')->orderBy('updated_at', 'desc')->get();
+        $latestPost = Post::latest()->limit(4)->get();
+
+        return view('frontend.pages.home', compact('homeContent', 'topDoctors', 'latestPost'));
     }
     public function serviceDoctors()
     {
@@ -38,6 +41,7 @@ class HomeController extends Controller
         }
 
         $doctors = $doctors->with("area", "departments")->orderBy('serial')->orderBy('updated_at', 'desc')->paginate(20);
+
         $departments = Department::all();
         return view('frontend.pages.doctors-list', compact("doctors", "departments"));
     }
@@ -94,7 +98,9 @@ class HomeController extends Controller
                 $pageNUm = $request->page;
             }
 
-            $doctors = $department->doctors()->paginate(20, ['*'], 'page', $pageNUm);
+            $doctors = $department->doctors()->orderBy('serial')
+                ->orderBy('updated_at', 'desc')->paginate(20, ['*'], 'page', $pageNUm);
+
             if ($doctors->count() > 0 && $request->ajax()) {
                 return view('frontend.pages.doctor-result', compact('doctors', "departmentName"));
             } else {
@@ -179,7 +185,8 @@ class HomeController extends Controller
             $query->where('for', 'doctor')->first();
         }])->where("slug", $slug)->first();
 
-        $doctors = $department?->doctors?->paginate(20);
+        $doctors = $department->doctors()->orderBy('serial')
+            ->orderBy('updated_at', 'desc')->paginate(20);
         $departments = Department::all();
         return view('frontend.pages.doctors-list', compact("doctors", "departments", "department"));
 
@@ -230,7 +237,8 @@ class HomeController extends Controller
         $department = Department::with(['extraInfo' => function ($query) {
             $query->where('for', 'doctor')->first();
         }])->where("slug", $dpt)->first();
-        $doctors = $department->doctors()->where('area_id', $area->id)->with("area", "departments")
+        $doctors = $department->doctors()->orderBy('serial')
+            ->orderBy('updated_at', 'desc')->where('area_id', $area->id)->with("area", "departments")
             ->orderBy('serial')
             ->orderBy('updated_at', 'desc')->paginate(20);
 
@@ -317,6 +325,7 @@ class HomeController extends Controller
         if ($request->group) {
             $donars->where('blood_group', $request->group);
         }
+
         if ($request->city) {
             $donars->where('area_id', $request->city);
         }

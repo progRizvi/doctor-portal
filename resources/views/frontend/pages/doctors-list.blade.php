@@ -28,6 +28,19 @@
                 border-bottom-left-radius: 0px;
                 margin: auto 0;
             }
+
+            .deparment_list {
+                display: none;
+            }
+
+            .deparment_heading {
+                text-align: center;
+                background: #009efb !important;
+                color: #fff;
+                text-transform: uppercase;
+                cursor: pointer;
+                padding: 10px 0px;
+            }
         }
     </style>
 
@@ -63,8 +76,8 @@
                         </div>
                         <div class="card-body">
                             <div class="filter-widget">
-                                <h4>{{ __('website.departments') }}</h4>
-                                <div style="height:300px;overflow-y:scroll">
+                                <h4 class="deparment_heading">{{ __('website.departments') }}</h4>
+                                <div style="height:400px;overflow-y:scroll" class="deparment_list">
                                     @foreach ($departments as $data)
                                         <div class="py-2 cursor-pointer department" style="cursor:pointer">
                                             <a class="{{ isset($department) && $department->slug == $data->slug ? 'active' : '' }}"
@@ -83,11 +96,10 @@
                     </div>
                     <!-- /Search Filter -->
                 </div>
-                <div class="col-md-12 col-lg-8 col-xl-8 mx-auto doctors">
+                <div class="col-md-7 col-lg-8 col-xl-8 mx-auto doctors">
                     <div class="breadcrumb-bar-two">
                         <div class="container">
                             <div class="row">
-
                                 <div class="col-sx-12 ">
                                     <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
                                         <p>{{ isset($department) ? ($loc == 'en' ? $department->name : $department->bn_name) : __('website.all') }}
@@ -194,27 +206,6 @@
 @endsection
 
 @push('script')
-    {{-- <script>
-        $(document).ready(function() {
-            $(".department").click(function() {
-                var department = $(this).data("id");
-                const departmentName = $(this).text().trim().replace(/[0-9]/g, '');
-                console.log(departmentName);
-                $.ajax({
-                    url: "{{ route('get.doctors.by.department', '') }}/" + department,
-                    type: "GET",
-                    data: {
-                        department: department,
-                        departmentName
-                    },
-                    success: function(data) {
-                        $(".doctors").html(data);
-                    }
-                });
-
-            });
-        });
-    </script> --}}
     <script type="text/javascript">
         $(document).ready(function() {
             $(document).on('click', '.pagination a', function(event) {
@@ -229,8 +220,14 @@
                         $(".doctors").html(data);
                     }
                 });
-
             });
         });
+        if ($(window).width() < 768) {
+            $('.deparment_heading').click(function() {
+                const departmentList = $('.deparment_list');
+                // toggle hide/show
+                departmentList.toggle();
+            });
+        }
     </script>
 @endpush

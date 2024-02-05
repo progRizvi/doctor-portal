@@ -1,12 +1,26 @@
 @extends('frontend.layout')
+@php
+    $currRoute = request()
+        ->route()
+        ->getName();
+@endphp
+
 
 @if (isset($department))
     @section('meta_keywords', $department->meta_keywords)
     @section('meta_description', $department->meta_description)
     @section('title', $department->name)
-@else
-    @section('title', __('website.doctors'))
+@elseif (isset($seoInfo))
+    @section('meta_keywords', $seoInfo?->meta_keywords)
+    @section('meta_description', $seoInfo?->meta_description)
 @endif
+@if ($currRoute == 'service.doctors')
+        @section('title', $seoInfo?->title)
+    @elseif (isset($seoInfo))
+        @section('title', $seoInfo?->title)
+    @else
+        @section('title', 'Doctor List')
+    @endif
 @section('content')
 
     <style>
@@ -59,12 +73,7 @@
         </div>
     </div>
 
-    @php
 
-        $currRoute = request()
-            ->route()
-            ->getName();
-    @endphp
     <div class="content">
         <div class="container">
             <div class="row">
@@ -80,12 +89,12 @@
                                 <div style="height:400px;overflow-y:scroll" class="deparment_list">
                                     @foreach ($departments as $data)
                                         <div class="py-2 cursor-pointer department" style="cursor:pointer">
-                                            <a class="{{ isset($department) && $department->slug == $data->slug ? 'active' : '' }}"
-                                                href="{{ !isset(request()->area) ? route('doctors.by.department', $data->slug) : route('service.location.department.doctors', ['department' => $data->slug, 'area' => request()->area]) }}">
+                                            <a class="{{ isset($department) && $department->slug == $data?->slug ? 'active' : '' }}"
+                                                href="{{ !isset(request()->area) ? route('doctors.by.department', $data?->slug) : route('service.location.department.doctors', ['department' => $data?->slug, 'area' => request()->area]) }}">
 
                                                 <span class="checkmark"></span>
-                                                {{ $loc == 'en' ? $data->name : (isset($data->bn_name) ? $data->bn_name : $data->name) }}
-                                                <span class="badge bg-info">{{ $data->doctors->count() }}</span>
+                                                {{ $loc == 'en' ? $data?->name : (isset($data?->bn_name) ? $data?->bn_name : $data?->name) }}
+                                                <span class="badge bg-info">{{ $data?->doctors->count() }}</span>
                                                 </span>
                                             </a>
                                         </div>
@@ -109,11 +118,11 @@
                                         </p>
                                         @php
                                             $data = isset($department) ? $department : (isset($area) ? $area : '');
-                                            $dataCount = gettype($data) != 'string' ? count($data?->extraInfo) : 0;
-                                            $data = $dataCount ? $data->extraInfo[0] : '';
+                                            $dataCount = isset($seoInfo) ? 1 : 0;
+                                            $data = $dataCount ? $seoInfo : '';
                                         @endphp
                                         @if ($dataCount)
-                                            <p>{{ $loc == 'en' ? $data->title : (isset($data->bn_title) ? $data->bn_title : $data->title) }}
+                                            <p>{{ $loc == 'en' ? $data?->title : (isset($data?->bn_title) ? $data?->bn_title : $data?->title) }}
                                             </p>
                                         @endif
                                     </div>
@@ -173,13 +182,11 @@
                                 @if ($dataCount)
                                     <div class="col-sx-12 mb-4">
                                         <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
-
                                             {!! $loc == 'en'
-                                                ? $data->description
-                                                : (isset($data->bn_description)
-                                                    ? $data->bn_description
-                                                    : $data->description) !!}
-
+                                                ? $data?->description
+                                                : (isset($data?->bn_description)
+                                                    ? $data?->bn_description
+                                                    : $data?->description) !!}
                                         </div>
                                     </div>
                                 @endif

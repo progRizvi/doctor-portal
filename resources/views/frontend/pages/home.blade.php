@@ -168,7 +168,7 @@
                                 <div class="doc-pro-info">
                                     <div class="doc-pro-name">
                                         <a href="{{ route('service.doctor.details', $topDoctor->slug) }}"
-                                            title="{{ $topDoctor->name }}">{{ Str::limit($topDoctor->name, 20) }}</a>
+                                            title="{{ $topDoctor->name }}">{{ Str::limit($topDoctor->name, 30) }}</a>
                                         <p>
                                             @foreach ($topDoctor->departments as $dpt)
                                                 @if ($loop->last)

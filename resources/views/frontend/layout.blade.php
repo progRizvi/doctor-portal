@@ -136,13 +136,14 @@
                                         $currRoute = request()
                                             ->route()
                                             ->getName();
+                                        
                                         $districts = $div->districts;
                                         $districtsId = $districts->pluck('id');
                                         $areasId = Area::whereIn('district_id', $districtsId)->pluck('id');
                                         $doctors = App\Models\Doctor::whereIn('area_id', $areasId)->get();
                                         $hospitals = App\Models\Hospital::whereIn('area_id', $areasId)->get();
-                                        $url = $currRoute == 'service.hospitals' ? 'service.location.hospitals' : 'service.location.doctors';
-                                        $count = $currRoute == 'service.hospitals' ? $hospitals->count() : $doctors->count();
+                                        $url = $currRoute == str_contains($currRoute,"hospitals") ? 'service.location.hospitals' : 'service.location.doctors';
+                                        $count = $currRoute == str_contains($currRoute,"hospitals") ? $hospitals->count() : $doctors->count();
                                         $loc = session('loc');
                                     @endphp
                                     <li class="mb-1">
@@ -195,7 +196,6 @@
         </div>
     </div>
     <!-- /Main Wrapper -->
-
     <!-- ScrollToTop -->
     <div class="progress-wrap active-progress">
         <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">

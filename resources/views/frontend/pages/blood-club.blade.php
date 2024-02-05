@@ -1,10 +1,10 @@
 @extends('frontend.layout')
 
-@if (isset($extraData))
+@if ($extraData)
     @section('meta_keywords', $extraData->meta_keywords)
     @section('meta_description', $extraData->meta_description)
-    @if ($extraData->meta_title)
-        @section('title', $extraData->meta_title)
+    @if ($extraData->title)
+        @section('title', $extraData->title)
     @endif
 @else
     @section('title', __('website.blood_donors_club'))
@@ -142,6 +142,10 @@
                                         <p>
                                             <hr>
                                         </p>
+                                        @if ($extraData)
+                                            <p>{{ $loc == 'en' ? $extraData?->title : (isset($extraData?->bn_title) ? $extraData?->bn_title : $extraData?->title) }}
+                                            </p>
+                                        @endif
                                     </div>
                                 </div>
                                 @foreach ($donars as $donar)
@@ -189,6 +193,17 @@
 
                                     </div>
                                 @endforeach
+                                @if ($donars->count() > 0 && $extraData)
+                                    <div class="col-sx-12 mb-4">
+                                        <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
+                                            {!! $loc == 'en'
+                                                ? $extraData?->description
+                                                : (isset($extraData?->bn_description)
+                                                    ? $extraData?->bn_description
+                                                    : $extraData?->description) !!}
+                                        </div>
+                                    </div>
+                                @endif
                                 @if ($donars->count() == 0)
                                     <div class="col-12">
                                         <div class="mx-2 mt-2">

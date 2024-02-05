@@ -123,12 +123,8 @@ class ExtraInfoController extends Controller
     {
         $request->validate([
             "title" => "required",
-            "department_id" => "required_if:area_id,null",
-            "area_id" => "required_if:department_id,null",
             "for" => "required",
         ],[
-            "department_id.required_if" => "The department field is required when area field is empty",
-            "area_id.required_if" => "The area field is required when department field is empty",
             "for.required" => "Select for whom this data is"
         ]);
     }

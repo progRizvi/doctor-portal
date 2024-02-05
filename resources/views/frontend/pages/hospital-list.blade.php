@@ -1,20 +1,30 @@
 @extends('frontend.layout')
 @php
-    $data = isset($department) ? $department : (isset($area) ? $area : '');
-    $dataCount = gettype($data) != 'string' ? count($data?->extraInfo) : 0;
-    $data = $dataCount ? $data->extraInfo[0] : '';
+    $currRoute = request()
+        ->route()
+        ->getName();
 @endphp
+@php
+    $data = isset($department) ? $department : (isset($area) ? $area : '');
+    $dataCount = $seoInfo ? 1 : 0;
+    $data = $dataCount ? $seoInfo : '';
+    if($currRoute == 'service.hospitals'){
+        $dataCount = 1;
+        $data = $extraInfoForHospital;
+    }
+@endphp
+
 @if ($dataCount)
-    @section('meta_keywords',$data->meta_keywords)
-    @section('meta_description',$data->meta_description)
+    @section('meta_keywords', $data?->meta_keywords)
+    @section('meta_description', $data?->meta_description)
 @endif
-@section('title', __('website.hospitals'))
+@if (isset($seoInfo))
+    @section('title', $data?->title);
+    @else 
+    @section('title', __('website.hospital_clinic_diagnostic'));
+@endif
 @section('content')
-    @php
-        $currRoute = request()
-            ->route()
-            ->getName();
-    @endphp
+
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row align-items-center inner-banner">
@@ -105,11 +115,11 @@
                                         {{-- @php
                                             $data = isset($department) ? $department : (isset($area) ? $area : '');
                                             $dataCount = gettype($data) != 'string' ? count($data?->extraInfo) : 0;
-                                            $data = $dataCount ? $data->extraInfo[0] : '';
+                                            $data = $dataCount ? $data?->extraInfo[0] : '';
                                         @endphp --}}
                                         @if ($dataCount)
                                             <p>
-                                                {{ $loc == 'en' ? $data->title : (isset($data->bn_title) ? $data->bn_title : $data->title) }}
+                                                {{ $loc == 'en' ? $data?->title : (isset($data?->bn_title) ? $data?->bn_title : $data?->title) }}
                                             </p>
                                         @endif
                                     </div>
@@ -163,10 +173,10 @@
                                     <div class="col-sx-12 mb-4">
                                         <div class="bg-white py-3 px-3 mx-2 doctor-list" style="color:#0E82FD">
                                             {!! $loc == 'en'
-                                                ? $data->description
-                                                : (isset($data->bn_description)
-                                                    ? $data->bn_description
-                                                    : $data->description) !!}
+                                                ? $data?->description
+                                                : (isset($data?->bn_description)
+                                                    ? $data?->bn_description
+                                                    : $data?->description) !!}
                                         </div>
                                     </div>
                                 @endif

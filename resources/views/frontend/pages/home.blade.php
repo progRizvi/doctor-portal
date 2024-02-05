@@ -154,12 +154,14 @@
                             <div class="doc-pro-img">
                                 <a href="{{ route('service.doctor.details', $topDoctor->slug) }}">
                                     <div class="doctor-profile-img">
-                                        <img class="img-fluid doctor-image"
+                                        {{-- <img class="img-fluid doctor-image"
                                             @if ($topDoctor->image) src="{{ asset('public/uploads/doctors/' . $topDoctor->image) }}"
                                             @else
                                             src="{{ asset('images/' . $topDoctor->gender . '_avatar.jpg') }}" @endif
-                                            alt="{{ $topDoctor->name }}">
-
+                                            alt="{{ $topDoctor->name }}"> --}}
+                                        <div
+                                            style="background: url({{ asset('public/uploads/doctors/' . $topDoctor->image) }}) center top;height:350px; width:auto;">
+                                        </div>
                                     </div>
                                 </a>
                                 <div></div>
@@ -188,8 +190,7 @@
                 @endforeach
             </div>
             <div class="row">
-                <div class="col-3 pt-5 mx-auto"><a
-                        href="{{ route('service.doctors') }}">{{ __('website.view_all') }}</a>
+                <div class="col-3 pt-5 mx-auto"><a href="{{ route('service.doctors') }}">{{ __('website.view_all') }}</a>
                 </div>
             </div>
         </div>

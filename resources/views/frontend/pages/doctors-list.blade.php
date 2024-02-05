@@ -122,7 +122,7 @@
                                             $data = $dataCount ? $seoInfo : '';
                                         @endphp
                                         @if ($dataCount)
-                                            <p>{{ $loc == 'en' ? $data?->title : (isset($data?->bn_title) ? $data?->bn_title : $data?->title) }}
+                                            <p>{!! $loc == 'en' ? $data?->short_description : (isset($data?->bn_short_description) ? $data?->bn_short_description : $data?->short_description) !!}
                                             </p>
                                         @endif
                                     </div>

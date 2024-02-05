@@ -66,6 +66,16 @@
                 @enderror
             </div>
             <div class="mb-6">
+                <label for="short_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">short_Description</label>
+                <textarea id="short_description" type="textarea" name="short_description" rows="10" minHeight="500"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+            </div>
+            <div class="mb-6">
+                <label for="bn_short_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bangla Description</label>
+                <textarea id="bn_short_description" type="textarea" name="bn_short_description" rows="10" minHeight="500"
+                    class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
+            </div>
+            <div class="mb-6">
                 <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
                 <textarea id="description" type="textarea" name="description" rows="10" minHeight="500"
                     class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"></textarea>
@@ -155,6 +165,17 @@
             });
             ClassicEditor
             .create(document.querySelector('#bn_description'))
+            .catch(error => {
+                console.error(error);
+            });
+
+        ClassicEditor
+            .create(document.querySelector('#bn_short_description'))
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#short_description'))
             .catch(error => {
                 console.error(error);
             });

@@ -8,7 +8,7 @@
     $data = isset($department) ? $department : (isset($area) ? $area : '');
     $dataCount = $seoInfo ? 1 : 0;
     $data = $dataCount ? $seoInfo : '';
-    if($currRoute == 'service.hospitals'){
+    if ($currRoute == 'service.hospitals') {
         $dataCount = 1;
         $data = $extraInfoForHospital;
     }
@@ -19,9 +19,9 @@
     @section('meta_description', $data?->meta_description)
 @endif
 @if (isset($seoInfo))
-    @section('title', $data?->title);
-    @else 
-    @section('title', __('website.hospital_clinic_diagnostic'));
+    @section('title', $data?->title)
+@else
+    @section('title', __('website.hospital_clinic_diagnostic'))
 @endif
 @section('content')
 
@@ -119,7 +119,7 @@
                                         @endphp --}}
                                         @if ($dataCount)
                                             <p>
-                                                {{ $loc == 'en' ? $data?->title : (isset($data?->bn_title) ? $data?->bn_title : $data?->title) }}
+                                                {!! $loc == 'en' ? $data?->short_description : (isset($data?->bn_short_description) ? $data?->bn_short_description : $data?->short_description) !!}
                                             </p>
                                         @endif
                                     </div>

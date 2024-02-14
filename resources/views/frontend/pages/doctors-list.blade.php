@@ -1,8 +1,6 @@
 @extends('frontend.layout')
 @php
-    $currRoute = request()
-        ->route()
-        ->getName();
+    $currRoute = request()->route()->getName();
 @endphp
 
 
@@ -15,12 +13,12 @@
     @section('meta_description', $seoInfo?->meta_description)
 @endif
 @if ($currRoute == 'service.doctors')
-        @section('title', $seoInfo?->title)
-    @elseif (isset($seoInfo))
-        @section('title', $seoInfo?->title)
-    @else
-        @section('title', 'Doctor List')
-    @endif
+    @section('title', $seoInfo?->title)
+@elseif (isset($seoInfo))
+    @section('title', $seoInfo?->title)
+@else
+    @section('title', 'Doctor List')
+@endif
 @section('content')
 
     <style>
@@ -36,10 +34,10 @@
 
         @media (max-width: 767px) {
             .doctor-image {
-                width: 100px;
-                height: 100px;
-                border-top-left-radius: 0px;
-                border-bottom-left-radius: 0px;
+                width: 100% !important;
+                height: 100% !important;
+                border-top-left-radius: 20px !important;
+                border-bottom-left-radius: 0px !important;
                 margin: auto 0;
             }
 
@@ -122,7 +120,11 @@
                                             $data = $dataCount ? $seoInfo : '';
                                         @endphp
                                         @if ($dataCount)
-                                            <p>{!! $loc == 'en' ? $data?->short_description : (isset($data?->bn_short_description) ? $data?->bn_short_description : $data?->short_description) !!}
+                                            <p>{!! $loc == 'en'
+                                                ? $data?->short_description
+                                                : (isset($data?->bn_short_description)
+                                                    ? $data?->bn_short_description
+                                                    : $data?->short_description) !!}
                                             </p>
                                         @endif
                                     </div>
@@ -137,7 +139,7 @@
                                                         style="margin:5px 0px 15px 0px;border:0px solid rgba(0, 0, 0, 0.125);">
                                                         <div class="accordion-collapse shade collapse show bg-white"
                                                             style="box-shadow:-8px 13px 80px rgba(27, 41, 80, 0.1); border-radius:20px">
-                                                            <div class="d-flex">
+                                                            <div class="d-md-flex">
                                                                 <img class="img-fluid w-25 doctor-image"
                                                                     @if ($doctor->image) src="{{ asset('public/uploads/doctors/' . $doctor->image) }}"
                                                             @else

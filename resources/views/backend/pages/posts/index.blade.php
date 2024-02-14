@@ -4,6 +4,21 @@
 @section('main')
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg my-16 mx-10">
+
+        {{-- search box --}}
+        <form action="">
+            <div class="flex justify-end items-center p-6">
+                <div class="flex items-center w-2/4">
+                    <input type="text" id="search" name="search"
+                        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                        placeholder="Search" value="{{ request()->search }}">
+                </div>
+                <div class="flex items-center w-1 justify-end mt-2 mr-4">
+                    <button
+                        class="px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md dark:bg-gray-800 hover:bg-blue-500 dark:hover:bg-gray-700 focus:outline-none focus:bg-blue-500 dark:focus:bg-gray-700">Search</button>
+                </div>
+            </div>
+        </form>
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>

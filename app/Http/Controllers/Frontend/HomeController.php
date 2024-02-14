@@ -45,7 +45,7 @@ class HomeController extends Controller
         $departments = Department::all();
         $extraInfoForDoctor = ExtraInfo::where('for', 'doctor')->whereNULL('area_id')->whereNULL('department_id')->orderBy('id', 'DESC')->first();
         $seoInfo = $extraInfoForDoctor;
-        return view('frontend.pages.doctors-list', compact("doctors", "departments",'extraInfoForDoctor','seoInfo'));
+        return view('frontend.pages.doctors-list', compact("doctors", "departments", 'extraInfoForDoctor', 'seoInfo'));
     }
     public function serviceHospitals()
     {
@@ -60,7 +60,7 @@ class HomeController extends Controller
         $districts = District::get();
         $extraInfoForHospital = ExtraInfo::where('for', 'hospital')->whereNULL('area_id')->whereNULL('department_id')->orderBy('id', 'DESC')->first();
         $seoInfo = $extraInfoForHospital;
-        return view('frontend.pages.hospital-list', compact("hospitals", "districts","extraInfoForHospital",'seoInfo'));
+        return view('frontend.pages.hospital-list', compact("hospitals", "districts", "extraInfoForHospital", 'seoInfo'));
     }
     public function serviceLocationDoctors($slug)
     {
@@ -76,14 +76,22 @@ class HomeController extends Controller
 
         $departments = Department::all();
         $seoInfo = $area->extraInfo->first();
-        return view('frontend.pages.doctors-list', compact("doctors", "departments", 'area',"seoInfo"));
+        return view('frontend.pages.doctors-list', compact("doctors", "departments", 'area', "seoInfo"));
 
     }
     public function doctorDetails($slug)
     {
         $doctor = Doctor::with("area", "departments")->where("slug", $slug)->orderBy('serial')
             ->orderBy('updated_at', 'desc')->first();
-        return view('frontend.pages.doctor-details', compact("doctor"));
+
+        // get related doctors by area and department
+        $relatedDoctors = Doctor::where('area_id', $doctor->area_id)
+            ->whereHas('departments', function ($query) use ($doctor) {
+                $query->where('department_id', $doctor->departments->first()->id);
+            })->where('id', '!=', $doctor->id)->orderBy('serial')
+            ->orderBy('updated_at', 'desc')->limit(5)->get();
+
+        return view('frontend.pages.doctor-details', compact("doctor", "relatedDoctors"));
     }
     public function postSearch()
     {
@@ -194,7 +202,7 @@ class HomeController extends Controller
         $departments = Department::all();
 
         $seoInfo = $department->extraInfo->first();
-        return view('frontend.pages.doctors-list', compact("doctors", "departments", "department",'seoInfo'));
+        return view('frontend.pages.doctors-list', compact("doctors", "departments", "department", 'seoInfo'));
 
     }
     public function hospitalsByType($type)
@@ -204,7 +212,7 @@ class HomeController extends Controller
 
         $districts = District::get();
         $seoInfo = ExtraInfo::where('for', 'hospital')->whereNULL('area_id')->whereNULL('department_id')->orderBy('id', 'DESC')->first();
-        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'type','seoInfo'));
+        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'type', 'seoInfo'));
     }
     public function serviceLocationHospital($slug)
     {
@@ -216,7 +224,7 @@ class HomeController extends Controller
 
         $districts = District::get();
         $seoInfo = $area->extraInfo->first();
-        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'area','seoInfo'));
+        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'area', 'seoInfo'));
 
     }
     public function surgerySupport()
@@ -249,9 +257,9 @@ class HomeController extends Controller
             ->orderBy('updated_at', 'desc')->paginate(20);
 
         $departments = Department::all();
-        $seoInfo = ExtraInfo::where('department_id',$department->id)->where('area_id',$area->id)->first();
-        $seoInfo =$seoInfo? $seoInfo:( $department->extraInfo->first() ? $department->extraInfo->first() : $area->extraInfo->first());
-        return view('frontend.pages.doctors-list', compact("doctors", "departments", 'area', 'department',"seoInfo"));
+        $seoInfo = ExtraInfo::where('department_id', $department->id)->where('area_id', $area->id)->first();
+        $seoInfo = $seoInfo ? $seoInfo : ($department->extraInfo->first() ? $department->extraInfo->first() : $area->extraInfo->first());
+        return view('frontend.pages.doctors-list', compact("doctors", "departments", 'area', 'department', "seoInfo"));
 
     }
     public function serviceLocationHospitalType(string $area, string $type)
@@ -264,8 +272,8 @@ class HomeController extends Controller
 
         $districts = District::get();
         $seoInfo = ExtraInfo::whereNULL('department_id')->whereNULL('area_id')->first();
-        $seoInfo = $area->extraInfo->first() ?  $area->extraInfo->first() : $seoInfo ;
-        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'area', 'type','seoInfo'));
+        $seoInfo = $area->extraInfo->first() ? $area->extraInfo->first() : $seoInfo;
+        return view('frontend.pages.hospital-list', compact("hospitals", "districts", 'area', 'type', 'seoInfo'));
 
     }
 

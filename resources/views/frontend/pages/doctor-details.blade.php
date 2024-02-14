@@ -17,7 +17,7 @@
     @php
         $loc = session('loc');
     @endphp
-    
+
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row inner-banner">
@@ -29,19 +29,15 @@
                                     <div class="tab-content profile-tab-cont bg_image">
                                         <div class="profile-header">
                                             <div class="">
-                                                <div class="col-auto profile-image">
-                                                    <div class="w-25 mx-auto mt-2">
-                                                        <a href="#"
-                                                            style="display:inline-block; border: 10px solid white; border-radius:50%">
-                                                            <img class="img-fluid mt-4 px-4"
-                                                                alt="{{ $loc == 'en' ? $doctor->name : (isset($doctor->bn_name) ? $doctor->bn_name : $doctor->name) }}"
-                                                                @if ($doctor->image) src="{{ asset('public/uploads/doctors/' . $doctor->image) }}"
-                                                            @else
-                                                            src="{{ asset('images/' . $doctor->gender . '_avatar.jpg') }}" @endif
-                                                                style="clip-path:circle()">
-                                                        </a>
+                                                @if ($doctor->image)
+                                                    <div
+                                                        style="background: url({{ asset('public/uploads/doctors/' . $doctor->image) }}) center top no-repeat;height:350px; width:auto;">
                                                     </div>
-                                                </div>
+                                                @else
+                                                    <div
+                                                        style="background: url({{ asset('images/' . $doctor->gender . '_avatar.jpg') }}) center top no-repeat;height:350px; width:auto;">
+                                                    </div>
+                                                @endif
                                                 <div class="ml-md-n2 profile-user-info pt-2">
                                                     <h4 class="user-name mb-0 text-white">
                                                         {{ $loc == 'en' ? $doctor->name : (isset($doctor->bn_name) ? $doctor->bn_name : $doctor->name) }}
@@ -73,7 +69,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="breadcrumb-bar-two">
         <div class="container">
             <div class="row">
@@ -81,8 +77,12 @@
                     <div class="card" style="box-shadow:0px 0px 10px 1px rgba(0, 0, 0, 0.1)">
                         <div class="card-body">
                             <p class="text-muted">
-                                    {!! $loc == 'en' ? $doctor->description : (isset($doctor->bn_description) ? $doctor->bn_description : $doctor->description) !!}
-                                </p>
+                                {!! $loc == 'en'
+                                    ? $doctor->description
+                                    : (isset($doctor->bn_description)
+                                        ? $doctor->bn_description
+                                        : $doctor->description) !!}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,11 @@
                                                 <span>{{ __('website.treated_conditions_include') }}</span>
                                             </h5>
                                             <div class="row">
-                                               {!! $loc == 'en' ? $doctor->treatments : (isset($doctor->bn_treatments) ? $doctor->bn_treatments : $doctor->treatments) !!}
+                                                {!! $loc == 'en'
+                                                    ? $doctor->treatments
+                                                    : (isset($doctor->bn_treatments)
+                                                        ? $doctor->bn_treatments
+                                                        : $doctor->treatments) !!}
                                             </div>
                                         </div>
                                     </div>
@@ -207,11 +211,58 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Related Doctors --}}
+            <div class="col-md-12">
+                <h3>Related Doctors</h3>
+            </div>
+            <div class="owl-carousel doctor-slider-one owl-theme aos" data-aos="fade-up">
+                @foreach ($relatedDoctors as $topDoctor)
+                    <div class="item">
+                        <div class="doctor-profile-widget">
+                            <div class="doc-pro-img">
+                                <a href="{{ route('service.doctor.details', $topDoctor->slug) }}">
+                                    <div class="doctor-profile-img">
+                                        @if ($topDoctor->image)
+                                            <div
+                                                style="background: url({{ asset('public/uploads/doctors/' . $topDoctor->image) }}) center top;height:350px; width:auto;">
+                                            </div>
+                                        @else
+                                            <div
+                                                style="background: url({{ asset('images/' . $topDoctor->gender . '_avatar.jpg') }}) center top;height:350px; width:auto;">
+                                            </div>
+                                        @endif
+                                    </div>
+                                </a>
+                                <div></div>
+                            </div>
+                            <div class="doc-content">
+                                <div class="doc-pro-info">
+                                    <div class="doc-pro-name">
+                                        <a href="{{ route('service.doctor.details', $topDoctor->slug) }}"
+                                            title="{{ $topDoctor->name }}">{{ Str::limit($topDoctor->name, 30) }}</a>
+                                        <p>
+                                            @foreach ($topDoctor->departments as $dpt)
+                                                @if ($loop->last)
+                                                    {{ $loc == 'en' ? $dpt->name : (isset($dpt->bn_name) ? $dpt->bn_name : $dpt->name) }}
+                                                @endif
+                                            @endforeach
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="doc-pro-location">
+                                    <p><i class="feather-map-pin"></i> {{ $topDoctor->area->name }},
+                                        {{ $topDoctor->area->district->name }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
         </div>
     </div>
 @endsection
 @push('script')
-    
     <script type="application/ld+json">
         {
             "@context": "https://schema.org/",
@@ -223,7 +274,7 @@
             "worksFor": {
                 "@type": "Organization",
                 "name": "hospital"
-            }  
+            }
         }
     </script>
 @endpush

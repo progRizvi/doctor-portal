@@ -1,8 +1,6 @@
 @extends('frontend.layout')
 @php
-    $currRoute = request()
-        ->route()
-        ->getName();
+    $currRoute = request()->route()->getName();
 @endphp
 @php
     $data = isset($department) ? $department : (isset($area) ? $area : '');
@@ -23,6 +21,19 @@
 @else
     @section('title', __('website.hospital_clinic_diagnostic'))
 @endif
+
+@push('style')
+    <style>
+        @media (max-width: 768px) {
+            .hospital-image {
+                width: 100% !important;
+                height: 100% !important;
+                border-top-left-radius: 20px !important;
+                border-bottom-left-radius: 0px !important;
+            }
+        }
+    </style>
+@endpush
 @section('content')
 
     <div class="breadcrumb-bar-two">
@@ -119,7 +130,11 @@
                                         @endphp --}}
                                         @if ($dataCount)
                                             <p>
-                                                {!! $loc == 'en' ? $data?->short_description : (isset($data?->bn_short_description) ? $data?->bn_short_description : $data?->short_description) !!}
+                                                {!! $loc == 'en'
+                                                    ? $data?->short_description
+                                                    : (isset($data?->bn_short_description)
+                                                        ? $data?->bn_short_description
+                                                        : $data?->short_description) !!}
                                             </p>
                                         @endif
                                     </div>
@@ -133,9 +148,9 @@
                                                         style="margin:5px 0px 15px 0px;border:0px solid rgba(0, 0, 0, 0.125);">
                                                         <div class="accordion-collapse shade collapse show bg-white"
                                                             style="box-shadow:-8px 13px 80px rgba(27, 41, 80, 0.1); border-radius:20px">
-                                                            <div class="d-flex">
+                                                            <div class="d-md-flex">
                                                                 <img style="border-top-left-radius:20px;border-bottom-left-radius:20px;"
-                                                                    class="img-fluid w-25"
+                                                                    class="img-fluid w-25 hospital-image"
                                                                     @if ($hospital->image) src="{{ asset('public/uploads/hospitals/' . $hospital->image) }}"
                                                             @else
                                                             src="{{ asset('images/hospital.svg') }}" @endif

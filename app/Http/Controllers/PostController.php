@@ -17,7 +17,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('category')->paginate(10);
+        $posts = Post::with('category');
+        if (request()->has("search") && request()->search != "") {
+            $posts = Post::where("title", "like", "%" . request()->search . "%")->orWhere("content", "like", "%" . request()->search . "%")->orWhereIn('category_id', Category::where('name', 'like', '%' . request()->search . '%')->pluck('id')->toArray());
+        }
+        $posts = $posts->paginate(10);
         return view("backend.pages.posts.index", compact("posts"));
     }
 

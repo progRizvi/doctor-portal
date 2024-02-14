@@ -3,18 +3,18 @@
 @section('meta_keywords', $hospital->meta_keywords)
 @section('meta_description', $hospital->meta_description)
 
-@push("style")
+@push('style')
     <style>
-        .bg_image{
-            background-image:url("{{ url('uploads/hospitals', $hospital->background_image) }}"), linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+        .bg_image {
+            background-image: url("{{ url('uploads/hospitals', $hospital->background_image) }}"), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
             background-blend-mode: overlay;
             background-size: cover;
-            background-repeat:no-repeat;
+            background-repeat: no-repeat;
         }
     </style>
 @endpush
 @section('content')
- @php
+    @php
         $loc = session('loc');
     @endphp
     <div class="breadcrumb-bar-two">
@@ -28,24 +28,26 @@
                                     <div class="tab-content profile-tab-cont bg_image">
                                         <div class="profile-header">
                                             <div class="">
-                                                <div class="col-auto profile-image">
-                                                    <div class="w-25 mx-auto mt-2">
-                                                        <a href="#" style="display:inline-block; border: 10px solid white; border-radius:50%">
-                                                        <img class="img-fluid mt-4 px-4" style="clip-path:circle()"
-                                                            alt="{{ $loc == 'en' ? $hospital->name : (isset($hospital->bn_name) ? $hospital->bn_name : $hospital->name) }}"
-                                                            @if ($hospital->image) src="{{ asset('public/uploads/hospitals/' . $hospital->image) }}"
-                                                            @else
-                                                            src="{{ asset('images/hospital.svg') }}" @endif>
-                                                    </a>
+                                                @if ($hospital->image)
+                                                    <div
+                                                        style="background: url({{ asset('public/uploads/hospitals/' . $hospital->image) }}) center top no-repeat;height:350px; width:auto;">
                                                     </div>
-                                                </div>
+                                                @else
+                                                    <div
+                                                        style="background: url({{ asset('images/hospital.svg') }}) center top no-repeat;height:350px; width:auto;">
+                                                    </div>
+                                                @endif
                                                 <div class="ml-md-n2 profile-user-info">
                                                     <h4 class="user-name mb-0 text-white">
-                                                    {{ $loc == 'en' ? $hospital->name : (isset($hospital->bn_name) ? $hospital->bn_name : $hospital->name) }}
+                                                        {{ $loc == 'en' ? $hospital->name : (isset($hospital->bn_name) ? $hospital->bn_name : $hospital->name) }}
                                                     </h4>
                                                     <div class="user-Location"></div>
                                                     <div class="about-text text-white">
-                                                        {!! $loc == 'en' ? $hospital->description : (isset($hospital->bn_description) ? $hospital->bn_description : $hospital->description) !!}
+                                                        {!! $loc == 'en'
+                                                            ? $hospital->description
+                                                            : (isset($hospital->bn_description)
+                                                                ? $hospital->bn_description
+                                                                : $hospital->description) !!}
                                                     </div>
                                                     <p class="px-4">
                                                         <hr>
@@ -80,7 +82,11 @@
                                             <div class="row">
 
                                                 <p class="co-12 text-muted">
-                                                    {!! $loc == 'en' ? $hospital->description : (isset($hospital->bn_description) ? $hospital->bn_description : $hospital->description) !!}
+                                                    {!! $loc == 'en'
+                                                        ? $hospital->description
+                                                        : (isset($hospital->bn_description)
+                                                            ? $hospital->bn_description
+                                                            : $hospital->description) !!}
                                                 </p>
 
                                             </div>
@@ -116,22 +122,23 @@
                                             <div class="pt-3">
                                                 <b>{{ __('website.schedule') }}: </b>
                                                 <div class="row">
-                                                        <div class="col-5">
-                                                            <i class="far fa-calendar-check"></i>
-                                                            @if ($hospital->schedules == 'all_day')
-                                                                All Days
-                                                            @endif
+                                                    <div class="col-5">
+                                                        <i class="far fa-calendar-check"></i>
+                                                        @if ($hospital->schedules == 'all_day')
+                                                            All Days
+                                                        @endif
 
-                                                        </div>
-                                                        <div class="col-7">
-                                                        </div>
                                                     </div>
+                                                    <div class="col-7">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="pt-3">
                                                 <b>{{ __('website.contact') }}: </b>
                                                 <p class="text-center fs-4">
-                                                    <a href="tel:{{ $hospital->phone }}"><i class="fa fa-mobile text-danger"></i>
-                                                    {{ $hospital->phone }}</a>
+                                                    <a href="tel:{{ $hospital->phone }}"><i
+                                                            class="fa fa-mobile text-danger"></i>
+                                                        {{ $hospital->phone }}</a>
                                                 </p>
                                             </div>
                                         </div>

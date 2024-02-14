@@ -36,10 +36,11 @@
                                         <p><i class="feather-map-pin"></i> Mirpur, Dhaka, Bangladesh</p>
                                     </div>
                                     <div class="footer-address">
-                                        <p><i class="feather-phone-call"></i> +880 1861-667946</p>
+                                        <p><i class="feather-phone-call"></i> <a href="tel:+880 1902991500">+880
+                                                1902991500</a></p>
                                     </div>
                                     <div class="footer-address mb-0">
-                                        <p><i class="feather-mail"></i> doccure@example.com</p>
+                                        <p><i class="feather-mail"></i> clinicsheba@yahoo.com</p>
                                     </div>
                                 </div>
                             </div>
@@ -58,17 +59,18 @@
                         <div class="social-icon">
                             <ul>
                                 <li>
-                                    <a href="#" target="_blank"><i class="fab fa-facebook"></i> </a>
+                                    <a href="https://www.facebook.com/doctorinfobd1" target="_blank"><i
+                                            class="fab fa-facebook"></i> </a>
                                 </li>
                                 <li>
                                     <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <a href="#" target="_blank"><i class="fab fa-twitter"></i> </a>
                                 </li>
                                 <li>
                                     <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                     </div>

@@ -133,17 +133,15 @@
                             <ul class="list-unstyled ps-0">
                                 @foreach ($locations as $div)
                                     @php
-                                        $currRoute = request()
-                                            ->route()
-                                            ->getName();
-                                        
+                                        $currRoute = request()->route()->getName();
+
                                         $districts = $div->districts;
                                         $districtsId = $districts->pluck('id');
                                         $areasId = Area::whereIn('district_id', $districtsId)->pluck('id');
                                         $doctors = App\Models\Doctor::whereIn('area_id', $areasId)->get();
                                         $hospitals = App\Models\Hospital::whereIn('area_id', $areasId)->get();
-                                        $url = $currRoute == str_contains($currRoute,"hospitals") ? 'service.location.hospitals' : 'service.location.doctors';
-                                        $count = $currRoute == str_contains($currRoute,"hospitals") ? $hospitals->count() : $doctors->count();
+                                        $url = $currRoute == str_contains($currRoute, 'hospitals') ? 'service.location.hospitals' : 'service.location.doctors';
+                                        $count = $currRoute == str_contains($currRoute, 'hospitals') ? $hospitals->count() : $doctors->count();
                                         $loc = session('loc');
                                     @endphp
                                     <li class="mb-1">
@@ -206,6 +204,10 @@
     </div>
     <!-- /ScrollToTop -->
 
+    {{-- facebook chat plugin --}}
+    <div id="fb-root"></div>
+
+    <div id="fb-customer-chat" class="fb-customerchat"></div>
 
     <!-- jQuery -->
     <script src="{{ asset('frontend/') }}/assets/js/jquery-3.7.0.min.js"></script>
@@ -238,6 +240,29 @@
     <!-- Custom JS -->
     <script src="{{ asset('frontend') }}/assets/js/script.js"></script>
 
+
+    <script>
+        var chatbox = document.getElementById('fb-customer-chat');
+        chatbox.setAttribute("page_id", "105713008644193");
+        chatbox.setAttribute("attribution", "biz_inbox");
+    </script>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                xfbml: true,
+                version: 'v17.0'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
     @stack('script')
 </body>
 

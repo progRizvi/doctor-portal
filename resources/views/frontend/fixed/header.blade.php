@@ -38,17 +38,20 @@
                         <a href="{{ route('blood.club') }}">{{ __('website.blood_donors_club') }}</a>
                     </li>
                     <li class="megamenu">
-                        <a href="{{route('home.services')}}">{{ __('website.home_medical_service') }}</a>
+                        <a href="{{ route('home.services') }}">{{ __('website.home_medical_service') }}</a>
                     </li>
                     <li class=" @if (request()->route()->getName() == 'blogs') active @endif">
                         <a href="{{ route('blogs') }}">{{ __('website.blog') }}</a>
                     </li>
                     <li class="megamenu">
                         @if (session()->get('loc') == 'en')
-                        <a href="{{ route('switch.lang', 'bn') }}">{{ __('website.bn') }}</a>
+                            <a href="{{ route('switch.lang', 'bn') }}">{{ __('website.bn') }}</a>
                         @else
-                        <a href="{{ route('switch.lang', 'en') }}">{{ __('website.en') }}</a>
+                            <a href="{{ route('switch.lang', 'en') }}">{{ __('website.en') }}</a>
                         @endif
+                    </li>
+                    <li class="">
+                        <a href="tel:+8801902991500"></a>
                     </li>
                 </ul>
             </div>
@@ -58,8 +61,8 @@
 <!-- /Header -->
 
 <style>
-    @media (max-width: 991.98px){
-        .header-one .main-menu-wrapper .main-nav > li > a {
+    @media (max-width: 991.98px) {
+        .header-one .main-menu-wrapper .main-nav>li>a {
             font-size: 17px;
         }
     }
